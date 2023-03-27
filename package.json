@@ -1,0 +1,46 @@
+{
+  "name": "next-api-sdk",
+  "private": true,
+  "homepage": "https://github.com/easyops-cn/next-api-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:easyops-cn/next-api-sdk.git"
+  },
+  "license": "GPL-3.0",
+  "scripts": {
+    "prepare": "lerna bootstrap && husky install",
+    "build": "lerna run build",
+    "test": "echo 'no tests'",
+    "test:ci": "echo 'no tests'",
+    "yo-sdk": "create-api-sdk",
+    "lint-staged": "lint-staged"
+  },
+  "browserslist": {
+    "development": [
+      "extends @next-core/browserslist-config-next/development"
+    ],
+    "production": [
+      "extends @next-core/browserslist-config-next/production"
+    ]
+  },
+  "devDependencies": {
+    "@next-core/babel-preset-next": "^1.0.2",
+    "@next-core/create-api-sdk": "^1.0.2",
+    "@next-core/browserslist-config-next": "^1.0.2",
+    "@next-core/eslint-config-next": "^2.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.36.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "lerna": "^6.5.1",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.6",
+    "typescript": "^5.0.2"
+  },
+  "workspaces": [
+    "sdk/*"
+  ]
+}
