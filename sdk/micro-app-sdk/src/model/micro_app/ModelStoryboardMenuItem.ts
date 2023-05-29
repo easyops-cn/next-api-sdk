@@ -50,4 +50,7 @@ export interface ModelStoryboardMenuItem {
 
   /** 外链地址 */
   href: string;
+
+  /** 子项布局 */
+  childLayout: string;
 }

@@ -700,6 +700,76 @@
       }
     },
     {
+      "contract": "micro_app.installed_micro_app.GetMenusInfo",
+      "name": "GetMenusInfo",
+      "version": "1.0.0",
+      "description": "获取菜单信息",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/micro-app/menus/:menuId"
+      },
+      "import": ["easyops/model/micro_app/storyboard_menu"],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "StoryboardMenu.menuId"
+          }
+        ],
+        "required": ["menuId"]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "menus",
+            "type": "object[]",
+            "description": "menus info",
+            "fields": [
+              {
+                "ref": "StoryboardMenu.*"
+              },
+              {
+                "name": "app",
+                "description": "菜单关联的app信息",
+                "type": "object[]",
+                "fields": [
+                  {
+                    "name": "appId",
+                    "type": "string",
+                    "description": "appId"
+                  },
+                  {
+                    "name": "instanceId",
+                    "type": "instance_id",
+                    "description": "instanceId"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Get Menus Info",
+            "zh": "获取菜单信息"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8146/api/v1/micro-app/menus/cmdb-common-main-menu"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"menus\":[\n      {\n        \"defaultCollapsed\": false,\n        \"defaultCollapsedBreakpoint\": 0,\n        \"dynamicItems\": false,\n        \"i18n\": {\n          \"en\": {\n            \"PERMISSION_INHERITANCE\": \"Permission Inheritance\"\n          },\n          \"zh\": {\n            \"PERMISSION_INHERITANCE\": \"权限继承\"\n          }\n        },\n        \"injectMenuGroupId\": \"cmdb-data-managent-group-menu\",\n        \"instanceId\": \"5f5d3d73df74d\",\n        \"menuId\": \"cmdb-common-main-menu\",\n        \"type\": \"inject\"\n      }\n  ]\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "micro_app.installed_micro_app.GetI18NData",
       "name": "GetI18NData",
       "version": "1.0.0",
@@ -824,7 +894,8 @@
         "easyops/model/micro_app/installed_micro_app",
         "easyops/model/micro_app/installed_micro_app_cloned_from",
         "easyops/model/micro_app/installed_micro_app_menu_icon",
-        "easyops/model/micro_app/installed_micro_app_icon"
+        "easyops/model/micro_app/installed_micro_app_icon",
+        "easyops/model/next_builder/workflow_def"
       ],
       "request": {
         "type": "object",
@@ -930,6 +1001,11 @@
           },
           {
             "ref": "InstalledMicroApp.standaloneMode"
+          },
+          {
+            "name": "workflows",
+            "type": "WorkflowDef[]",
+            "description": "小产品关联的工作流定义"
           }
         ]
       },
@@ -940,7 +1016,26 @@
             "ref": "InstalledMicroApp.instanceId"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "ImportMicroApp",
+            "zh": "导入小产品"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8146/api/micro_app/v1/import_installed_micro_app/janice-hei-hei",
+            "body": "{\n    \"icons\": {\n        \"large\": \"/next/api/gateway/object_store.object_store.GetObject/api/v1/objectStore/bucket/next-builder/object/image16080390648879824081636614785510056761.png\"\n    },\n    \"clonedFrom\": null,\n    \"menuIcon\": {\n        \"lib\": \"fa\",\n        \"type\": \"\",\n        \"theme\": \"\",\n        \"icon\": \"ambulance\",\n        \"prefix\": \"fas\",\n        \"category\": \"\",\n        \"color\": \"\"\n    },\n    \"instanceId\": \"\",\n    \"appId\": \"my-micro-app\",\n    \"homepage\": \"/my-micro-app\",\n    \"name\": \"我的微应用\",\n    \"owner\": \"defaultUser\",\n    \"storyboardJson\": \"{\\\"routes\\\":[{\\\"alias\\\":\\\"首页\\\",\\\"exact\\\":true,\\\"hybrid\\\":false,\\\"path\\\":\\\"${APP.homepage}\\\",\\\"public\\\":false,\\\"type\\\":\\\"bricks\\\",\\\"bricks\\\":[{\\\"brick\\\":\\\"basic-bricks.micro-view\\\",\\\"injectDeep\\\":true,\\\"portal\\\":false,\\\"properties\\\":{\\\"pageTitle\\\":\\\"Hello world\\\"},\\\"slots\\\":{\\\"toolbar\\\":{\\\"type\\\":\\\"bricks\\\",\\\"bricks\\\":[{\\\"brick\\\":\\\"basic-bricks.general-button\\\",\\\"events\\\":{\\\"general.button.click\\\":[{\\\"action\\\":\\\"message.success\\\",\\\"args\\\":[\\\"点击操作按钮\\\"]}]},\\\"injectDeep\\\":true,\\\"portal\\\":false,\\\"properties\\\":{\\\"buttonName\\\":\\\"操作\\\"}}]},\\\"content\\\":{\\\"type\\\":\\\"bricks\\\",\\\"bricks\\\":[{\\\"brick\\\":\\\"presentational-bricks.brick-result\\\",\\\"injectDeep\\\":true,\\\"portal\\\":false,\\\"properties\\\":{\\\"customTitle\\\":\\\"Today is Tuesday\\\",\\\"status\\\":\\\"info\\\",\\\"subTitle\\\":\\\"2019/10/29 21:35\\\"}}]}}}]},{\\\"alias\\\":\\\"用户列表\\\",\\\"exact\\\":true,\\\"hybrid\\\":false,\\\"path\\\":\\\"${APP.homepage}/users\\\",\\\"public\\\":false,\\\"type\\\":\\\"bricks\\\",\\\"bricks\\\":[{\\\"brick\\\":\\\"basic-bricks.micro-view\\\",\\\"injectDeep\\\":true,\\\"portal\\\":false,\\\"properties\\\":{\\\"pageTitle\\\":\\\"用户列表\\\"}}]}],\\\"meta\\\":{\\\"customTemplates\\\":[],\\\"menus\\\":[],\\\"i18n\\\":{\\\"en\\\":{},\\\"zh\\\":{}},\\\"functions\\\":[]},\\\"dependsAll\\\":false}\",\n    \"installStatus\": \"ok\",\n    \"tags\": [],\n    \"appVersion\": \"\",\n    \"internal\": \"false\",\n    \"private\": \"false\",\n    \"status\": \"developing\",\n    \"iconBackground\": \"\",\n    \"defaultConfig\": \"\",\n    \"dependsAll\": false,\n    \"legacy\": \"\",\n    \"env\": \"\",\n    \"locales\": \"\",\n    \"visibility\": \"\",\n    \"layoutType\": \"\",\n    \"isBuildPush\": true,\n    \"noAuthGuard\": false,\n    \"breadcrumb\": \"\",\n    \"theme\": \"\",\n    \"defaultContainer\": {\n        \"id\": \"\",\n        \"name\": \"\",\n        \"type\": \"\",\n        \"order\": 0\n    },\n    \"workflows\": [\n        {\n            \"id\": \"janice-workflow1\",\n            \"appId\": \"janice-hei\",\n            \"name\": \"janice-workflow1\",\n            \"description\": \"janice-workflow\",\n            \"workflowYaml\": \"{\\\"kind\\\": \\\"workflow\\\", \\\"id\\\": \\\"Ask for leave\\\", \\\"name\\\": \\\"请假申情\\\", \\\"steps\\\": [{\\\"id\\\": \\\"1\\\", \\\"name\\\": \\\"开始\\\", \\\"type\\\": \\\"start\\\", \\\"next\\\": [\\\"2\\\"]}, {\\\"id\\\": \\\"2\\\", \\\"name\\\": \\\"结束\\\", \\\"type\\\": \\\"end\\\", \\\"pre\\\": [\\\"1\\\"]}]}\"\n        }\n    ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"instanceId\": \"5f7f4ff757233\"\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "micro_app.installed_micro_app.ListMicroApp",
@@ -2152,11 +2247,33 @@
               },
               {
                 "ref": "InstalledMicroApp.appId"
+              },
+              {
+                "ref": "InstalledMicroApp.menuIcon"
               }
             ]
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Get Micro App List",
+            "zh": "获取所有拥有权限的小产品"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8146/api/micro_app/v1/permission"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"installedMicroAppList\": [\n            {\n                \"name\": \"持续集成\",\n                \"appId\": \"ci\",\n                \"menuIcon\": {\n                    \"category\": \"app\",\n                    \"icon\": \"ci\",\n                    \"lib\": \"easyops\"\n                }\n            }\n        ]\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "micro_app.permission.GetPermissionsByAppId",
@@ -2459,6 +2576,465 @@
           }
         ]
       }
+    },
+    {
+      "contract": "micro_app.workflow.Approval",
+      "name": "Approval",
+      "version": "1.0.0",
+      "description": "人工审批",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/micro_app/build/:buildId/steps/:stepId/approval"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "buildId",
+            "type": "string",
+            "description": "工作流任务id"
+          },
+          {
+            "name": "stepId",
+            "type": "string",
+            "description": "步骤id"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "enum": ["approve", "refuse"],
+            "description": "审批结果"
+          },
+          {
+            "name": "comment",
+            "type": "string",
+            "description": "审批意见"
+          }
+        ],
+        "required": ["buildId", "stepId", "action"]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "Approval",
+            "zh": "工作流人工审批"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8146/api/v1/micro_app/build/645903525a33efd0db76940f/approval/test_approval_id",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"action\": \"approve\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\":0,\n    \"codeExplain\":\"\",\n    \"error\":\"\",\n    \"data\":{\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "micro_app.workflow.Cancel",
+      "name": "Cancel",
+      "version": "1.0.0",
+      "description": "终止工作流执行",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/micro_app/workflow/build/:buildId/cancel"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "buildId",
+            "type": "string",
+            "description": "工作流任务id"
+          }
+        ],
+        "required": ["buildId"]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "Cancel",
+            "zh": "终止工作流执行"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8146/api/v1/micro_app/workflow/build/61cbcf83445aa2482585a23f/cancel",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{ }"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\":0,\n    \"codeExplain\":\"\",\n    \"error\":\"\",\n    \"data\":{\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "micro_app.workflow.Execute",
+      "name": "Execute",
+      "version": "1.0.0",
+      "description": "手动触发执行工作流",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/micro_app/projects/:project_id/workflows/:workflow_id/execute"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "project_id",
+            "type": "instance_id",
+            "description": "关联的project id"
+          },
+          {
+            "name": "workflow_id",
+            "type": "instance_id",
+            "description": "要执行的workflow id"
+          },
+          {
+            "name": "inputs",
+            "type": "object[]",
+            "description": "输入",
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": "变量名"
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "description": "变量值，type为enum时，使用英文逗号拼接多个枚举值"
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "enum": ["int", "string", "enum"],
+                "description": "变量类型"
+              },
+              {
+                "name": "enum_values",
+                "type": "string[]",
+                "description": "枚举值列表"
+              }
+            ]
+          }
+        ],
+        "required": ["project_id", "workflow_id"]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "任务id, 服务端自动生成"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Execute",
+            "zh": "执行工作流"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8146/api/v1/micro_app/projects/5b58cfd9556c5/workflows/5c27bf8662b5e/execute",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n    \"inputs\":[\n        {\n            \"name\": \"env1\",\n            \"value\": \"env1\",\n            \"type\": \"string\",\n            \"enum_values\": []\n        },\n        {\n            \"name\": \"env2\",\n            \"value\": \"env2,env22\",\n            \"type\": \"enum\",\n            \"enum_values\": [\"env2\",\"env22\",\"env222\"]\n        }\n    ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\":0,\n    \"codeExplain\":\"\",\n    \"error\":\"\",\n    \"data\":{\n        \"id\":\"61cbcf83445aa2482585a23f\"\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "micro_app.workflow.Get",
+      "name": "Get",
+      "version": "1.0.0",
+      "description": "获取单个工作流任务详情",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/workflow/build/:build_id"
+      },
+      "import": ["easyops/model/micro_app/build"],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "build_id",
+            "type": "string",
+            "description": "工作流任务id"
+          }
+        ],
+        "required": ["build_id"]
+      },
+      "response": {
+        "type": "BuildDetail",
+        "required": ["BuildDetail.*"]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Get Workflow Build Detail",
+            "zh": "获取单个工作流任务详情"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8146/api/v1/workflow/build/5f90b3114dcdb",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"id\": \"5f90b3114dcdb\",\n  \"projectId\": \"5f1fabf57d74d\",\n  \"workflowId\": \"5fac624a9b2b9\",\n  \"yamlString\": \"\",\n  \"status\": {\n    \"state\": \"succeeded\",\n    \"started\": 1683115074,\n    \"updated\": 1683115074,\n    \"finished\": 1683115074\n  },\n  \"steps\": [\n    {\n      \"id\": \"janice-test-ppp-janice_test_workflow_start\",\n      \"name\": \"开始\",\n      \"state\": \"succeeded\",\n      \"next\": [\n        \"janice-test-ppp-condtion_tests-gateway\"\n      ],\n      \"type\": \"start\",\n      \"started\": 1683115074,\n      \"finished\": 1683115074\n    },\n    {\n      \"id\": \"janice-test-ppp-janice_test_workflow_end\",\n      \"name\": \"结束\",\n      \"state\": \"succeeded\",\n      \"pre\": [\n        \"janice-test-ppp-cccc\"\n      ],\n      \"type\": \"end\",\n      \"started\": 1683115074,\n      \"finished\": 1683115074\n    },\n    {\n      \"id\": \"janice-test-ppp-condtion_tests-gateway\",\n      \"name\": \"condition_testsGateway\",\n      \"state\": \"succeeded\",\n      \"pre\": [\n        \"janice-test-ppp-janice_test_workflow_start\"\n      ],\n      \"next\": [\n        \"janice-test-ppp-cccc\"\n      ],\n      \"children\": [\n        \"janice-test-ppp-condtion_tests\",\n        \"janice-test-ppp-approval_tet\"\n      ],\n      \"type\": \"gateway\",\n      \"started\": 1683115074,\n      \"finished\": 1683115074\n    },\n    {\n      \"id\": \"janice-test-ppp-condtion_tests\",\n      \"name\": \"condition_tests\",\n      \"state\": \"succeeded\",\n      \"next\": [\n        \"janice-test-ppp-approval_tet\"\n      ],\n      \"parent\": \"janice-test-ppp-condtion_tests-gateway\",\n      \"type\": \"condition\",\n      \"started\": 1683115074,\n      \"finished\": 1683115074\n    },\n    {\n      \"id\": \"janice-test-ppp-approval_tet\",\n      \"name\": \"approval_tet\",\n      \"state\": \"succeeded\",\n      \"pre\": [\n        \"janice-test-ppp-condtion_tests\"\n      ],\n      \"parent\": \"janice-test-ppp-condtion_tests-gateway\",\n      \"type\": \"approval\",\n      \"started\": 1683115074,\n      \"finished\": 1683115074\n    },\n    {\n      \"uid\": \"70131bd300524f0cb71dd25e4845daa7\",\n      \"id\": \"janice-test-ppp-cccc\",\n      \"name\": \"cccc\",\n      \"state\": \"succeeded\",\n      \"pre\": [\n        \"janice-test-ppp-condtion_tests-gateway\"\n      ],\n      \"next\": [\n        \"janice-test-ppp-janice_test_workflow_end\"\n      ],\n      \"type\": \"cc\",\n      \"started\": 1683115074,\n      \"finished\": 1683115074\n    }\n  ],\n  \"created\": 1683115074,\n  \"inputs\": [\n    {\n      \"name\": \"id\",\n      \"value\": \"\",\n      \"type\": \"string\",\n      \"enumvalues\": []\n    },\n    {\n      \"name\": \"name\",\n      \"value\": \"\",\n      \"type\": \"string\",\n      \"enumvalues\": []\n    }\n  ],\n  \"org\": 8888,\n  \"buildVars\": [\n    {\n      \"name\": \"name\",\n      \"value\": \"aa\",\n      \"type\": \"\",\n      \"enumvalues\": null\n    }\n  ]\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "micro_app.workflow.List",
+      "name": "List",
+      "version": "1.0.0",
+      "description": "获取工作流任务列表",
+      "endpoint": {
+        "method": "LIST",
+        "uri": "/api/v1/:projectId/workflow/:workflowId/build"
+      },
+      "import": ["easyops/model/micro_app/build"],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectId",
+            "type": "instance_id",
+            "description": "项目instanceId"
+          },
+          {
+            "name": "workflowId",
+            "type": "instance_id",
+            "description": "工作流instance_id"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "每页大小"
+          },
+          {
+            "name": "startTime",
+            "type": "int64",
+            "description": "开始时间"
+          },
+          {
+            "name": "endTime",
+            "type": "int64",
+            "description": "结束时间"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "状态"
+          }
+        ],
+        "required": ["projectId", "workflowId", "page", "page_size"]
+      },
+      "response": {
+        "type": "BuildDetail"
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Get Workflow Build Detail",
+            "zh": "根据workflowId获取所有工作流任务记录"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8146/api/v1/5f90b3114dcdm/workflow/5f90b3114dcdb/build",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"list\": [\n    {\n      \"id\": \"5f90b3114dcdb\",\n      \"projectId\": \"5f1fabf57d74d\",\n      \"workflowId\": \"5fac624a9b2b9\",\n      \"yamlString\": \"\",\n      \"status\": {\n        \"state\": \"succeeded\",\n        \"started\": 1683115074,\n        \"updated\": 1683115074,\n        \"finished\": 1683115074\n      },\n      \"steps\": [\n        {\n          \"id\": \"janice-test-ppp-janice_test_workflow_start\",\n          \"name\": \"开始\",\n          \"state\": \"succeeded\",\n          \"next\": [\n            \"janice-test-ppp-condtion_tests-gateway\"\n          ],\n          \"type\": \"start\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-janice_test_workflow_end\",\n          \"name\": \"结束\",\n          \"state\": \"succeeded\",\n          \"pre\": [\n            \"janice-test-ppp-cccc\"\n          ],\n          \"type\": \"end\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-condtion_tests-gateway\",\n          \"name\": \"condition_testsGateway\",\n          \"state\": \"succeeded\",\n          \"pre\": [\n            \"janice-test-ppp-janice_test_workflow_start\"\n          ],\n          \"next\": [\n            \"janice-test-ppp-cccc\"\n          ],\n          \"children\": [\n            \"janice-test-ppp-condtion_tests\",\n            \"janice-test-ppp-approval_tet\"\n          ],\n          \"type\": \"gateway\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-condtion_tests\",\n          \"name\": \"condition_tests\",\n          \"state\": \"succeeded\",\n          \"next\": [\n            \"janice-test-ppp-approval_tet\"\n          ],\n          \"parent\": \"janice-test-ppp-condtion_tests-gateway\",\n          \"type\": \"condition\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-approval_tet\",\n          \"name\": \"approval_tet\",\n          \"state\": \"succeeded\",\n          \"pre\": [\n            \"janice-test-ppp-condtion_tests\"\n          ],\n          \"parent\": \"janice-test-ppp-condtion_tests-gateway\",\n          \"type\": \"approval\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"uid\": \"70131bd300524f0cb71dd25e4845daa7\",\n          \"id\": \"janice-test-ppp-cccc\",\n          \"name\": \"cccc\",\n          \"state\": \"succeeded\",\n          \"pre\": [\n            \"janice-test-ppp-condtion_tests-gateway\"\n          ],\n          \"next\": [\n            \"janice-test-ppp-janice_test_workflow_end\"\n          ],\n          \"type\": \"cc\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        }\n      ],\n      \"created\": 1683115074,\n      \"inputs\": [\n        {\n          \"name\": \"id\",\n          \"value\": \"\",\n          \"type\": \"string\",\n          \"enumvalues\": []\n        },\n        {\n          \"name\": \"name\",\n          \"value\": \"\",\n          \"type\": \"string\",\n          \"enumvalues\": []\n        }\n      ],\n      \"org\": 8888,\n      \"buildVars\": [\n        {\n          \"name\": \"name\",\n          \"value\": \"aa\",\n          \"type\": \"\",\n          \"enumvalues\": null\n        }\n      ]\n    }\n  ]\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "micro_app.workflow.ViewApprovalHistory",
+      "name": "ViewApprovalHistory",
+      "version": "1.0.0",
+      "description": "查看用户审批历史",
+      "endpoint": {
+        "method": "LIST",
+        "uri": "/api/v1/micro_app/workflows/approval_history"
+      },
+      "import": ["easyops/model/micro_app/build"],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "userName",
+            "type": "string",
+            "description": "userName如果为空, 取ctx中的user"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "每页大小"
+          },
+          {
+            "name": "startTime",
+            "type": "int64",
+            "description": "开始时间"
+          },
+          {
+            "name": "endTime",
+            "type": "int64",
+            "description": "结束时间"
+          }
+        ],
+        "default": {
+          "page": 1,
+          "pageSize": 300
+        }
+      },
+      "response": {
+        "type": "BuildDetail"
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "View Approval History",
+            "zh": "查看审批历史"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8146/api/v1/micro_app/workflows/approval_history",
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"userName\": \"janice\"\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"list\": [\n    {\n      \"id\": \"5f90b3114dcdb\",\n      \"projectId\": \"5f1fabf57d74d\",\n      \"workflowId\": \"5fac624a9b2b9\",\n      \"yamlString\": \"\",\n      \"status\": {\n        \"state\": \"succeeded\",\n        \"started\": 1683115074,\n        \"updated\": 1683115074,\n        \"finished\": 1683115074\n      },\n      \"steps\": [\n        {\n          \"id\": \"janice-test-ppp-janice_test_workflow_start\",\n          \"name\": \"开始\",\n          \"state\": \"succeeded\",\n          \"next\": [\n            \"janice-test-ppp-condtion_tests-gateway\"\n          ],\n          \"type\": \"start\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-janice_test_workflow_end\",\n          \"name\": \"结束\",\n          \"state\": \"pending\",\n          \"pre\": [\n            \"janice-test-ppp-cccc\"\n          ],\n          \"type\": \"end\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-condtion_tests-gateway\",\n          \"name\": \"condition_testsGateway\",\n          \"state\": \"succeeded\",\n          \"pre\": [\n            \"janice-test-ppp-janice_test_workflow_start\"\n          ],\n          \"next\": [\n            \"janice-test-ppp-cccc\"\n          ],\n          \"children\": [\n            \"janice-test-ppp-condtion_tests\",\n            \"janice-test-ppp-approval_tet\"\n          ],\n          \"type\": \"gateway\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-condtion_tests\",\n          \"name\": \"condition_tests\",\n          \"state\": \"succeeded\",\n          \"next\": [\n            \"janice-test-ppp-approval_tet\"\n          ],\n          \"parent\": \"janice-test-ppp-condtion_tests-gateway\",\n          \"type\": \"condition\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-approval_tet\",\n          \"name\": \"approval_tet\",\n          \"state\": \"succeeded\",\n          \"pre\": [\n            \"janice-test-ppp-condtion_tests\"\n          ],\n          \"parent\": \"janice-test-ppp-condtion_tests-gateway\",\n          \"type\": \"approval\",\n          \"started\": 1683115074\n        },\n        {\n          \"uid\": \"70131bd300524f0cb71dd25e4845daa7\",\n          \"id\": \"janice-test-ppp-cccc\",\n          \"name\": \"cccc\",\n          \"state\": \"pending\",\n          \"pre\": [\n            \"janice-test-ppp-condtion_tests-gateway\"\n          ],\n          \"next\": [\n            \"janice-test-ppp-janice_test_workflow_end\"\n          ],\n          \"type\": \"cc\",\n          \"started\": 1683115074\n        }\n      ],\n      \"created\": 1683115074,\n      \"inputs\": [\n        {\n          \"name\": \"id\",\n          \"value\": \"\",\n          \"type\": \"string\",\n          \"enumvalues\": []\n        },\n        {\n          \"name\": \"name\",\n          \"value\": \"\",\n          \"type\": \"string\",\n          \"enumvalues\": []\n        }\n      ],\n      \"org\": 8888,\n      \"buildVars\": [\n        {\n          \"name\": \"name\",\n          \"value\": \"aa\",\n          \"type\": \"\",\n          \"enumvalues\": null\n        }\n      ]\n    }\n  ]\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "micro_app.workflow.ViewTodo",
+      "name": "ViewTodo",
+      "version": "1.0.0",
+      "description": "查看某用户待办流程",
+      "endpoint": {
+        "method": "LIST",
+        "uri": "/api/v1/micro_app/workflows/view_todo"
+      },
+      "import": ["easyops/model/micro_app/build"],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "userName",
+            "type": "string",
+            "description": "userName如果为空, 取ctx中的user"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "每页大小"
+          },
+          {
+            "name": "startTime",
+            "type": "int64",
+            "description": "开始时间"
+          },
+          {
+            "name": "endTime",
+            "type": "int64",
+            "description": "结束时间"
+          }
+        ],
+        "default": {
+          "page": 1,
+          "pageSize": 300
+        }
+      },
+      "response": {
+        "type": "BuildDetail"
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "View Todo",
+            "zh": "查看待办"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8146/api/v1/micro_app/workflows/view_todo",
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"userName\": \"janice\"\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"list\": [\n    {\n      \"id\": \"5f90b3114dcdb\",\n      \"projectId\": \"5f1fabf57d74d\",\n      \"workflowId\": \"5fac624a9b2b9\",\n      \"yamlString\": \"\",\n      \"status\": {\n        \"state\": \"succeeded\",\n        \"started\": 1683115074,\n        \"updated\": 1683115074,\n        \"finished\": 1683115074\n      },\n      \"steps\": [\n        {\n          \"id\": \"janice-test-ppp-janice_test_workflow_start\",\n          \"name\": \"开始\",\n          \"state\": \"succeeded\",\n          \"next\": [\n            \"janice-test-ppp-condtion_tests-gateway\"\n          ],\n          \"type\": \"start\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-janice_test_workflow_end\",\n          \"name\": \"结束\",\n          \"state\": \"pending\",\n          \"pre\": [\n            \"janice-test-ppp-cccc\"\n          ],\n          \"type\": \"end\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-condtion_tests-gateway\",\n          \"name\": \"condition_testsGateway\",\n          \"state\": \"succeeded\",\n          \"pre\": [\n            \"janice-test-ppp-janice_test_workflow_start\"\n          ],\n          \"next\": [\n            \"janice-test-ppp-cccc\"\n          ],\n          \"children\": [\n            \"janice-test-ppp-condtion_tests\",\n            \"janice-test-ppp-approval_tet\"\n          ],\n          \"type\": \"gateway\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-condtion_tests\",\n          \"name\": \"condition_tests\",\n          \"state\": \"succeeded\",\n          \"next\": [\n            \"janice-test-ppp-approval_tet\"\n          ],\n          \"parent\": \"janice-test-ppp-condtion_tests-gateway\",\n          \"type\": \"condition\",\n          \"started\": 1683115074,\n          \"finished\": 1683115074\n        },\n        {\n          \"id\": \"janice-test-ppp-approval_tet\",\n          \"name\": \"approval_tet\",\n          \"state\": \"running\",\n          \"pre\": [\n            \"janice-test-ppp-condtion_tests\"\n          ],\n          \"parent\": \"janice-test-ppp-condtion_tests-gateway\",\n          \"type\": \"approval\",\n          \"started\": 1683115074\n        },\n        {\n          \"uid\": \"70131bd300524f0cb71dd25e4845daa7\",\n          \"id\": \"janice-test-ppp-cccc\",\n          \"name\": \"cccc\",\n          \"state\": \"pending\",\n          \"pre\": [\n            \"janice-test-ppp-condtion_tests-gateway\"\n          ],\n          \"next\": [\n            \"janice-test-ppp-janice_test_workflow_end\"\n          ],\n          \"type\": \"cc\",\n          \"started\": 1683115074\n        }\n      ],\n      \"created\": 1683115074,\n      \"inputs\": [\n        {\n          \"name\": \"id\",\n          \"value\": \"\",\n          \"type\": \"string\",\n          \"enumvalues\": []\n        },\n        {\n          \"name\": \"name\",\n          \"value\": \"\",\n          \"type\": \"string\",\n          \"enumvalues\": []\n        }\n      ],\n      \"org\": 8888,\n      \"buildVars\": [\n        {\n          \"name\": \"name\",\n          \"value\": \"aa\",\n          \"type\": \"\",\n          \"enumvalues\": null\n        }\n      ]\n    }\n  ]\n}"
+          }
+        }
+      ]
     }
   ]
 }

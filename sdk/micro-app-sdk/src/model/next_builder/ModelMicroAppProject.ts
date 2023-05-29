@@ -1,4 +1,5 @@
 import { ModelCmdbObject } from "../cmdb/index.js";
+import { ModelMicroAppDevelopmentEnv } from "./index.js";
 
 /** 小产品项目 */
 export interface ModelMicroAppProject {
@@ -24,7 +25,7 @@ export interface ModelMicroAppProject {
   models: string[];
 
   /** 开发环境 */
-  developmentEnv: ModelMicroAppProject_developmentEnv;
+  developmentEnv: Partial<ModelMicroAppDevelopmentEnv>;
 
   /** app配置 */
   appSetting: ModelMicroAppProject_appSetting;
@@ -73,26 +74,6 @@ export interface ModelMicroAppProject {
 
   /** 使用的主题模板ID */
   useThemeId: string;
-}
-
-export interface ModelMicroAppProject_developmentEnv {
-  /** open api gateway ip */
-  openApiIP?: string;
-
-  /** open api gateway port */
-  openApiPort?: number;
-
-  /** open api access key */
-  accessKey?: string;
-
-  /** open api secret key */
-  secretKey?: string;
-
-  /** protocol */
-  protocol?: "http" | "https";
-
-  /** open api previewIP */
-  previewIP?: string;
 }
 
 export interface ModelMicroAppProject_appSetting {
@@ -157,6 +138,9 @@ export interface ModelMicroAppProject_dependencies_item {
 
   /** IsLocalDeploy */
   localDeploy?: boolean;
+
+  /** 是否使用最新开发版本 */
+  isDeveloping?: boolean;
 }
 
 export interface ModelMicroAppProject_dependenciesLock_item {
@@ -183,6 +167,9 @@ export interface ModelMicroAppProject_dependenciesLock_item {
 
   /** 依赖方式 */
   dependencyWay?: "direct" | "indirect";
+
+  /** 是否使用最新开发版本 */
+  isDeveloping?: boolean;
 }
 
 export interface ModelMicroAppProject_modelObjects_item {

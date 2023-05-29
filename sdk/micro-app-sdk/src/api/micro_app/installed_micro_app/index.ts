@@ -4,6 +4,7 @@ export * from "./deleteInstalledMicroAppContainer.js";
 export * from "./findMicroAppContainer.js";
 export * from "./getInstalledMicroApp.js";
 export * from "./getImagesByAppId.js";
+export * from "./getMenusInfo.js";
 export * from "./getI18NData.js";
 export * from "./getOssObjectsStat.js";
 export * from "./importMicroApp.js";

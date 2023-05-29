@@ -1,4 +1,5 @@
 import { http, HttpOptions } from "@next-core/http";
+import { ModelInstalledMicroApp } from "../../../model/micro_app/index.js";
 import { ResponseBodyWrapper } from "../../../wrapper.js";
 
 export interface PermissionApi_GetMicroAppListResponseBody {
@@ -28,4 +29,7 @@ export interface PermissionApi_GetMicroAppListResponseBody_installedMicroAppList
 
   /** 小产品id */
   appId?: string;
+
+  /** 菜单中显示的图标 */
+  menuIcon?: ModelInstalledMicroApp["menuIcon"];
 }
