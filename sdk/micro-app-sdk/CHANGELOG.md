@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/micro-app-sdk@1.1.0...@next-api-sdk/micro-app-sdk@1.2.0) (2023-05-29)
+
+### Features
+
+- add apis: InstalledMicroAppApi_getMenusInfo, WorkflowApi_approval, WorkflowApi_cancel, WorkflowApi_execute, WorkflowApi_get, WorkflowApi_index, WorkflowApi_list, WorkflowApi_viewApprovalHistory, WorkflowApi_viewTodo ([fa1d9f3](https://github.com/easyops-cn/next-api-sdk/commit/fa1d9f32cea8f7ac86f6eeef57991ef90fc47fe6))
+
 # 1.1.0 (2023-03-27)
 
 ### Features
