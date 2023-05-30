@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/micro-app-sdk@1.2.0...@next-api-sdk/micro-app-sdk@1.2.1) (2023-05-30)
+
+**Note:** Version bump only for package @next-api-sdk/micro-app-sdk
+
 # [1.2.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/micro-app-sdk@1.1.0...@next-api-sdk/micro-app-sdk@1.2.0) (2023-05-29)
 
 ### Features
