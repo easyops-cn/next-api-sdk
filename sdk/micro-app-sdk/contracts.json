@@ -714,6 +714,11 @@
         "fields": [
           {
             "ref": "StoryboardMenu.menuId"
+          },
+          {
+            "name": "menuObjectId",
+            "type": "string",
+            "description": "菜单所在模型(独立打包和非独立打包两个菜单模型)"
           }
         ],
         "required": ["menuId"]

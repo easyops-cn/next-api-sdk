@@ -2,6 +2,11 @@ import { http, HttpOptions } from "@next-core/http";
 import { ModelStoryboardMenu } from "../../../model/micro_app/index.js";
 import { ResponseBodyWrapper } from "../../../wrapper.js";
 
+export interface InstalledMicroAppApi_GetMenusInfoRequestParams {
+  /** 菜单所在模型(独立打包和非独立打包两个菜单模型) */
+  menuObjectId?: string;
+}
+
 export interface InstalledMicroAppApi_GetMenusInfoResponseBody {
   /** menus info */
   menus?: (Partial<ModelStoryboardMenu> &
@@ -14,6 +19,7 @@ export interface InstalledMicroAppApi_GetMenusInfoResponseBody {
  */
 export const InstalledMicroAppApi_getMenusInfo = async (
   menuId: string | number,
+  params: InstalledMicroAppApi_GetMenusInfoRequestParams,
   options?: HttpOptions
 ): Promise<InstalledMicroAppApi_GetMenusInfoResponseBody> =>
   /**! @contract easyops.api.micro_app.installed_micro_app.GetMenusInfo@1.0.0 */ (
@@ -21,7 +27,7 @@ export const InstalledMicroAppApi_getMenusInfo = async (
       ResponseBodyWrapper<InstalledMicroAppApi_GetMenusInfoResponseBody>
     >(
       `api/gateway/micro_app.installed_micro_app.GetMenusInfo/api/v1/micro-app/menus/${menuId}`,
-      options
+      { ...options, params }
     )
   ).data;
 
