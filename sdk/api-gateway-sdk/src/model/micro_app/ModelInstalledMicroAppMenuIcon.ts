@@ -20,4 +20,7 @@ export interface ModelInstalledMicroAppMenuIcon {
 
   /** 图标颜色 */
   color: string;
+
+  /** 图片src */
+  imgSrc: string;
 }

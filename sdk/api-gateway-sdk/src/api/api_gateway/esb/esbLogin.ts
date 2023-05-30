@@ -33,14 +33,14 @@ export interface EsbApi_EsbLoginResponseBody {
 }
 
 /**
- * @description esb 登录 -【定制化需求】台州银行esb统一认证
+ * @description esb 登录 -【定制化需求】esb统一认证
  * @endpoint POST /api/esb/login
  */
 export const EsbApi_esbLogin = async (
   data: EsbApi_EsbLoginRequestBody,
   options?: HttpOptions
 ): Promise<EsbApi_EsbLoginResponseBody> =>
-  /**! @contract easyops.api.api_gateway.esb.EsbLogin@1.1.0 */ (
+  /**! @contract easyops.api.api_gateway.esb.EsbLogin@1.1.1 */ (
     await http.post<ResponseBodyWrapper<EsbApi_EsbLoginResponseBody>>(
       "api/esb/login",
       data,

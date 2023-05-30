@@ -1818,8 +1818,8 @@
     {
       "contract": "api_gateway.esb.EsbLogin",
       "name": "EsbLogin",
-      "version": "1.1.0",
-      "description": "esb 登录 -【定制化需求】台州银行esb统一认证",
+      "version": "1.1.1",
+      "description": "esb 登录 -【定制化需求】esb统一认证",
       "endpoint": {
         "method": "POST",
         "uri": "/api/esb/login"
@@ -1880,7 +1880,26 @@
             "description": "判断当前登录用户是否是系统管理员"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Esb Login",
+            "zh": "esb 登录"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8104/api/esb/login",
+            "body": "{\n    \"username\": \"nancy\",\n    \"password\": \"*******\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {\n    \"loggedIn\": true,\n    \"username\": \"nancy\",\n    \"org\": 8888,\n    \"location\": \"\",\n    \"userInstanceId\": \"5c6bbc5010976\",\n    \"loginFrom\": \"easyops\",\n    \"isAdmin\": true\n  }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "api_gateway.mfa.GenerateRandomTotpSecret",
