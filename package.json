@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@next-core/babel-preset-next": "^1.0.5",
-    "@next-core/create-api-sdk": "^1.0.7",
+    "@next-core/create-api-sdk": "^1.0.8",
     "@next-core/browserslist-config-next": "^1.0.3",
     "@next-core/eslint-config-next": "^2.0.5",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
