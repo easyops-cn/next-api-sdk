@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/user-service-sdk@1.1.1...@next-api-sdk/user-service-sdk@1.2.0) (2023-10-08)
+
+### Features
+
+- add apis: ApiAccountApi_createApiAccount, ApiAccountApi_index, ApiAccountApi_listApiAccount, ApiAccountApi_updateApiAccount, AuthApi_validateCaptcha, MyCollectionApi_index, MyCollectionApi_listMyCollection, MyCollectionApi_upsertMyCollection, OrganizationApi_createOrgV2 ([ef830a4](https://github.com/easyops-cn/next-api-sdk/commit/ef830a45d7ca75aeb6df1c68499293991b2fde79))
+
 ## [1.1.1](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/user-service-sdk@1.1.0...@next-api-sdk/user-service-sdk@1.1.1) (2023-05-30)
 
 **Note:** Version bump only for package @next-api-sdk/user-service-sdk
