@@ -3,7 +3,7 @@ import { ModelOrgInfo } from "../../../model/user_service/index.js";
 import { ResponseBodyWrapper } from "../../../wrapper.js";
 
 export type OrganizationApi_GetOrgInfoResponseBody = Partial<ModelOrgInfo> &
-  ModelOrgInfo_partial_3;
+  ModelOrgInfo_partial_4;
 
 /**
  * @description 获取Org信息[内部]
@@ -20,7 +20,7 @@ export const OrganizationApi_getOrgInfo = async (
     )
   ).data;
 
-export interface ModelOrgInfo_partial_3 {
+export interface ModelOrgInfo_partial_4 {
   /** org */
   id: number;
 

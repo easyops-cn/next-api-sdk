@@ -1,4 +1,5 @@
 export * from "./createOrg.js";
+export * from "./createOrgV2.js";
 export * from "./disableOrg.js";
 export * from "./enableOrg.js";
 export * from "./getCurrentOrg.js";
