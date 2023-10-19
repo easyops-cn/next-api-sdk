@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/next-builder-sdk@1.1.0...@next-api-sdk/next-builder-sdk@1.2.0) (2023-10-19)
+
+### Features
+
+- add apis: WorkspaceApi_rollback ([62a1833](https://github.com/easyops-cn/next-api-sdk/commit/62a18332e933a583d3b390550d443ef08a96a822))
+
 # 1.1.0 (2023-10-13)
 
 ### Features
