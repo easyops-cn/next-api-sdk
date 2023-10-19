@@ -16,16 +16,16 @@ export interface StoryboardApi_AddNodeResponseBody {
 
 /**
  * @description Add Node
- * @endpoint POST /api/v1/next-builder/:projectInstanceId/nodes
+ * @endpoint POST /api/v1/next-builder/:appId/nodes
  */
 export const StoryboardApi_addNode = async (
-  projectInstanceId: string | number,
+  appId: string | number,
   data: StoryboardApi_AddNodeRequestBody,
   options?: HttpOptions
 ): Promise<StoryboardApi_AddNodeResponseBody> =>
   /**! @contract easyops.api.next_builder.storyboard.AddNode@1.0.0 */ (
     await http.post<ResponseBodyWrapper<StoryboardApi_AddNodeResponseBody>>(
-      `api/gateway/next_builder.storyboard.AddNode/api/v1/next-builder/${projectInstanceId}/nodes`,
+      `api/gateway/next_builder.storyboard.AddNode/api/v1/next-builder/${appId}/nodes`,
       data,
       options
     )

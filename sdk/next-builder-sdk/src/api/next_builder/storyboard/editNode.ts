@@ -22,16 +22,16 @@ export interface StoryboardApi_EditNodeResponseBody {
 
 /**
  * @description Edit Node
- * @endpoint PUT /api/v1/next-builder/:projectInstanceId/nodes
+ * @endpoint PUT /api/v1/next-builder/:appId/nodes
  */
 export const StoryboardApi_editNode = async (
-  projectInstanceId: string | number,
+  appId: string | number,
   data: StoryboardApi_EditNodeRequestBody,
   options?: HttpOptions
 ): Promise<StoryboardApi_EditNodeResponseBody> =>
   /**! @contract easyops.api.next_builder.storyboard.EditNode@1.0.0 */ (
     await http.put<ResponseBodyWrapper<StoryboardApi_EditNodeResponseBody>>(
-      `api/gateway/next_builder.storyboard.EditNode/api/v1/next-builder/${projectInstanceId}/nodes`,
+      `api/gateway/next_builder.storyboard.EditNode/api/v1/next-builder/${appId}/nodes`,
       data,
       options
     )

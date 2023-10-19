@@ -10,14 +10,14 @@ export interface StoryboardApi_DeleteNodeRequestParams {
 
 /**
  * @description Delete Node
- * @endpoint DELETE /api/v1/next-builder/:projectInstanceId/nodes
+ * @endpoint DELETE /api/v1/next-builder/:appId/nodes
  */
 export const StoryboardApi_deleteNode = (
-  projectInstanceId: string | number,
+  appId: string | number,
   params: StoryboardApi_DeleteNodeRequestParams,
   options?: HttpOptions
 ): Promise<void> =>
   /**! @contract easyops.api.next_builder.storyboard.DeleteNode@1.0.0 */ http.delete<void>(
-    `api/gateway/next_builder.storyboard.DeleteNode/api/v1/next-builder/${projectInstanceId}/nodes`,
+    `api/gateway/next_builder.storyboard.DeleteNode/api/v1/next-builder/${appId}/nodes`,
     { ...options, params }
   );

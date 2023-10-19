@@ -4797,15 +4797,15 @@
       "description": "Add Node",
       "endpoint": {
         "method": "POST",
-        "uri": "/api/v1/next-builder/:projectInstanceId/nodes"
+        "uri": "/api/v1/next-builder/:appId/nodes"
       },
       "request": {
         "type": "object",
         "fields": [
           {
-            "name": "projectInstanceId",
+            "name": "appId",
             "type": "string",
-            "description": "project instanceId"
+            "description": "app id"
           },
           {
             "name": "objectId",
@@ -4818,7 +4818,7 @@
             "description": "node instance"
           }
         ],
-        "required": ["projectInstanceId", "objectId", "instance"]
+        "required": ["appId", "objectId", "instance"]
       },
       "response": {
         "type": "object",
@@ -4838,13 +4838,13 @@
           },
           "request": {
             "method": "POST",
-            "uri": "/api/v1/next-builder/604a846464329/nodes",
+            "uri": "/api/v1/next-builder/janice-test-create1/nodes",
             "headers": {
               "Content-Type": "application/json",
               "Org": 8888,
               "User": "easyops"
             },
-            "body": "{\n    \"projectInstanceId\": \"604a846464329\",\n    \"objectId\": \"STORYBOARD_ROUTE\",\n    \"instance\": {\n        \"alias\": \"test-alias\",\n        \"appId\": \"janice-test-create1\",\n        \"children\": [],\n        \"context\": null,\n        \"contextModel\": [],\n        \"exact\": true,\n        \"hybrid\": false,\n        \"id\": \"B-52633\",\n        \"org\": 6620199,\n        \"parent\": [],\n        \"path\": \"${APP.homepage}/new\",\n        \"previewSettings\": null,\n        \"public\": false,\n        \"tests\": [],\n        \"type\": \"bricks\",\n        \"userFlowNode\": []\n    }\n}"
+            "body": "{\n    \"objectId\": \"STORYBOARD_ROUTE\",\n    \"instance\": {\n        \"alias\": \"test-alias\",\n        \"appId\": \"janice-test-create1\",\n        \"children\": [],\n        \"context\": null,\n        \"contextModel\": [],\n        \"exact\": true,\n        \"hybrid\": false,\n        \"id\": \"B-52633\",\n        \"org\": 6620199,\n        \"parent\": [],\n        \"path\": \"${APP.homepage}/new\",\n        \"previewSettings\": null,\n        \"public\": false,\n        \"tests\": [],\n        \"type\": \"bricks\",\n        \"userFlowNode\": []\n    }\n}"
           },
           "response": {
             "headers": {
@@ -5012,13 +5012,13 @@
           },
           "request": {
             "method": "POST",
-            "uri": "/api/v1/next-builder/604a846464329/nodes/import",
+            "uri": "/api/v1/next-builder/janice-test-create1/nodes/import",
             "headers": {
               "Content-Type": "application/json",
               "Org": 8888,
               "User": "easyops"
             },
-            "body": "{\n    \"projectInstanceId\": \"604a846464329\",\n    \"objectId\": \"STORYBOARD_ROUTE\",\n    \"nodesInfo\": [\n        {\n            \"keys\": [\n                \"id\"\n            ],\n            \"datas\": [\n                {\n                    \"alias\": \"test-alias\",\n                    \"appId\": \"janice-test-create1\",\n                    \"children\": [],\n                    \"context\": null,\n                    \"contextModel\": [],\n                    \"exact\": true,\n                    \"hybrid\": false,\n                    \"id\": \"B-52633\",\n                    \"org\": 6620199,\n                    \"parent\": [],\n                    \"path\": \"${APP.homepage}/new\",\n                    \"previewSettings\": null,\n                    \"public\": false,\n                    \"tests\": [],\n                    \"type\": \"bricks\",\n                    \"userFlowNode\": []\n                }\n            ]\n        }\n    ]\n}"
+            "body": "{\n    \"objectId\": \"STORYBOARD_ROUTE\",\n    \"nodesInfo\": [\n        {\n            \"keys\": [\n                \"id\"\n            ],\n            \"datas\": [\n                {\n                    \"alias\": \"test-alias\",\n                    \"appId\": \"janice-test-create1\",\n                    \"children\": [],\n                    \"context\": null,\n                    \"contextModel\": [],\n                    \"exact\": true,\n                    \"hybrid\": false,\n                    \"id\": \"B-52633\",\n                    \"org\": 6620199,\n                    \"parent\": [],\n                    \"path\": \"${APP.homepage}/new\",\n                    \"previewSettings\": null,\n                    \"public\": false,\n                    \"tests\": [],\n                    \"type\": \"bricks\",\n                    \"userFlowNode\": []\n                }\n            ]\n        }\n    ]\n}"
           },
           "response": {
             "headers": {
@@ -5134,15 +5134,15 @@
       "description": "Delete Node",
       "endpoint": {
         "method": "DELETE",
-        "uri": "/api/v1/next-builder/:projectInstanceId/nodes"
+        "uri": "/api/v1/next-builder/:appId/nodes"
       },
       "request": {
         "type": "object",
         "fields": [
           {
-            "name": "projectInstanceId",
+            "name": "appId",
             "type": "string",
-            "description": "project instanceId"
+            "description": "app id"
           },
           {
             "name": "objectId",
@@ -5155,7 +5155,7 @@
             "description": "instance_id"
           }
         ],
-        "required": ["projectInstanceId", "objectId", "instanceId"]
+        "required": ["appId", "objectId", "instanceId"]
       },
       "response": null,
       "examples": [
@@ -5166,13 +5166,12 @@
           },
           "request": {
             "method": "DELETE",
-            "uri": "/api/v1/next-builder/604a846464329/nodes",
+            "uri": "/api/v1/next-builder/janice-test-create1/nodes?objectId=STORYBOARD_ROUTE&instanceId=60625b4bf9b79",
             "headers": {
               "Content-Type": "application/json",
               "Org": 8888,
               "User": "easyops"
-            },
-            "body": "{\n    \"projectInstanceId\": \"604a846464329\",\n    \"objectId\": \"STORYBOARD_ROUTE\",\n    \"instanceId\": \"60625b4bf9b79\"\n}"
+            }
           },
           "response": {
             "headers": {
@@ -5220,16 +5219,16 @@
       "description": "Edit Node",
       "endpoint": {
         "method": "PUT",
-        "uri": "/api/v1/next-builder/:projectInstanceId/nodes"
+        "uri": "/api/v1/next-builder/:appId/nodes"
       },
       "import": ["easyops/model/cmdb/update_by_query_result"],
       "request": {
         "type": "object",
         "fields": [
           {
-            "name": "projectInstanceId",
+            "name": "appId",
             "type": "string",
-            "description": "project instanceId"
+            "description": "app id"
           },
           {
             "name": "objectId",
@@ -5252,7 +5251,7 @@
             "description": "node instance"
           }
         ],
-        "required": ["projectInstanceId", "objectId", "instance"]
+        "required": ["appId", "objectId", "instance"]
       },
       "response": {
         "type": "object",
@@ -5272,13 +5271,13 @@
           },
           "request": {
             "method": "PUT",
-            "uri": "/api/v1/next-builder/604a846464329//nodes",
+            "uri": "/api/v1/next-builder/janice-test-create1/nodes",
             "headers": {
               "Content-Type": "application/json",
               "Org": 8888,
               "User": "easyops"
             },
-            "body": "{\n    \"projectInstanceId\": \"604a846464329\",\n    \"objectId\": \"STORYBOARD_ROUTE\",\n    \"instanceId\": \"60625b4bf9b79\",\n    \"mtime\": \"2023-09-25 10:38:40\",\n    \"instance\": {\n        \"_object_id\": \"STORYBOARD_ROUTE\",\n        \"alias\": \"test-alias\",\n        \"appId\": \"janice-test-create1\",\n        \"children\": [],\n        \"context\": null,\n        \"contextModel\": [],\n        \"exact\": true,\n        \"hybrid\": false,\n        \"id\": \"B-52633\",\n        \"instanceId\": \"60625b4bf9b79\",\n        \"org\": 6620199,\n        \"parent\": [],\n        \"path\": \"${APP.homepage}/new\",\n        \"previewSettings\": null,\n        \"public\": false,\n        \"tests\": [],\n        \"type\": \"bricks\",\n        \"userFlowNode\": []\n    }\n}"
+            "body": "{\n    \"objectId\": \"STORYBOARD_ROUTE\",\n    \"instanceId\": \"60625b4bf9b79\",\n    \"mtime\": \"2023-09-25 10:38:40\",\n    \"instance\": {\n        \"_object_id\": \"STORYBOARD_ROUTE\",\n        \"alias\": \"test-alias\",\n        \"appId\": \"janice-test-create1\",\n        \"children\": [],\n        \"context\": null,\n        \"contextModel\": [],\n        \"exact\": true,\n        \"hybrid\": false,\n        \"id\": \"B-52633\",\n        \"instanceId\": \"60625b4bf9b79\",\n        \"org\": 6620199,\n        \"parent\": [],\n        \"path\": \"${APP.homepage}/new\",\n        \"previewSettings\": null,\n        \"public\": false,\n        \"tests\": [],\n        \"type\": \"bricks\",\n        \"userFlowNode\": []\n    }\n}"
           },
           "response": {
             "headers": {
@@ -6225,7 +6224,7 @@
                   },
                   {
                     "name": "leftNodes",
-                    "type": "string",
+                    "type": "string[]",
                     "description": "relation变更的left nodes。超过3个时，总数取leftNodesCount"
                   },
                   {
@@ -6240,7 +6239,7 @@
                   },
                   {
                     "name": "rightNodes",
-                    "type": "string",
+                    "type": "string[]",
                     "description": "relation变更的right nodes。超过3个时，总数取rightNodesCount"
                   },
                   {
@@ -6343,6 +6342,88 @@
               "User": "easyops"
             },
             "body": "{\n    \"appId\": \"get-it-done\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n    } \n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "next_builder.workspace.Rollback",
+      "category": {
+        "en": "Workspace",
+        "zh": "工作区"
+      },
+      "name": "Rollback",
+      "version": "1.0.0",
+      "description": "rollback of workspace",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/next-builder/workspace/:appId/rollback"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "appId",
+            "type": "string",
+            "description": "appId"
+          },
+          {
+            "name": "uniqueKey",
+            "type": "string",
+            "description": "变更对象的唯一标识，例如实例instanceId，关系两端id"
+          },
+          {
+            "name": "ts",
+            "type": "int",
+            "description": "变更时间戳"
+          }
+        ],
+        "required": ["appId", "uniqueKey", "ts"]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "工作区回滚操作",
+            "en": "Rollback Operation"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "/api/v1/next-builder/workspace/get-it-done/rollback",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n    \"appId\": \"demo-app\",\n    \"uniqueKey\": \"606551146ac19\",\n    \"ts\": 1697097411\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n    } \n}"
+          }
+        },
+        {
+          "description": {
+            "zh": "工作区回滚操作",
+            "en": "Rollback Operation"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "/api/v1/next-builder/workspace/get-it-done/rollback",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n    \"appId\": \"demo-app\",\n    \"uniqueKey\": \"606551146ac19|606551146ac10\",\n    \"ts\": 1697097412\n}"
           },
           "response": {
             "headers": {

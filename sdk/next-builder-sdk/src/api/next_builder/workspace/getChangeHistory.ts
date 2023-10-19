@@ -78,7 +78,7 @@ export interface WorkspaceApi_GetChangeHistoryResponseBody_list_item_abstract {
   leftObjectId?: string;
 
   /** relation变更的left nodes。超过3个时，总数取leftNodesCount */
-  leftNodes?: string;
+  leftNodes?: string[];
 
   /** relation变更的left node总数 */
   leftNodesCount?: number;
@@ -87,7 +87,7 @@ export interface WorkspaceApi_GetChangeHistoryResponseBody_list_item_abstract {
   rightObjectId?: string;
 
   /** relation变更的right nodes。超过3个时，总数取rightNodesCount */
-  rightNodes?: string;
+  rightNodes?: string[];
 
   /** relation变更的right node总数 */
   rightNodesCount?: number;
