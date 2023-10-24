@@ -15,6 +15,9 @@ export interface StoryboardApi_CloneRoutesRequestBody {
 
   /** 是否linked sourceRoute关联的template */
   linked?: boolean;
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 /**

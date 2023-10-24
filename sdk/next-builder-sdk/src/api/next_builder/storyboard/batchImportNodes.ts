@@ -10,6 +10,9 @@ export interface StoryboardApi_BatchImportNodesRequestBody {
 
   /** 导入实例数据列表,必须包含keys里面的字段 */
   datas?: Record<string, any>[];
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 export interface StoryboardApi_BatchImportNodesResponseBody {

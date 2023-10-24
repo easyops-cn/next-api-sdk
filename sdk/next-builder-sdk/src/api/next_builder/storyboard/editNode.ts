@@ -13,6 +13,9 @@ export interface StoryboardApi_EditNodeRequestBody {
 
   /** node instance */
   instance: Record<string, any>;
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 export interface StoryboardApi_EditNodeResponseBody {

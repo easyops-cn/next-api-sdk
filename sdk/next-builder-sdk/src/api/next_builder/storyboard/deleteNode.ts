@@ -6,6 +6,9 @@ export interface StoryboardApi_DeleteNodeRequestParams {
 
   /** instance_id */
   instanceId: string;
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 /**

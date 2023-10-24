@@ -7,6 +7,9 @@ export interface StoryboardApi_AddNodeRequestBody {
 
   /** node instance */
   instance: Record<string, any>;
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 export interface StoryboardApi_AddNodeResponseBody {

@@ -15,6 +15,9 @@ export interface StoryboardApi_CloneBricksRequestBody {
 
   /** 是否导入linked sourceBrick关联的template */
   linked?: boolean;
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 /**

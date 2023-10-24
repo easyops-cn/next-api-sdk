@@ -1,9 +1,6 @@
 import { http, HttpOptions } from "@next-core/http";
 
 export interface WorkspaceApi_RollbackRequestBody {
-  /** 变更对象的唯一标识，例如实例instanceId，关系两端id */
-  uniqueKey: string;
-
   /** 变更时间戳 */
   ts: number;
 }

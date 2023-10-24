@@ -25,4 +25,7 @@ export const StoryboardApi_removeRelation = (
 export interface StoryboardApi_RemoveRelationRequestBody_2 {
   /** 关系Id */
   relationId: string;
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }

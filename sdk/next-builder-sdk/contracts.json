@@ -4816,9 +4816,17 @@
             "name": "instance",
             "type": "map",
             "description": "node instance"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
-        "required": ["appId", "objectId", "instance"]
+        "required": ["appId", "objectId", "instance"],
+        "default": {
+          "isRecordChangeHistory": true
+        }
       },
       "response": {
         "type": "object",
@@ -4844,7 +4852,7 @@
               "Org": 8888,
               "User": "easyops"
             },
-            "body": "{\n    \"objectId\": \"STORYBOARD_ROUTE\",\n    \"instance\": {\n        \"alias\": \"test-alias\",\n        \"appId\": \"janice-test-create1\",\n        \"children\": [],\n        \"context\": null,\n        \"contextModel\": [],\n        \"exact\": true,\n        \"hybrid\": false,\n        \"id\": \"B-52633\",\n        \"org\": 6620199,\n        \"parent\": [],\n        \"path\": \"${APP.homepage}/new\",\n        \"previewSettings\": null,\n        \"public\": false,\n        \"tests\": [],\n        \"type\": \"bricks\",\n        \"userFlowNode\": []\n    }\n}"
+            "body": "{\n    \"objectId\": \"STORYBOARD_ROUTE\",\n    isRecordChangeHistory: true,\n    \"instance\": {\n        \"alias\": \"test-alias\",\n        \"appId\": \"janice-test-create1\",\n        \"children\": [],\n        \"context\": null,\n        \"contextModel\": [],\n        \"exact\": true,\n        \"hybrid\": false,\n        \"id\": \"B-52633\",\n        \"org\": 6620199,\n        \"parent\": [],\n        \"path\": \"${APP.homepage}/new\",\n        \"previewSettings\": null,\n        \"public\": false,\n        \"tests\": [],\n        \"type\": \"bricks\",\n        \"userFlowNode\": []\n    }\n}"
           },
           "response": {
             "headers": {
@@ -4894,9 +4902,17 @@
           },
           {
             "ref": "InstanceRelationRequest.*"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
-        "required": ["appId", "relationId", "objectId", "relationSideId"]
+        "required": ["appId", "relationId", "objectId", "relationSideId"],
+        "default": {
+          "isRecordChangeHistory": true
+        }
       },
       "response": null,
       "examples": [
@@ -4958,8 +4974,16 @@
             "name": "datas",
             "type": "map[]",
             "description": "导入实例数据列表,必须包含keys里面的字段"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
+        "default": {
+          "isRecordChangeHistory": true
+        },
         "required": ["appId"]
       },
       "response": {
@@ -5070,11 +5094,43 @@
             "name": "linked",
             "type": "bool",
             "description": "是否linked sourceRoute关联的template"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
+        "default": {
+          "isRecordChangeHistory": true
+        },
         "required": ["sourceRouteId", "newAppId"]
       },
-      "response": null
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "克隆路由",
+            "en": "clone route"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "/api/v1/nextBuilder/clone_route",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n    \"newAppId\": \"janice-test-create3\",\n    \"sourceRouteId\": \"B-32737\",\n    \"newParentRouteId\": \"B-52659\",\n    \"linked\": false\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "next_builder.storyboard.CloneBricks",
@@ -5117,11 +5173,43 @@
             "name": "linked",
             "type": "bool",
             "description": "是否导入linked sourceBrick关联的template"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
+        "default": {
+          "isRecordChangeHistory": true
+        },
         "required": ["sourceBrickId", "newParentBrickId", "newAppId"]
       },
-      "response": null
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "克隆路由",
+            "en": "clone route"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "/api/v1/nextBuilder/clone",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n    \"newAppId\": \"janice-test-create3\",\n    \"sourceBrickId\": \"B-32737\",\n    \"newParentBrickId\": \"B-52659\",\n    \"linked\": false\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "next_builder.storyboard.DeleteNode",
@@ -5153,8 +5241,16 @@
             "name": "instanceId",
             "type": "instance_id",
             "description": "instance_id"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
+        "default": {
+          "isRecordChangeHistory": true
+        },
         "required": ["appId", "objectId", "instanceId"]
       },
       "response": null,
@@ -5202,11 +5298,42 @@
             "name": "nodeId",
             "type": "string",
             "description": "storyboard node id"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
+        "default": {
+          "isRecordChangeHistory": true
+        },
         "required": ["nodeId"]
       },
-      "response": null
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "storyboard节点删除",
+            "en": "Delete Storyboard Node(递归删除)"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "/api/v1/nextBuilder/storyboard/B-123",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {}\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "next_builder.storyboard.EditNode",
@@ -5249,8 +5376,16 @@
             "name": "instance",
             "type": "map",
             "description": "node instance"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
+        "default": {
+          "isRecordChangeHistory": true
+        },
         "required": ["appId", "objectId", "instance"]
       },
       "response": {
@@ -5467,8 +5602,16 @@
           },
           {
             "ref": "InstanceRelationRequest.*"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
+        "default": {
+          "isRecordChangeHistory": true
+        },
         "required": ["appId", "relationId", "objectId", "relationSideId"]
       },
       "response": null,
@@ -5569,8 +5712,16 @@
               }
             ],
             "description": "关系列表值"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
+        "default": {
+          "isRecordChangeHistory": true
+        },
         "required": ["appId", "relationId"]
       },
       "response": null,
@@ -6149,7 +6300,7 @@
           },
           {
             "name": "ts",
-            "type": "int",
+            "type": "int64",
             "description": "时间戳, 返回比这时间戳更早的变更历史, 0 则表示从最新的变更开始查询"
           },
           {
@@ -6169,7 +6320,7 @@
         "fields": [
           {
             "name": "ts",
-            "type": "int",
+            "type": "int64",
             "description": "最后一条变更历史的时间戳，可用作下一次查询"
           },
           {
@@ -6260,8 +6411,18 @@
                 "description": "变更用户"
               },
               {
+                "name": "changeId",
+                "type": "int64",
+                "description": "变更的唯一id(ts)"
+              },
+              {
+                "name": "rollbackId",
+                "type": "int64",
+                "description": "rollbackId(当操作是rollback)时使用， 表明回退到哪个步骤"
+              },
+              {
                 "name": "ts",
-                "type": "int",
+                "type": "int64",
                 "description": "变更时间戳"
               },
               {
@@ -6297,7 +6458,7 @@
             "headers": {
               "Content-Type": "application/json; charset=utf-8"
             },
-            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"ts\": 1697097411,\n        \"list\": [\n            {\n                \"user\": \"easyops\",\n                \"action\": \"add\",\n                \"category\": \"brick\",\n                \"abstract\": {\n                    \"nodes\": \"修改确认弹窗\",\n                    \"nodesCount\": 1\n                },\n                \"uniqueKey\": \"606551146ac19\",\n                \"ts\": 1697097523, \n                \"oldHash\": \"\",\n                \"newHash\": \"da5c3fe88801b786\"\n            },\n            {\n                \"user\": \"easyops\",\n                \"action\": \"append_relation\",\n                \"relationId\": \"STORYBOARD_TEMPLATE_Project_Templates_PROJECT_MICRO_APP\",\n                \"abstract\": {\n                    \"leftObjectId\": \"PROJECT_MICRO_APP\",\n                    \"leftNodes\": [\"\"],\n                    \"leftNodesCount\": 1,\n                    \"rightObjectId\": \"STORYBOARD_TEMPLATE\",\n                    \"rightNodes\": [\"tpl-aaa-bbb\"],\n                    \"rightNodesCount\": 1\n                },\n                \"uniqueKey\": \"606551146ac19|606551f92ad12\",\n                \"ts\": 1697097411,\n                \"oldHash\": \"b83f0932121f1dfa\",\n                \"newHash\": \"da5c3fe88801b786\"\n            }\n        ]\n    }\n}"
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"ts\": 1697683490575143000,\n        \"list\": [\n            {\n                \"user\": \"easyops\",\n                \"action\": \"add\",\n                \"category\": \"brick\",\n                \"abstract\": {\n                    \"nodes\": \"修改确认弹窗\",\n                    \"nodesCount\": 1\n                },\n                \"uniqueKey\": \"606551146ac19\",\n                \"ts\": 1697683490575143000,\n                \"changeId\": 1697683490575143000,\n                \"oldHash\": \"\",\n                \"newHash\": \"da5c3fe88801b786\"\n            },\n            {\n                \"user\": \"janice\",\n                \"action\": \"rollback\",\n                \"changeId\": 1697683490575144000,\n                \"ts\": 1697683490575144000,\n                \"rollbackId\": 1697683490575143000\n            },\n            {\n                \"user\": \"easyops\",\n                \"action\": \"append_relation\",\n                \"relationId\": \"STORYBOARD_TEMPLATE_Project_Templates_PROJECT_MICRO_APP\",\n                \"abstract\": {\n                    \"leftObjectId\": \"PROJECT_MICRO_APP\",\n                    \"leftNodes\": [\n                        \"\"\n                    ],\n                    \"leftNodesCount\": 1,\n                    \"rightObjectId\": \"STORYBOARD_TEMPLATE\",\n                    \"rightNodes\": [\n                        \"tpl-aaa-bbb\"\n                    ],\n                    \"rightNodesCount\": 1\n                },\n                \"uniqueKey\": \"606551146ac19|606551f92ad12\",\n                \"ts\": 1697683490575143000,\n                \"changeId\": 1697683490575143000,\n                \"oldHash\": \"b83f0932121f1dfa\",\n                \"newHash\": \"da5c3fe88801b786\"\n            }\n        ]\n    }\n}"
           }
         }
       ]
@@ -6374,17 +6535,12 @@
             "description": "appId"
           },
           {
-            "name": "uniqueKey",
-            "type": "string",
-            "description": "变更对象的唯一标识，例如实例instanceId，关系两端id"
-          },
-          {
             "name": "ts",
-            "type": "int",
+            "type": "int64",
             "description": "变更时间戳"
           }
         ],
-        "required": ["appId", "uniqueKey", "ts"]
+        "required": ["appId", "ts"]
       },
       "response": null,
       "examples": [
@@ -6401,7 +6557,7 @@
               "Org": 8888,
               "User": "easyops"
             },
-            "body": "{\n    \"appId\": \"demo-app\",\n    \"uniqueKey\": \"606551146ac19\",\n    \"ts\": 1697097411\n}"
+            "body": "{\n    \"appId\": \"demo-app\",\n    \"ts\": 1697683490575143000\n}"
           },
           "response": {
             "headers": {
@@ -6423,7 +6579,7 @@
               "Org": 8888,
               "User": "easyops"
             },
-            "body": "{\n    \"appId\": \"demo-app\",\n    \"uniqueKey\": \"606551146ac19|606551146ac10\",\n    \"ts\": 1697097412\n}"
+            "body": "{\n    \"appId\": \"demo-app\",\n    \"ts\": 1697683490575143000\n}"
           },
           "response": {
             "headers": {

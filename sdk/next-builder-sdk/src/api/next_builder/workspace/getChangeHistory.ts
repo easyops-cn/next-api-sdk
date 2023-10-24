@@ -54,6 +54,12 @@ export interface WorkspaceApi_GetChangeHistoryResponseBody_list_item {
   /** 变更用户 */
   user?: string;
 
+  /** 变更的唯一id(ts) */
+  changeId?: number;
+
+  /** rollbackId(当操作是rollback)时使用， 表明回退到哪个步骤 */
+  rollbackId?: number;
+
   /** 变更时间戳 */
   ts?: number;
 

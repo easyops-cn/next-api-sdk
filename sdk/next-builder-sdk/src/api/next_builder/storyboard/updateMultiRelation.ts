@@ -3,6 +3,9 @@ import { http, HttpOptions } from "@next-core/http";
 export interface StoryboardApi_UpdateMultiRelationRequestBody {
   /** 关系列表值 */
   list?: StoryboardApi_UpdateMultiRelationRequestBody_list_item[];
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 /**
