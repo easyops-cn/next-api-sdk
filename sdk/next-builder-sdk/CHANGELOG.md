@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/next-builder-sdk@1.2.1...@next-api-sdk/next-builder-sdk@1.2.2) (2023-10-30)
+
+**Note:** Version bump only for package @next-api-sdk/next-builder-sdk
+
 ## [1.2.1](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/next-builder-sdk@1.2.0...@next-api-sdk/next-builder-sdk@1.2.1) (2023-10-24)
 
 **Note:** Version bump only for package @next-api-sdk/next-builder-sdk
