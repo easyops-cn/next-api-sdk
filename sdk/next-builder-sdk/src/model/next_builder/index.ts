@@ -16,3 +16,4 @@ export * from "./ModelDataDefinition.js";
 export * from "./ModelWorkflowDef.js";
 export * from "./ModelWorkflowStepConfig.js";
 export * from "./ModelWorkflowStep.js";
+export * from "./ModelWorkspaceChangeHistory.js";

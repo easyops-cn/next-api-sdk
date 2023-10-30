@@ -2,7 +2,7 @@ import { http, HttpOptions } from "@next-core/http";
 
 export interface WorkspaceApi_RollbackRequestBody {
   /** 变更时间戳 */
-  ts: number;
+  ts: string;
 }
 
 /**

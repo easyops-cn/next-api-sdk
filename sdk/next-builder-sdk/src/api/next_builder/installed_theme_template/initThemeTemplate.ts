@@ -15,6 +15,9 @@ export interface InstalledThemeTemplateApi_InitThemeTemplateRequestBody {
 export interface InstalledThemeTemplateApi_InitThemeTemplateResponseBody {
   /** 初始化生成的模板instanceId */
   templateInstanceId?: string;
+
+  /** 初始化主题模板的brick instanceIds */
+  brickInstanceIds?: string[];
 }
 
 /**

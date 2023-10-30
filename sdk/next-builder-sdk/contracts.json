@@ -80,7 +80,7 @@
         "zh": "构建"
       },
       "name": "BatchDeleteImages",
-      "version": "1.1.0",
+      "version": "2.0.0",
       "description": "批量删除图片",
       "endpoint": {
         "method": "POST",
@@ -95,12 +95,20 @@
             "description": "图片所在项目的instanceId"
           },
           {
-            "name": "imageNames",
+            "name": "imageInstanceIds",
             "type": "string[]",
-            "description": "图片名字"
+            "description": "要删除的图片的instanceId"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
-        "required": ["projectInstanceId", "imageNames"]
+        "default": {
+          "isRecordChangeHistory": true
+        },
+        "required": ["projectInstanceId", "imageInstanceIds"]
       },
       "response": null,
       "examples": [
@@ -114,7 +122,7 @@
             "uri": "http://127.0.0.1:8142/api/v1/next_builder/images/batch_delete",
             "headers": {
               "Content-Type": "application/json",
-              "body": "{\n    \"projectInstanceId\": \"5ef4c373fd109\",\n    \"imageNames\": [\n        \"xx.png\",\n        \"yy.png\"\n    ]\n}"
+              "body": "{\n    \"projectInstanceId\": \"5ef4c373fd109\",\n    \"imageInstanceIds\": [\n        \"6086caa32a456\",\n        \"6086caa32a457\"\n    ]\n}"
             }
           },
           "response": {
@@ -298,11 +306,41 @@
             "name": "imageInstanceId",
             "type": "instance_id",
             "description": "图片的instanceId"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
         ],
+        "default": {
+          "isRecordChangeHistory": true
+        },
         "required": ["imageInstanceId"]
       },
-      "response": null
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "DeleteImage",
+            "zh": "删除图片"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8142/api/v1/next_builder/images/6086caa32a456",
+            "headers": {
+              "Content-Type": "application/json",
+              "body": "{\n    \"imageInstanceId\": \"5ef4c373fd109\"\n}"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {}\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "next_builder.build.GetModifiedInformation",
@@ -2622,9 +2660,38 @@
             "name": "templateInstanceId",
             "type": "instance_id",
             "description": "初始化生成的模板instanceId"
+          },
+          {
+            "name": "brickInstanceIds",
+            "type": "string[]",
+            "description": "初始化主题模板的brick instanceIds"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "初始化theme页面模版",
+            "en": "Init Theme Template"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "/api/v1/next_builder/theme_template/init",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n    \"snippetId\": \"page-test\",\n    \"projectInstanceId\": \"60881858545c3\",\n    \"themeId\": \"zdtest12\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"templateInstanceId\": \"608ab4e8d5ab3\",\n        \"brickInstanceIds\": [\n            \"608ab4e8d5ab3\",\n            \"608ab4e8d5ab4\"\n        ]\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "next_builder.mock_rule.AddTagBatch",
@@ -3873,8 +3940,16 @@
                 "description": "是否使用最新开发版本"
               }
             ]
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
-        ]
+        ],
+        "default": {
+          "isRecordChangeHistory": true
+        }
       },
       "response": null,
       "examples": [
@@ -3921,10 +3996,37 @@
             "name": "dependenciesName",
             "type": "string",
             "description": "dependenciesName, 多个用,分割"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
-        ]
+        ],
+        "default": {
+          "isRecordChangeHistory": true
+        }
       },
-      "response": null
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "Delete Dependencies",
+            "zh": "删除微应用依赖"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://127.0.0.1:8142/api/v1/next-builder/micro_apps/5d03d21e74deb/dependencies",
+            "body": "{\n    \"dependenciesName\": \"presentational-bricks-NB\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": null\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "next_builder.package_alone.EditDependencies",
@@ -3948,10 +4050,37 @@
           },
           {
             "ref": "MicroAppProject.dependencies"
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
-        ]
+        ],
+        "default": {
+          "isRecordChangeHistory": true
+        }
       },
-      "response": null
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "Edit Dependencies",
+            "zh": "编辑微应用依赖"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8142/api/v1/next-builder/micro_apps/5d03d21e74deb/dependencies",
+            "body": "{\n    \"dependencies\": [\n        {\n            \"name\": \"presentational-bricks-NB\",\n            \"constraint\": \"^1.0.0\",\n            \"localDeploy\": true,\n            \"actualVersion\": \"1.260.1\",\n            \"isDeveloping\": true\n        }\n    ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": null\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "next_builder.package_alone.GetPackageVersionList",
@@ -4256,8 +4385,16 @@
                 "description": "是否使用最新开发版本"
               }
             ]
+          },
+          {
+            "name": "isRecordChangeHistory",
+            "type": "bool",
+            "description": "是否记录变更历史"
           }
-        ]
+        ],
+        "default": {
+          "isRecordChangeHistory": true
+        }
       },
       "response": null,
       "examples": [
@@ -6290,6 +6427,7 @@
         "method": "GET",
         "uri": "/api/v1/next-builder/workspace/:appId/changes"
       },
+      "import": ["easyops/model/next_builder/workspace_change_history"],
       "request": {
         "type": "object",
         "fields": [
@@ -6300,8 +6438,8 @@
           },
           {
             "name": "ts",
-            "type": "int64",
-            "description": "时间戳, 返回比这时间戳更早的变更历史, 0 则表示从最新的变更开始查询"
+            "type": "string",
+            "description": "时间戳, 返回比这时间戳更早的变更历史, '' 则表示从最新的变更开始查询"
           },
           {
             "name": "limit",
@@ -6311,7 +6449,6 @@
         ],
         "required": ["appId"],
         "default": {
-          "ts": 0,
           "limit": 10
         }
       },
@@ -6320,122 +6457,13 @@
         "fields": [
           {
             "name": "ts",
-            "type": "int64",
+            "type": "string",
             "description": "最后一条变更历史的时间戳，可用作下一次查询"
           },
           {
             "name": "list",
-            "type": "object[]",
-            "description": "变更历史列表",
-            "fields": [
-              {
-                "name": "action",
-                "type": "string",
-                "description": "变更操作, add/delete/edit/import/append_relation/remove_relation/update_relation..."
-              },
-              {
-                "name": "category",
-                "type": "string",
-                "description": "node变更的对象分类, project/image/menu/menuItem/permission/i18n/function/route/brick/template/workflow..."
-              },
-              {
-                "name": "relationId",
-                "type": "string",
-                "description": "relation变更的relationId"
-              },
-              {
-                "name": "uniqueKey",
-                "type": "string",
-                "description": "变更对象的唯一标识，例如实例instanceId，关系两端id"
-              },
-              {
-                "name": "abstract",
-                "type": "object",
-                "description": "变更的概要信息",
-                "fields": [
-                  {
-                    "name": "nodes",
-                    "type": "string[]",
-                    "description": "node变更的对象名称, 最多3个。超过3个时，总数取nodesCount"
-                  },
-                  {
-                    "name": "nodesCount",
-                    "type": "int",
-                    "description": "node变更的对象总数"
-                  },
-                  {
-                    "name": "nodeChanges",
-                    "type": "string[]",
-                    "description": "node变更了哪些属性，例如 properties、events"
-                  },
-                  {
-                    "name": "leftObjectId",
-                    "type": "string",
-                    "description": "relation变更的left object id"
-                  },
-                  {
-                    "name": "leftNodes",
-                    "type": "string[]",
-                    "description": "relation变更的left nodes。超过3个时，总数取leftNodesCount"
-                  },
-                  {
-                    "name": "leftNodesCount",
-                    "type": "int",
-                    "description": "relation变更的left node总数"
-                  },
-                  {
-                    "name": "rightObjectId",
-                    "type": "string",
-                    "description": "relation变更的right object id"
-                  },
-                  {
-                    "name": "rightNodes",
-                    "type": "string[]",
-                    "description": "relation变更的right nodes。超过3个时，总数取rightNodesCount"
-                  },
-                  {
-                    "name": "rightNodesCount",
-                    "type": "int",
-                    "description": "relation变更的right node总数"
-                  },
-                  {
-                    "name": "relationChanges",
-                    "type": "string[]",
-                    "description": "relation变更了哪些属性"
-                  }
-                ]
-              },
-              {
-                "name": "user",
-                "type": "string",
-                "description": "变更用户"
-              },
-              {
-                "name": "changeId",
-                "type": "int64",
-                "description": "变更的唯一id(ts)"
-              },
-              {
-                "name": "rollbackId",
-                "type": "int64",
-                "description": "rollbackId(当操作是rollback)时使用， 表明回退到哪个步骤"
-              },
-              {
-                "name": "ts",
-                "type": "int64",
-                "description": "变更时间戳"
-              },
-              {
-                "name": "oldHash",
-                "type": "string",
-                "description": "变更前内容Hash"
-              },
-              {
-                "name": "newHash",
-                "type": "string",
-                "description": "变更后内容Hash"
-              }
-            ]
+            "type": "WorkspaceChangeHistory[]",
+            "description": "变更历史列表"
           }
         ]
       },
@@ -6458,7 +6486,7 @@
             "headers": {
               "Content-Type": "application/json; charset=utf-8"
             },
-            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"ts\": 1697683490575143000,\n        \"list\": [\n            {\n                \"user\": \"easyops\",\n                \"action\": \"add\",\n                \"category\": \"brick\",\n                \"abstract\": {\n                    \"nodes\": \"修改确认弹窗\",\n                    \"nodesCount\": 1\n                },\n                \"uniqueKey\": \"606551146ac19\",\n                \"ts\": 1697683490575143000,\n                \"changeId\": 1697683490575143000,\n                \"oldHash\": \"\",\n                \"newHash\": \"da5c3fe88801b786\"\n            },\n            {\n                \"user\": \"janice\",\n                \"action\": \"rollback\",\n                \"changeId\": 1697683490575144000,\n                \"ts\": 1697683490575144000,\n                \"rollbackId\": 1697683490575143000\n            },\n            {\n                \"user\": \"easyops\",\n                \"action\": \"append_relation\",\n                \"relationId\": \"STORYBOARD_TEMPLATE_Project_Templates_PROJECT_MICRO_APP\",\n                \"abstract\": {\n                    \"leftObjectId\": \"PROJECT_MICRO_APP\",\n                    \"leftNodes\": [\n                        \"\"\n                    ],\n                    \"leftNodesCount\": 1,\n                    \"rightObjectId\": \"STORYBOARD_TEMPLATE\",\n                    \"rightNodes\": [\n                        \"tpl-aaa-bbb\"\n                    ],\n                    \"rightNodesCount\": 1\n                },\n                \"uniqueKey\": \"606551146ac19|606551f92ad12\",\n                \"ts\": 1697683490575143000,\n                \"changeId\": 1697683490575143000,\n                \"oldHash\": \"b83f0932121f1dfa\",\n                \"newHash\": \"da5c3fe88801b786\"\n            }\n        ]\n    }\n}"
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"ts\": \"1697683490575143000\",\n        \"list\": [\n            {\n                \"user\": \"easyops\",\n                \"action\": \"add\",\n                \"category\": \"brick\",\n                \"abstract\": {\n                    \"nodes\": \"修改确认弹窗\",\n                    \"nodesCount\": 1\n                },\n                \"uniqueKey\": \"606551146ac19\",\n                \"ts\": \"1697683490575143000\",\n                \"changeId\": \"1697683490575143000\",\n                \"oldHash\": \"\",\n                \"newHash\": \"da5c3fe88801b786\"\n            },\n            {\n                \"user\": \"janice\",\n                \"action\": \"rollback\",\n                \"changeId\": \"1697683490575144000\",\n                \"ts\": \"1697683490575144000\",\n                \"rollbackId\": \"1697683490575143000\",\n                \"rollbackIdInfo\": {\n                    \"user\": \"easyops\",\n                    \"action\": \"append_relation\",\n                    \"relationId\": \"STORYBOARD_TEMPLATE_Project_Templates_PROJECT_MICRO_APP\",\n                    \"abstract\": {\n                        \"leftObjectId\": \"PROJECT_MICRO_APP\",\n                        \"leftNodes\": [\n                            \"\"\n                        ],\n                        \"leftNodesCount\": 1,\n                        \"rightObjectId\": \"STORYBOARD_TEMPLATE\",\n                        \"rightNodes\": [\n                            \"tpl-aaa-bbb\"\n                        ],\n                        \"rightNodesCount\": 1\n                    },\n                    \"uniqueKey\": \"606551146ac19|606551f92ad12\",\n                    \"ts\": \"1697683490575143000\",\n                    \"changeId\": \"1697683490575143000\",\n                    \"oldHash\": \"b83f0932121f1dfa\",\n                    \"newHash\": \"da5c3fe88801b786\"\n                }\n            },\n            {\n                \"user\": \"easyops\",\n                \"action\": \"append_relation\",\n                \"relationId\": \"STORYBOARD_TEMPLATE_Project_Templates_PROJECT_MICRO_APP\",\n                \"abstract\": {\n                    \"leftObjectId\": \"PROJECT_MICRO_APP\",\n                    \"leftNodes\": [\n                        \"\"\n                    ],\n                    \"leftNodesCount\": 1,\n                    \"rightObjectId\": \"STORYBOARD_TEMPLATE\",\n                    \"rightNodes\": [\n                        \"tpl-aaa-bbb\"\n                    ],\n                    \"rightNodesCount\": 1\n                },\n                \"uniqueKey\": \"606551146ac19|606551f92ad12\",\n                \"ts\": \"1697683490575143000\",\n                \"changeId\": \"1697683490575143000\",\n                \"oldHash\": \"b83f0932121f1dfa\",\n                \"newHash\": \"da5c3fe88801b786\"\n            }\n        ]\n    }\n}"
           }
         }
       ]
@@ -6536,7 +6564,7 @@
           },
           {
             "name": "ts",
-            "type": "int64",
+            "type": "string",
             "description": "变更时间戳"
           }
         ],
@@ -6557,7 +6585,7 @@
               "Org": 8888,
               "User": "easyops"
             },
-            "body": "{\n    \"appId\": \"demo-app\",\n    \"ts\": 1697683490575143000\n}"
+            "body": "{\n    \"appId\": \"demo-app\",\n    \"ts\": \"1697683490575143000\"\n}"
           },
           "response": {
             "headers": {

@@ -3,6 +3,9 @@ import { http, HttpOptions } from "@next-core/http";
 export interface PackageAloneApi_AddDependenciesRequestBody {
   /** Dependencies */
   dependencies?: PackageAloneApi_AddDependenciesRequestBody_dependencies_item[];
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 /**

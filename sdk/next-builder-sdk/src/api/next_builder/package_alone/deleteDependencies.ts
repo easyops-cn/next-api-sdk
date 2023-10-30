@@ -3,6 +3,9 @@ import { http, HttpOptions } from "@next-core/http";
 export interface PackageAloneApi_DeleteDependenciesRequestParams {
   /** dependenciesName, 多个用,分割 */
   dependenciesName?: string;
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 /**

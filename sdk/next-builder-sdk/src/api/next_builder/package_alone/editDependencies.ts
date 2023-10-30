@@ -4,6 +4,9 @@ import { ModelMicroAppProject } from "../../../model/next_builder/index.js";
 export interface PackageAloneApi_EditDependenciesRequestBody {
   /** Dependencies */
   dependencies?: ModelMicroAppProject["dependencies"];
+
+  /** 是否记录变更历史 */
+  isRecordChangeHistory?: boolean;
 }
 
 /**
