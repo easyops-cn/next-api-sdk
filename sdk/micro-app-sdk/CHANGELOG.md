@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/micro-app-sdk@1.2.1...@next-api-sdk/micro-app-sdk@1.3.0) (2023-11-17)
+
+### Features
+
+- add apis: InstalledMicroAppApi_importWorkflows, MicroAppContainerApi_desktopItemSort, MicroAppContainerApi_updateDesktopItemContainer, MicroAppContainerApi_updateDesktopItemPermission, WorkflowApi_importUserGroups, WorkflowApi_triggerWhenDataChanged, WorkflowApi_updateStepData ([c8c0452](https://github.com/easyops-cn/next-api-sdk/commit/c8c0452ca544f956dff0807ef4a50e38e568f53a))
+
 ## [1.2.1](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/micro-app-sdk@1.2.0...@next-api-sdk/micro-app-sdk@1.2.1) (2023-05-30)
 
 **Note:** Version bump only for package @next-api-sdk/micro-app-sdk
