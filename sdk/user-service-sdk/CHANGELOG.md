@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/user-service-sdk@1.2.1...@next-api-sdk/user-service-sdk@1.3.0) (2023-11-17)
+
+### Features
+
+- add apis: LaunchpadApi_createCollectionV2, LaunchpadApi_deleteCollectionV2, LaunchpadApi_listCollectionV2 ([f0eddbd](https://github.com/easyops-cn/next-api-sdk/commit/f0eddbda06d443fe5c3fa90f0b1bfc2d7e014f5b))
+
 ## [1.2.1](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/user-service-sdk@1.2.0...@next-api-sdk/user-service-sdk@1.2.1) (2023-10-09)
 
 **Note:** Version bump only for package @next-api-sdk/user-service-sdk
