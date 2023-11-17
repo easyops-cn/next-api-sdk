@@ -981,6 +981,58 @@
       }
     },
     {
+      "contract": "user_service.launchpad.CreateCollectionV2",
+      "name": "CreateCollectionV2",
+      "version": "1.0.0",
+      "description": "新增我的收藏V2",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v2/launchpad/collection"
+      },
+      "import": ["easyops/model/user_service/launchpad_collection_v2"],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "LaunchpadCollectionV2.type"
+          },
+          {
+            "name": "relatedInstanceId",
+            "type": "string",
+            "description": "关联的microApp或者customItem的实例Id"
+          }
+        ],
+        "required": ["LaunchpadCollectionV2.type", "relatedInstanceId"]
+      },
+      "response": {
+        "type": "LaunchpadCollectionV2"
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Create collection v2",
+            "zh": "新增我的收藏V2"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8111/api/v2/launchpad/collection",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n    \"type\": \"microApp\",\n    \"relatedInstanceId\": \"6032b0f9a3d6d\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"instanceId\": \"5cb76b1845ec6\",\n    \"type\": \"microApp\",\n    \"relatedApp\": {\n        \"instanceId\": \"6032b0f9a3d6d\",\n        \"id\": \"app-deploy\",\n        \"name\": \"next 应用部署\",\n        \"homepage\": \"/app-deploy\",\n        \"menuIcon\": {\n            \"lib\": \"easyops\",\n            \"type\": \"\",\n            \"theme\": \"\",\n            \"icon\": \"cd-deploy\",\n            \"prefix\": \"\",\n            \"category\": \"app\",\n            \"color\": \"\",\n            \"imgSrc\": \"\"\n        },\n        \"locales\": {\n            \"en\": {\n                \"name\": \"App Deploy\"\n            },\n            \"zh\": {\n                \"name\": \"应用部署\"\n            }\n        }\n    },\n    \"relatedCustomItem\": null\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "user_service.launchpad.DeleteCollection",
       "name": "DeleteCollection",
       "version": "1.0.0",
@@ -1001,6 +1053,51 @@
         "required": ["instanceId"]
       },
       "response": null
+    },
+    {
+      "contract": "user_service.launchpad.DeleteCollectionV2",
+      "name": "DeleteCollectionV2",
+      "version": "1.0.0",
+      "description": "删除我的收藏V2",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v2/launchpad/collection/:instanceId"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "instance_id",
+            "description": "实例Id"
+          }
+        ],
+        "required": ["instanceId"]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "Delete collection v2",
+            "zh": "删除我的收藏V2"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://127.0.0.1:8111/api/v2/launchpad/collection/5cb76b1845ec6",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": null\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "user_service.launchpad.ListCollection",
@@ -1052,6 +1149,62 @@
           "launchpadCollection.instanceId"
         ]
       }
+    },
+    {
+      "contract": "user_service.launchpad.ListCollectionV2",
+      "name": "ListCollectionV2",
+      "version": "1.0.0",
+      "description": "获取我的收藏列表V2",
+      "endpoint": {
+        "method": "LIST",
+        "uri": "/api/v2/launchpad/collection"
+      },
+      "import": ["easyops/model/user_service/launchpad_collection_v2"],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "页大小"
+          }
+        ],
+        "default": {
+          "page": 1,
+          "pageSize": 10
+        }
+      },
+      "response": {
+        "type": "LaunchpadCollectionV2"
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "List collection v2",
+            "zh": "获取我的收藏列表V2"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8111/api/v2/launchpad/collection?page=1&pageSize=10",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"page\": 1,\n        \"page_size\": 25,\n        \"total\": 13,\n        \"list\": [\n            {\n                \"instanceId\": \"5cb76b1845ec6\",\n                \"type\": \"microApp\",\n                \"relatedApp\": {\n                    \"instanceId\": \"6032b0f9a3d6d\",\n                    \"id\": \"app-deploy\",\n                    \"name\": \"next 应用部署\",\n                    \"homepage\": \"/app-deploy\",\n                    \"menuIcon\": {\n                        \"lib\": \"easyops\",\n                        \"type\": \"\",\n                        \"theme\": \"\",\n                        \"icon\": \"cd-deploy\",\n                        \"prefix\": \"\",\n                        \"category\": \"app\",\n                        \"color\": \"\",\n                        \"imgSrc\": \"\"\n                    },\n                    \"locales\": {\n                        \"en\": {\n                            \"name\": \"App Deploy\"\n                        },\n                        \"zh\": {\n                            \"name\": \"应用部署\"\n                        }\n                    }\n                },\n                \"relatedCustomItem\": null\n            },\n            {\n                \"instanceId\": \"5cb76b1845ec6\",\n                \"type\": \"customItem\",\n                \"relatedCustomItem\": {\n                    \"instanceId\": \"6089893b13bed\",\n                    \"type\": \"custom\",\n                    \"id\": \"david_test\",\n                    \"name\": \"david_test\",\n                    \"url\": \"https://www.baidu.com\",\n                    \"menuIcon\": {\n                        \"lib\": \"antd\",\n                        \"type\": \"\",\n                        \"theme\": \"outlined\",\n                        \"icon\": \"cloud-server\",\n                        \"prefix\": \"\",\n                        \"category\": \"\",\n                        \"color\": \"\",\n                        \"imgSrc\": \"\"\n                    }\n                },\n                \"relatedApp\": null\n            }\n        ]\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "user_service.launchpad.SortCollection",

@@ -11,3 +11,5 @@ export * from "./api/user_service/recent_visited/index.js";
 export * from "./api/user_service/user_admin/index.js";
 export * as UserServiceModels from "./model/user_service/index.js";
 export * as CommonModels from "./model/common/index.js";
+export * as MicroAppModels from "./model/micro_app/index.js";
+export * as MicroAppStandaloneModels from "./model/micro_app_standalone/index.js";
