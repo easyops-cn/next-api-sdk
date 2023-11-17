@@ -19,6 +19,7 @@ export * as MicroAppModels from "./model/micro_app/index.js";
 export * as CmdbModels from "./model/cmdb/index.js";
 export * as CommonModels from "./model/common/index.js";
 export * as NextBuilderModels from "./model/next_builder/index.js";
+export * as MicroAppStandaloneModels from "./model/micro_app_standalone/index.js";
 export * as PermissionModels from "./model/permission/index.js";
 export * as ApiGatewayModels from "./model/api_gateway/index.js";
 export * as PipelineModels from "./model/pipeline/index.js";

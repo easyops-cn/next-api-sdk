@@ -12,5 +12,6 @@ export * from "./ModelMicroAppVersionLog.js";
 export * from "./ModelObjectMicroApp.js";
 export * from "./ModelMicroappapiorchestration.js";
 export * from "./ModelInstalledBricksNextPackage.js";
+export * from "./ModelStepConfig.js";
 export * from "./ModelStepStatus.js";
 export * from "./ModelBuildDetail.js";

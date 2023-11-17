@@ -1,4 +1,5 @@
-import { ModelInput, ModelBuildStatus } from "../pipeline/index.js";
+import { ModelDataDefinition } from "../next_builder/index.js";
+import { ModelBuildStatus } from "../pipeline/index.js";
 import { ModelStepStatus } from "./index.js";
 
 /** 工作流任务 */
@@ -6,11 +7,17 @@ export interface ModelBuildDetail {
   /** 任务id, 服务端自动生成 */
   id: string;
 
-  /** 项目id, 服务端自动生成 */
+  /** Project AppId */
   projectId: string;
 
-  /** 工作流id, 服务端自动生成 */
+  /** 工作流id */
   workflowId: string;
+
+  /** 工作流名称 */
+  workflowName: string;
+
+  /** 工作流的描述信息 */
+  description: string;
 
   /** 触发者，创建的时候传入，不能修改 */
   triggerer: string;
@@ -22,10 +29,10 @@ export interface ModelBuildDetail {
   yamlString: string;
 
   /** 输入 */
-  inputs: Partial<ModelInput>[];
+  inputs: Partial<ModelDataDefinition>[];
 
   /** 构建参数 */
-  buildVars: Partial<ModelInput>[];
+  buildVars: Record<string, any>;
 
   /** step 状态 */
   steps: Partial<ModelStepStatus>[];

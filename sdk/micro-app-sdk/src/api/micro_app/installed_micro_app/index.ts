@@ -8,6 +8,7 @@ export * from "./getMenusInfo.js";
 export * from "./getI18NData.js";
 export * from "./getOssObjectsStat.js";
 export * from "./importMicroApp.js";
+export * from "./importWorkflows.js";
 export * from "./listMicroApp.js";
 export * from "./getPackageReleaseList.js";
 export * from "./packageUpload.js";
