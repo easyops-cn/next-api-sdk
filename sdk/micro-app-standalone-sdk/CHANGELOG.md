@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/micro-app-standalone-sdk@1.1.1...@next-api-sdk/micro-app-standalone-sdk@1.2.0) (2023-11-17)
+
+### Features
+
+- add apis: LaunchpadApi_getLaunchpadConfig, ReportApi_buildBootstrapStandalone, ReportApi_getLackingDependencies, ReportApi_syncDependency ([98b994f](https://github.com/easyops-cn/next-api-sdk/commit/98b994f1bb27958145bcd5c954a75247669c0151))
+
 ## [1.1.1](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/micro-app-standalone-sdk@1.1.0...@next-api-sdk/micro-app-standalone-sdk@1.1.1) (2023-05-30)
 
 **Note:** Version bump only for package @next-api-sdk/micro-app-standalone-sdk
