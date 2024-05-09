@@ -89,9 +89,105 @@
             "name": "userShowValue",
             "type": "string[]",
             "description": "主名称 次名称"
+          },
+          {
+            "name": "accessToken",
+            "type": "string",
+            "description": "SSO OAuth2 授权登录场景下，认证中心签发的令牌"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "check login",
+            "zh": "判断用户是否登录"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8107/api/auth/login"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"loggedIn\": true,\n        \"username\": \"easyops\",\n        \"org\": 8888,\n        \"location\": \"\",\n        \"userInstanceId\": \"5dc1e51810dc4\",\n        \"loginFrom\": \"\",\n        \"accessRule\": \"\",\n        \"isAdmin\": true,\n        \"csrfToken\": \"\",\n        \"accessToken\": \"\",\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "api_gateway.auth.CheckLoginByName",
+      "category": {
+        "en": "auth",
+        "zh": "认证"
+      },
+      "name": "CheckLoginByName",
+      "version": "1.2.0",
+      "description": "判断用户是否登录",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/auth/user/check/login"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "username",
+            "type": "user_name",
+            "description": "用户名"
+          },
+          {
+            "name": "org",
+            "type": "org",
+            "description": "客户id"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "loggedIn",
+            "type": "bool",
+            "description": "是否已经登录"
+          },
+          {
+            "name": "username",
+            "type": "user_name",
+            "description": "用户名"
+          },
+          {
+            "name": "org",
+            "type": "org",
+            "description": "客户id"
+          },
+          {
+            "name": "loginSession",
+            "type": "string",
+            "description": "登录Session"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "check login by name",
+            "zh": "通过用户名是否登录"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8107/api/auth/user/check/login"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"loggedIn\": true,\n        \"username\": \"easyops\",\n        \"org\": 8888\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "api_gateway.auth.GetCaptcha",
@@ -277,6 +373,22 @@
             "name": "csrfToken",
             "type": "string",
             "description": "csrf_token，开启了csrf特性才返回值"
+          },
+          {
+            "name": "changePasswordRequired",
+            "type": "bool",
+            "description": "是否需要修改密码（开启 check-password-security 特性时, 初次登录和密码过期时需要修改密码）"
+          },
+          {
+            "name": "changePasswordReason",
+            "type": "string",
+            "enum": ["firstLogin", "expired"],
+            "description": "修改密码的具体原因（firstLogin:初次登录, expired:密码已过期）"
+          },
+          {
+            "name": "passwordRemainingDays",
+            "type": "int",
+            "description": "密码有效期剩余时间（当 changePasswordRequired 为 true 时，这个值为 -1）"
           }
         ]
       },
@@ -301,7 +413,7 @@
               "X-B3-Traceid": "8fffffffffffffff6c1e84cea8ce252c"
             },
             "status_code": 200,
-            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"loggedIn\": true,\n        \"username\": \"easyops\",\n        \"org\": 2988466,\n        \"location\": \"\",\n        \"userInstanceId\": \"5b1338f33ee9c\",\n        \"loginFrom\": \"\",\n        \"accessRule\": \"\",\n        \"isAdmin\": true,\n        \"csrfToken\": \"\"\n    }\n}"
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"loggedIn\": true,\n        \"username\": \"easyops\",\n        \"org\": 2988466,\n        \"location\": \"\",\n        \"userInstanceId\": \"5b1338f33ee9c\",\n        \"loginFrom\": \"\",\n        \"accessRule\": \"\",\n        \"isAdmin\": true,\n        \"csrfToken\": \"\",\n        \"changePasswordRequired\": true,\n        \"changePasswordReason\": \"firstLogin\",\n        \"passwordRemainingDays\": 30,\n    }\n}"
           }
         }
       ]
@@ -609,6 +721,86 @@
             },
             "status_code": 200,
             "body": "{\n  \"code\": 0,\n  \"error\": \"\",\n  \"message\": \"\",\n  \"data\": {\n      \"name\": \"test_user\",\n      \"email\": \"test_user@easyops.cn\",\n      \"org\": 1234,\n      \"loggedIn\": true,\n      \"username\": \"test_user\",\n      \"location\": \"\",\n      \"userInstanceId\": \"5d4321334842b\",\n      \"loginFrom\": \"\",\n      \"accessRule\": \"\",\n      \"isAdmin\": false\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "api_gateway.auth.SwitchOrg",
+      "category": {
+        "en": "auth",
+        "zh": "认证"
+      },
+      "name": "SwitchOrg",
+      "version": "1.0.0",
+      "description": "多组织用户切换组织",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/auth/login/switch_org"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "org",
+            "type": "org",
+            "description": "切换到哪个组织 (具体是哪个用户切换组织，从 context 中获取 username)"
+          }
+        ],
+        "required": ["org"]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "username",
+            "type": "user_name",
+            "description": "用户名"
+          },
+          {
+            "name": "org",
+            "type": "org",
+            "description": "组织 org"
+          },
+          {
+            "name": "userInstanceId",
+            "type": "instance_id",
+            "description": "用户 id"
+          },
+          {
+            "name": "isAdmin",
+            "type": "bool",
+            "description": "判断当前登录用户是否是系统管理员"
+          },
+          {
+            "name": "userShowValue",
+            "type": "string[]",
+            "description": "主名称 次名称"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "SwitchOrg",
+            "zh": "多组织用户切换组织"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8104/api/auth/login/switch",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"org\":      8888,\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8",
+              "Set-Cookie": "PHPSESSID=VFMTWAJHYRCMUWODZMVGHPSMV4UXCDN4Q3OKODAQAQBZYTUH2QDA; Path=/; Expires=Tue, 28 Dec 2021 11:45:20 GMT; Max-Age=7200",
+              "X-B3-Traceid": "8fffffffffffffff6c1e84cea8ce252c"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"username\": \"easyops\",\n        \"org\": 2988466,\n        \"userInstanceId\": \"5b1338f33ee9c\",\n        \"isAdmin\": true,\n        \"userShowValue\": [],\n    }\n}"
           }
         }
       ]
@@ -927,6 +1119,46 @@
       "response": {
         "type": "StoryBoard"
       }
+    },
+    {
+      "contract": "api_gateway.bootstrap_standalone.BatchDeleteBootstrapStandaloneCache",
+      "category": {
+        "en": "Bootstrap Standalone",
+        "zh": "独立部署Bootstrap"
+      },
+      "name": "BatchDeleteBootstrapStandaloneCache",
+      "version": "1.0.0",
+      "description": "批量删除独立小产品主页缓存",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/bootstrap_standalone_cache/batch_delete"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "homePage",
+            "type": "string[]",
+            "description": "主页"
+          }
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "Batch Delete bootstrap standalone home page cache",
+            "zh": "批量删除独立小产品主页缓存"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://127.0.0.1:8104/api/v1/bootstrap_standalone_cache/batch_delete"
+          },
+          "response": {
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": null\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "api_gateway.bootstrap_standalone.DeleteBootstrapStandaloneCache",
@@ -1466,6 +1698,71 @@
       }
     },
     {
+      "contract": "api_gateway.custom_auth_config.CreateBackendNode",
+      "name": "CreateBackendNode",
+      "version": "1.4.0",
+      "description": "创建后端节点",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/api_gateway/backend_node"
+      },
+      "import": ["easyops/model/api_gateway/backend_node"],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "node",
+            "type": "BackendNode",
+            "description": "节点"
+          },
+          {
+            "name": "serviceInstanceIds",
+            "type": "instance_id[]",
+            "description": "关联的服务ID列表"
+          }
+        ],
+        "required": [
+          "node.ip",
+          "node.port",
+          "node.scheme",
+          "node.weight",
+          "node.enabled"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "instance_id",
+            "description": "节点id"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "CreateBackendNode",
+            "zh": "创建后端节点"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8107/api/v1/api_gateway/backend_node",
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"serviceInstanceIds\": [\"5aaec6de45fd6\"],\n  \"node\": {\n    \"ip\":\"172.30.0.90\",\n    \"port\":8888,\n    \"scheme\":\"http\",\n    \"enabled\":true,\n    \"weight\":100\n  },\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"data\": {\n    \"instanceId\": \"5aaec6de45fe7\"  \n  },\n    \"error\": \"\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "api_gateway.custom_auth_config.CreateCustomAuthConfig",
       "name": "CreateCustomAuthConfig",
       "version": "1.4.0",
@@ -1811,6 +2108,85 @@
               "Content-Type": "application/json; charset=utf-8"
             },
             "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"data\": {\n    \"instanceId\": \"5aaec6de45fe7\",\n    \"serviceInstanceIds\": [\n      \"5aaec6de45fc5\",\n      \"5aaec6de45fd6\"\n    ],\n    \"configName\": \"oauth2\",\n    \"description\": \"测试服务\",\n    \"authType\": \"oauth2\",\n    \"authConfig\": {\n      \"configPosition\": \"header\",\n      \"configKey\": \"Authorization\",\n      \"configValuePrefix\": \"Bearer \",\n      \"configEnv\": [\n        {\n          \"key\": \"k1\",\n          \"value\": \"v1\"\n        }\n      ],\n      \"oauth2\": {\n        \"accessTokenUrl\": \"http://127.0.0.1/oauth/accessToken\",\n        \"accessTokenMethod\": \"POST\",\n        \"accessTokenHeader\": [\n          {\n            \"key\": \"k1\",\n            \"value\": \"v1\"\n          }\n        ],\n        \"accessTokenParams\": [],\n        \"accessTokenBodyType\": \"json\",\n        \"accessTokenBodyJson\": {\n          \"k1\": \"accessTokenBody类型不定，可能是数组\"\n        },\n        \"accessTokenBodyUrlEncoded\": null,\n        \"expireTime\": 7200,\n        \"accessTokenJsonPath\": \"access_token\"\n      },\n      \"basicAuth\": null,\n      \"apiKey\": null\n    }\n  },\n  \"error\": \"\"\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "api_gateway.custom_auth_config.UpdateBackendNode",
+      "name": "UpdateBackendNode",
+      "version": "1.4.0",
+      "description": "更新后端节点",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/api_gateway/backend_node"
+      },
+      "import": ["easyops/model/api_gateway/backend_node"],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "node",
+            "type": "BackendNode",
+            "description": "节点"
+          },
+          {
+            "name": "serviceOperation",
+            "type": "object[]",
+            "description": "解绑或者绑定服务",
+            "fields": [
+              {
+                "name": "operate",
+                "type": "string",
+                "enum": ["append", "remove"],
+                "description": "绑定/解绑"
+              },
+              {
+                "name": "instanceId",
+                "type": "instance_id",
+                "description": "服务实例id"
+              }
+            ]
+          }
+        ],
+        "required": [
+          "node.ip",
+          "node.port",
+          "node.scheme",
+          "node.weight",
+          "node.enabled",
+          "node.instanceId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "instance_id",
+            "description": "节点id"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "UpdateBackendNode",
+            "zh": "更新后端节点"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8107/api/v1/api_gateway/backend_node",
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"serviceInstanceIds\": [\"5aaec6de45fd6\"],\n  \"node\": {\n    \"ip\":\"172.30.0.90\",\n    \"port\":8888,\n    \"scheme\":\"http\",\n    \"enabled\":true,\n    \"weight\":100\n  },\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"data\": {\n    \"instanceId\": \"5aaec6de45fe7\"  \n  },\n    \"error\": \"\"\n  }\n}"
           }
         }
       ]
@@ -2384,17 +2760,57 @@
     {
       "contract": "api_gateway.sso.SSOAuthorizeRedirect",
       "name": "SSOAuthorizeRedirect",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "SSO访问令牌认证; SSO身份认证成功后认证服务将会携带 登录凭证 重定向至该接口",
       "detail": "该接口最后会直接重定向到easyops平台的/next/sso-auth/authorize页面，可以是GET请求也可以是POST请求",
       "endpoint": {
         "method": "POST",
-        "uri": "/api/v2/sso/authorization"
+        "uri": "/api/v2/sso/authorization/:protocol",
+        "ext_fields": [
+          {
+            "name": "body",
+            "source": "body"
+          }
+        ]
       },
       "request": {
-        "type": "value"
+        "type": "object",
+        "fields": [
+          {
+            "name": "protocol",
+            "type": "string",
+            "description": "身份认证协议类型, 如OAuth2、cas等"
+          },
+          {
+            "name": "body",
+            "type": "value",
+            "description": "认证参数"
+          }
+        ]
       },
-      "response": null
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "SSOAuthorizeRedirect",
+            "zh": "sso 认证重定向接口"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8107/api/v2/sso/authorization/oauth2",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n        \"token\": \"5444212577\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"成功: Success\",\n    \"message\": \"Success\",\n    \"data\": null\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "api_gateway.sso.SSOLogin",
@@ -2498,6 +2914,201 @@
           }
         ]
       }
+    },
+    {
+      "contract": "api_gateway.sso.ValidateAccessToken",
+      "name": "ValidateAccessToken",
+      "version": "1.0.0",
+      "description": "云盾平台子系统校验access token， 使用HEADER携带AccessToken",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/sso/auth/token/validate"
+      },
+      "request": null,
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "username",
+            "type": "string",
+            "description": "用户名"
+          },
+          {
+            "name": "userId",
+            "type": "string",
+            "description": "用户ID"
+          },
+          {
+            "name": "expired",
+            "type": "int",
+            "description": "access token过期时长"
+          },
+          {
+            "name": "nickname",
+            "type": "string",
+            "description": "昵称"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "ValidateAccessToken",
+            "zh": "云盾平台子系统校验access token， 使用HEADER携带AccessToken"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8107/api/v1/sso/auth/token/validate",
+            "headers": {
+              "AccessToken": "UTQVYYK57WRALIPCZYO27XRTWWGLJ4CGA5RWL6N7MUNTWKYWOGFA"
+            }
+          },
+          "response": {
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"codeExplain\": \"\",\n    \"data\": {\n        \"username\": \"demo\",\n        \"userId\": \"xxx\",\n        \"expired\": 7200,\n        \"nickname\": \"\"\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "api_gateway.sso_server.OauthAccessToken",
+      "name": "OauthAccessToken",
+      "version": "1.0.0",
+      "description": "oauth2授权码模式，获取accessToken接口",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/api_gateway/sso_server/oauth2/access_token"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "client_id",
+            "type": "string",
+            "description": "clientId",
+            "validate": {
+              "pattern": "^[0-9a-z]{20}$"
+            }
+          },
+          {
+            "name": "client_secret",
+            "type": "string",
+            "description": "可信任的密钥凭证"
+          },
+          {
+            "name": "redirect_uri",
+            "type": "url",
+            "description": "重定向uri"
+          },
+          {
+            "name": "code",
+            "type": "string",
+            "description": "授权码，这里传拿到的授权码"
+          },
+          {
+            "name": "grant_type",
+            "type": "string",
+            "description": "授权类型，这里是使用授权码，传authorization_code"
+          }
+        ],
+        "required": ["client_id", "redirect_uri", "grant_type", "code"]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "access_token",
+            "type": "string",
+            "description": "生成的accessToken"
+          },
+          {
+            "name": "expires_in",
+            "type": "int64",
+            "description": "超时时间，单位秒"
+          },
+          {
+            "name": "token_type",
+            "type": "string",
+            "description": "访问令牌的类型，通常值为 \"Bearer\""
+          },
+          {
+            "name": "scope",
+            "type": "string",
+            "description": "表示访问令牌的范围"
+          },
+          {
+            "name": "refresh_token",
+            "type": "string",
+            "description": "refresh_token，这里先声明这个字段，暂不生成"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "OauthAccessToken",
+            "zh": "oauth2授权码模式，获取accessToken接口"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8107/api/v1/api_gateway/sso_server/oauth2/access_token",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n    \"redirect_uri\": \"http://your_redirect_uri\",\n    \"client_id\": \"your_client_id\",\n    \"client_secret\": \"your_client_secret\",\n    \"code\": \"your_authorization_code\",\n    \"grant_type\": \"authorization_code\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n   \"access_token\": \"your_access_token\",\n   \"token_type\": \"Bearer\",\n   \"scope\": \"read\",\n   \"expires_in\": 3600,\n   \"refresh_token\": \"\"\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "api_gateway.sso_server.OauthUserInfo",
+      "name": "OauthUserInfo",
+      "version": "1.0.0",
+      "description": "oauth2授权码模式，获取userInfo接口",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/api_gateway/sso_server/oauth2/user_info"
+      },
+      "request": null,
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "sub",
+            "type": "string",
+            "description": "用户信息"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "OauthUserInfo",
+            "zh": "oauth2授权码模式，获取userInfo接口"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://localhost:8107/api/v1/api_gateway/sso_server/oauth2/user_info",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {your_access_token}"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n   \"sub\": \"user_id\"\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "api_gateway.union_pay.UnionPayLogin",

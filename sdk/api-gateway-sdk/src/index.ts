@@ -9,6 +9,7 @@ export * from "./api/api_gateway/mfa/index.js";
 export * from "./api/api_gateway/oauth/index.js";
 export * from "./api/api_gateway/org/index.js";
 export * from "./api/api_gateway/sso/index.js";
+export * from "./api/api_gateway/sso_server/index.js";
 export * from "./api/api_gateway/union_pay/index.js";
 export * from "./api/api_gateway/walmart/index.js";
 export * from "./api/api_gateway/wechat/index.js";

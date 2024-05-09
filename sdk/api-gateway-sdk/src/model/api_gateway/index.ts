@@ -3,6 +3,7 @@ export * from "./ModelStoryBoard.js";
 export * from "./ModelDesktopItem.js";
 export * from "./ModelDesktop.js";
 export * from "./ModelSiteMap.js";
+export * from "./ModelBackendNode.js";
 export * from "./ModelCustomAuthConfigBasicAuth.js";
 export * from "./ModelCustomAuthConfigApiKey.js";
 export * from "./ModelCustomAuthConfigOAuth2.js";

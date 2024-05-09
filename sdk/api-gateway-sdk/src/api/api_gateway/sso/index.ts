@@ -6,3 +6,4 @@ export * from "./ssoAuthorizeRedirect.js";
 export * from "./ssoLogin.js";
 export * from "./ssoLogout.js";
 export * from "./ssoLogoutV2.js";
+export * from "./validateAccessToken.js";

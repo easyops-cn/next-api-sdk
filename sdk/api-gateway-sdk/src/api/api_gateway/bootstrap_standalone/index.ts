@@ -1,3 +1,4 @@
+export * from "./batchDeleteBootstrapStandaloneCache.js";
 export * from "./deleteBootstrapStandaloneCache.js";
 export * from "./deleteLaunchpadEtagCache.js";
 export * from "./getBrandFavicon.js";
