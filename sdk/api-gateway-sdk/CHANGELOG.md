@@ -3,13 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/api-gateway-sdk@1.2.1...@next-api-sdk/api-gateway-sdk@1.2.2) (2025-01-09)
+
+### Bug Fixes
+
+- update apis of api gateway ([ad60abd](https://github.com/easyops-cn/next-api-sdk/commit/ad60abdb0c25143087a0ecd84862798e5190bb50))
+
 ## [1.2.1](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/api-gateway-sdk@1.2.0...@next-api-sdk/api-gateway-sdk@1.2.1) (2024-08-06)
 
 **Note:** Version bump only for package @next-api-sdk/api-gateway-sdk
-
-
-
-
 
 # [1.2.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/api-gateway-sdk@1.1.2...@next-api-sdk/api-gateway-sdk@1.2.0) (2024-05-09)
 
