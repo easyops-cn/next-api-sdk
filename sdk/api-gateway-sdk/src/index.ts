@@ -13,6 +13,7 @@ export * from "./api/api_gateway/sso_server/index.js";
 export * from "./api/api_gateway/union_pay/index.js";
 export * from "./api/api_gateway/walmart/index.js";
 export * from "./api/api_gateway/wechat/index.js";
+export * from "./api/api_gateway/wechat_llm/index.js";
 export * from "./api/api_gateway/wechat_miniprogram/index.js";
 export * as ApiGatewayModels from "./model/api_gateway/index.js";
 export * as MicroAppModels from "./model/micro_app/index.js";

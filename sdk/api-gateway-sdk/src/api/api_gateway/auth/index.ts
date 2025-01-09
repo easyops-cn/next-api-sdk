@@ -10,3 +10,4 @@ export * from "./registerV2.js";
 export * from "./switchOrg.js";
 export * from "./tokenLdapLogin.js";
 export * from "./tokenLogin.js";
+export * from "./userNameAuthorization.js";

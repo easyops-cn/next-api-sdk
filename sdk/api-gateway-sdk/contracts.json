@@ -82,6 +82,11 @@
                 "name": "validDaysLeft",
                 "type": "int",
                 "description": "剩余有效天数"
+              },
+              {
+                "name": "blackList",
+                "type": "string[]",
+                "description": "黑名单url列表"
               }
             ]
           },
@@ -240,7 +245,10 @@
             "description": "指定 ldapServer"
           }
         ],
-        "required": ["loginId", "password"]
+        "required": [
+          "loginId",
+          "password"
+        ]
       },
       "response": {
         "type": "object",
@@ -321,7 +329,10 @@
             "description": "校验密码的方式 easyops: 校验 easyops 的账号密码 custom:  通过客户自定义方式校验, 这种方式需要在 sso-adapter 实现和客户对接的逻辑 ldap:    通过 ldap 校验密码"
           }
         ],
-        "required": ["username", "password"],
+        "required": [
+          "username",
+          "password"
+        ],
         "default": {
           "loginBy": "easyops"
         }
@@ -382,7 +393,10 @@
           {
             "name": "changePasswordReason",
             "type": "string",
-            "enum": ["firstLogin", "expired"],
+            "enum": [
+              "firstLogin",
+              "expired"
+            ],
             "description": "修改密码的具体原因（firstLogin:初次登录, expired:密码已过期）"
           },
           {
@@ -747,7 +761,9 @@
             "description": "切换到哪个组织 (具体是哪个用户切换组织，从 context 中获取 username)"
           }
         ],
-        "required": ["org"]
+        "required": [
+          "org"
+        ]
       },
       "response": {
         "type": "object",
@@ -838,7 +854,10 @@
             "description": "指定 ldapServer"
           }
         ],
-        "required": ["loginId", "password"]
+        "required": [
+          "loginId",
+          "password"
+        ]
       },
       "response": {
         "type": "object",
@@ -914,7 +933,10 @@
             "description": "密码"
           }
         ],
-        "required": ["username", "password"]
+        "required": [
+          "username",
+          "password"
+        ]
       },
       "response": {
         "type": "object",
@@ -982,6 +1004,72 @@
             },
             "status_code": 200,
             "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {\n      \"loggedIn\": true,\n      \"username\": \"test_user\",\n      \"org\": 1234,\n      \"location\": \"\",\n      \"userInstanceId\": \"5b1338f33ee9c\",\n      \"loginFrom\": \"\",\n      \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMGMzZTNjOS01NTQ4LTRmYzMtYjJlYi1mNjZmZTZjYzMyYWUiLCJvcmciOjI5ODg0NjYsInVzZXIiOiJlYXN5b3BzIiwiZXhwIjoxNjQwNzAzOTEzLCJncmFudF90eXBlIjoiYWNjZXNzIn0.Bss0M3iIFYld_BkFjC-DJQJ1x335OJr_vJq9aGIXEpktsmqZhFQ662LAkZivizJ0DYGt-PoBOLYaFW_OWhFf39irhIrJ-Iqfwo0I1oASGLlWFm5vhvuvNjS4oUWVHU3DoGAei0IwpSZ-BT-2mOgRKpA_vTgAVOTX40-kOCSi8dmmfIbDoeI51oud6A8lpWNXHtFT4cdJoinfYIVoDFqzKstRNeLCjYl88IXvIkX5K9u_SapAFnTTzcIGJKtvRfzeGBf_imihpz5z7lbOSZ0-Apxz28UgXlFc1PZnQ3J4tN4xtjQuZHCY0_xBeqMrYifxfqhZCXdxWExcLNrKDdo62Q\",\n      \"refreshToken\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlNzM4ZmI0My01ODJmLTQwZjMtOWU0Yy1jODc3NTU0OGNhZjgiLCJvcmciOjI5ODg0NjYsInVzZXIiOiJlYXN5b3BzIiwiZXhwIjoxNjQxOTk2MzEzLCJncmFudF90eXBlIjoicmVmcmVzaCJ9.DWqvD3YKGofZRguinTTKEk1kfolSZk5kVkSpk6rfrkx2kgF97vjLKnWutGKQNgPwma8B8rOWtzvQjHaNDUGw_JTvrwvddBzlcPXEXkX72TwPbCZbNQo5IMCMpAxCS9hgv9ADbZytXLvCXNRuALwQss3xjvSz93F-b2NpX7Q1sG4AeCQNYrdLbQrNWLCzCwG4d6MFpGelGd7z67p6OKfYo4SiVU89Z_ZsPyllBh1MM-PwEAkDXhMP5HJi-TjG7W6zd1HdNehHmEdrn-FTEI_zyRz6eI1TSfmr6azz66mrGUk5NTUZv_dEmfWYXvvojZ3WL4bwK6uPvndJURwLNGUMWw\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "api_gateway.auth.UserNameAuthorization",
+      "category": {
+        "en": "auth",
+        "zh": "认证"
+      },
+      "name": "UserNameAuthorization",
+      "version": "1.0.0",
+      "description": "用户名认证，通过返回token",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/auth/username/authorization"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "encryptedData",
+            "type": "string",
+            "description": "rsa公钥加密后的认证参数"
+          }
+        ],
+        "required": [
+          "encryptedData"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "token",
+            "type": "string",
+            "description": "认证 token"
+          },
+          {
+            "name": "refreshToken",
+            "type": "string",
+            "description": "更新 token"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "UserName Authorization",
+            "zh": "用户名认证，通过返回token"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8104/api/auth/username/authorization",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"encryptedData\": \"encrypted test_user\",\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8",
+              "X-B3-Traceid": "8fffffffffffffff6c1e84cea8ce252c"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {\n      \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMGMzZTNjOS01NTQ4LTRmYzMtYjJlYi1mNjZmZTZjYzMyYWUiLCJvcmciOjI5ODg0NjYsInVzZXIiOiJlYXN5b3BzIiwiZXhwIjoxNjQwNzAzOTEzLCJncmFudF90eXBlIjoiYWNjZXNzIn0.Bss0M3iIFYld_BkFjC-DJQJ1x335OJr_vJq9aGIXEpktsmqZhFQ662LAkZivizJ0DYGt-PoBOLYaFW_OWhFf39irhIrJ-Iqfwo0I1oASGLlWFm5vhvuvNjS4oUWVHU3DoGAei0IwpSZ-BT-2mOgRKpA_vTgAVOTX40-kOCSi8dmmfIbDoeI51oud6A8lpWNXHtFT4cdJoinfYIVoDFqzKstRNeLCjYl88IXvIkX5K9u_SapAFnTTzcIGJKtvRfzeGBf_imihpz5z7lbOSZ0-Apxz28UgXlFc1PZnQ3J4tN4xtjQuZHCY0_xBeqMrYifxfqhZCXdxWExcLNrKDdo62Q\",\n      \"refreshToken\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlNzM4ZmI0My01ODJmLTQwZjMtOWU0Yy1jODc3NTU0OGNhZjgiLCJvcmciOjI5ODg0NjYsInVzZXIiOiJlYXN5b3BzIiwiZXhwIjoxNjQxOTk2MzEzLCJncmFudF90eXBlIjoicmVmcmVzaCJ9.DWqvD3YKGofZRguinTTKEk1kfolSZk5kVkSpk6rfrkx2kgF97vjLKnWutGKQNgPwma8B8rOWtzvQjHaNDUGw_JTvrwvddBzlcPXEXkX72TwPbCZbNQo5IMCMpAxCS9hgv9ADbZytXLvCXNRuALwQss3xjvSz93F-b2NpX7Q1sG4AeCQNYrdLbQrNWLCzCwG4d6MFpGelGd7z67p6OKfYo4SiVU89Z_ZsPyllBh1MM-PwEAkDXhMP5HJi-TjG7W6zd1HdNehHmEdrn-FTEI_zyRz6eI1TSfmr6azz66mrGUk5NTUZv_dEmfWYXvvojZ3WL4bwK6uPvndJURwLNGUMWw\"\n  }\n}"
           }
         }
       ]
@@ -1100,7 +1188,9 @@
         "method": "GET",
         "uri": "/api/auth/bootstrap/:appId"
       },
-      "import": ["easyops/model/api_gateway/storyboard"],
+      "import": [
+        "easyops/model/api_gateway/storyboard"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1215,6 +1305,51 @@
       },
       "request": null,
       "response": null
+    },
+    {
+      "contract": "api_gateway.bootstrap_standalone.DeleteResourcesRedisCache",
+      "category": {
+        "en": "Bootstrap Standalone",
+        "zh": "独立部署Bootstrap"
+      },
+      "name": "DeleteResourcesRedisCache",
+      "version": "1.0.0",
+      "description": "删除资源的redis缓存",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/resources/redis_cache"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "resourcePkgNames",
+            "type": "string",
+            "description": "资源包名字,多个用,分开"
+          },
+          {
+            "name": "moduleIds",
+            "type": "string",
+            "description": "模块id, 多个用,分开"
+          }
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "删除资源的redis缓存",
+            "en": "DeleteResourcesRedisCache"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://127.0.0.1:8104/api/v1/resources/redis_cache?moduleId=devops"
+          },
+          "response": {
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": null\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "api_gateway.bootstrap_standalone.GetBrandFavicon",
@@ -1371,7 +1506,9 @@
         "method": "GET",
         "uri": "/api/v1/runtime_standalone"
       },
-      "import": ["easyops/model/api_gateway/settings"],
+      "import": [
+        "easyops/model/api_gateway/settings"
+      ],
       "request": null,
       "response": {
         "type": "object",
@@ -1578,7 +1715,9 @@
         "method": "GET",
         "uri": "/api/auth/v2/bootstrap/:appId"
       },
-      "import": ["easyops/model/api_gateway/storyboard"],
+      "import": [
+        "easyops/model/api_gateway/storyboard"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1684,7 +1823,10 @@
             "description": "契约版本"
           }
         ],
-        "required": ["contractName", "version"]
+        "required": [
+          "contractName",
+          "version"
+        ]
       },
       "response": {
         "type": "object",
@@ -1706,7 +1848,9 @@
         "method": "POST",
         "uri": "/api/v1/api_gateway/backend_node"
       },
-      "import": ["easyops/model/api_gateway/backend_node"],
+      "import": [
+        "easyops/model/api_gateway/backend_node"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1771,7 +1915,9 @@
         "method": "POST",
         "uri": "/api/v1/api_gateway/custom_auth_config"
       },
-      "import": ["easyops/model/api_gateway/custom_auth_config"],
+      "import": [
+        "easyops/model/api_gateway/custom_auth_config"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1844,7 +1990,9 @@
             "description": "实例ID"
           }
         ],
-        "required": ["instanceId"]
+        "required": [
+          "instanceId"
+        ]
       },
       "response": null,
       "examples": [
@@ -1893,7 +2041,9 @@
             "description": "多个字段用逗号分割(默认返回全部字段)"
           }
         ],
-        "required": ["instanceId"]
+        "required": [
+          "instanceId"
+        ]
       },
       "response": {
         "type": "map"
@@ -2008,7 +2158,9 @@
         "method": "POST",
         "uri": "/api/v1/api_gateway/custom_auth_config/oauth2_access_token/debug"
       },
-      "import": ["easyops/model/api_gateway/custom_auth_config_oauth2"],
+      "import": [
+        "easyops/model/api_gateway/custom_auth_config_oauth2"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -2056,7 +2208,9 @@
         "method": "PUT",
         "uri": "/api/v1/api_gateway/custom_auth_config/:instanceId"
       },
-      "import": ["easyops/model/api_gateway/custom_auth_config"],
+      "import": [
+        "easyops/model/api_gateway/custom_auth_config"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -2121,7 +2275,9 @@
         "method": "PUT",
         "uri": "/api/v1/api_gateway/backend_node"
       },
-      "import": ["easyops/model/api_gateway/backend_node"],
+      "import": [
+        "easyops/model/api_gateway/backend_node"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -2138,7 +2294,10 @@
               {
                 "name": "operate",
                 "type": "string",
-                "enum": ["append", "remove"],
+                "enum": [
+                  "append",
+                  "remove"
+                ],
                 "description": "绑定/解绑"
               },
               {
@@ -2215,7 +2374,10 @@
             "description": "密码"
           }
         ],
-        "required": ["username", "password"]
+        "required": [
+          "username",
+          "password"
+        ]
       },
       "response": {
         "type": "object",
@@ -2300,7 +2462,9 @@
             "description": "org"
           }
         ],
-        "required": ["username"]
+        "required": [
+          "username"
+        ]
       },
       "response": {
         "type": "object",
@@ -2346,7 +2510,10 @@
             "description": "密钥"
           }
         ],
-        "required": ["username", "secret"]
+        "required": [
+          "username",
+          "secret"
+        ]
       },
       "response": null
     },
@@ -2383,7 +2550,12 @@
             "description": "动态码"
           }
         ],
-        "required": ["username", "verifyCode", "userInstanceId", "org"]
+        "required": [
+          "username",
+          "verifyCode",
+          "userInstanceId",
+          "org"
+        ]
       },
       "response": {
         "type": "object",
@@ -2454,7 +2626,11 @@
             "description": "登陆方式，目前支持[\"easyops\", \"ldap\", \"custom\"]"
           }
         ],
-        "required": ["username", "org", "loginBy"]
+        "required": [
+          "username",
+          "org",
+          "loginBy"
+        ]
       },
       "response": {
         "type": "object",
@@ -2496,7 +2672,9 @@
             "description": "state"
           }
         ],
-        "required": ["code"]
+        "required": [
+          "code"
+        ]
       },
       "response": null
     },
@@ -2519,7 +2697,9 @@
             "description": "service"
           }
         ],
-        "required": ["service"]
+        "required": [
+          "service"
+        ]
       },
       "response": null
     },
@@ -2560,7 +2740,7 @@
           },
           {
             "name": "password",
-            "type": "password",
+            "type": "string",
             "description": "密码"
           },
           {
@@ -2624,7 +2804,29 @@
             "description": "判断当前登录用户是否是系统管理员"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "saas注册org",
+            "eb": "SaaSOrgRegister"
+          },
+          "request": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "method": "POST",
+            "uri": "http://127.0.0.1:8107//api/org/saas-org-register",
+            "body": "{\n    \"username\": \"easyops\",\n    \"password\": \"test\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"loggedIn\": true\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "api_gateway.sso.SAMLAuthorization",
@@ -2837,7 +3039,10 @@
           {
             "name": "method",
             "type": "string",
-            "enum": ["POST", "GET"],
+            "enum": [
+              "POST",
+              "GET"
+            ],
             "description": "请求方法，默认是GET方法"
           },
           {
@@ -2899,7 +3104,10 @@
           {
             "name": "method",
             "type": "string",
-            "enum": ["POST", "GET"],
+            "enum": [
+              "POST",
+              "GET"
+            ],
             "description": "请求方法，默认是GET方法"
           },
           {
@@ -3010,7 +3218,12 @@
             "description": "授权类型，这里是使用授权码，传authorization_code"
           }
         ],
-        "required": ["client_id", "redirect_uri", "grant_type", "code"]
+        "required": [
+          "client_id",
+          "redirect_uri",
+          "grant_type",
+          "code"
+        ]
       },
       "response": {
         "wrapper": false,
@@ -3138,7 +3351,10 @@
             "description": "验证码"
           }
         ],
-        "required": ["username", "password"]
+        "required": [
+          "username",
+          "password"
+        ]
       },
       "response": {
         "type": "object",
@@ -3224,7 +3440,9 @@
             "description": "前端得到的code，用于后端解密成token"
           }
         ],
-        "required": ["code"]
+        "required": [
+          "code"
+        ]
       },
       "response": {
         "type": "object",
@@ -3286,7 +3504,10 @@
             "description": "扫码授权获取到的appid"
           }
         ],
-        "required": ["code", "appid"]
+        "required": [
+          "code",
+          "appid"
+        ]
       },
       "response": null
     },
@@ -3309,7 +3530,9 @@
             "description": "生成的链接"
           }
         ],
-        "required": ["url"]
+        "required": [
+          "url"
+        ]
       }
     },
     {
@@ -3331,7 +3554,9 @@
             "description": "生成的链接"
           }
         ],
-        "required": ["url"]
+        "required": [
+          "url"
+        ]
       }
     },
     {
@@ -3367,8 +3592,127 @@
             "description": "jwt refreshToken"
           }
         ],
-        "required": ["accessToken", "refreshToken"]
+        "required": [
+          "accessToken",
+          "refreshToken"
+        ]
       }
+    },
+    {
+      "contract": "api_gateway.wechat_llm.GetWechatLiveUser",
+      "name": "GetWechatLiveUser",
+      "version": "1.0.0",
+      "description": "获取当前登录的用户列表",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/api_gateway/v1/wechat/get_live_user"
+      },
+      "request": null,
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "users",
+            "type": "object[]",
+            "description": "登录的用户列表",
+            "fields": [
+              {
+                "name": "uuid",
+                "type": "string",
+                "description": "登录时的uuid"
+              },
+              {
+                "name": "nick_name",
+                "type": "string",
+                "description": "微信的用户名"
+              }
+            ]
+          }
+        ],
+        "required": [
+          "users"
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取当前登录的用户列表"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8104/api/api_gateway/v1/wechat/get_live_user"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"users\": [\n    {\n      \"uuid\": \"aaa-bbb-ccc\",\n      \"nick_name\": \"用户名\"\n    }\n  ]\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "api_gateway.wechat_llm.WeChatLogin",
+      "name": "WeChatLogin",
+      "version": "1.0.0",
+      "description": "微信登录，返回登录链接",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/api_gateway/v1/wechat/login"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "robotId",
+            "type": "string",
+            "description": "后台大模型 robotId"
+          }
+        ],
+        "required": [
+          "robotId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "img",
+            "type": "url",
+            "description": "生成的登录链接"
+          },
+          {
+            "name": "uuid",
+            "type": "string",
+            "description": "登录唯一的标识"
+          }
+        ],
+        "required": [
+          "img"
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "wechat login",
+            "zh": "微信登录"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8104/api/api_gateway/v1/wechat/login",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"robotId\": \"easyops-customer-service\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"img\": \"https://login.weixin.qq.com/qrcode/AdHfnpdrfw==\",\n  \"uuid\": \"AdHfnpdrfw==\"\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "api_gateway.wechat_miniprogram.MiniProgramLogin",
@@ -3379,7 +3723,9 @@
         "method": "POST",
         "uri": "/api/api_gateway/v1/wechat/mini_program/login"
       },
-      "import": ["easyops/model/topboard/wechat_userinfo"],
+      "import": [
+        "easyops/model/topboard/wechat_userinfo"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -3394,7 +3740,9 @@
             "description": "微信获取手机号授权code"
           }
         ],
-        "required": ["code"]
+        "required": [
+          "code"
+        ]
       },
       "response": {
         "type": "object",
