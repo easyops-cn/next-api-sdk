@@ -3,13 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/llm-sdk@1.1.1...@next-api-sdk/llm-sdk@1.1.2) (2025-03-21)
+
+### Bug Fixes
+
+- fix url with customized service name ([015dfb1](https://github.com/easyops-cn/next-api-sdk/commit/015dfb10d2a46b550228192ad6beba5ad7f0272a))
+
 ## [1.1.1](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/llm-sdk@1.1.0...@next-api-sdk/llm-sdk@1.1.1) (2025-03-21)
 
 **Note:** Version bump only for package @next-api-sdk/llm-sdk
-
-
-
-
 
 # 1.1.0 (2025-03-21)
 
