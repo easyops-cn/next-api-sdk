@@ -62,7 +62,7 @@ export const AiopsToolsApi_templateLlmChatV2 = async (
     await http.post<
       ResponseBodyWrapper<AiopsToolsApi_TemplateLlmChatV2ResponseBody>
     >(
-      "api/gateway/llm.aiops_tools.TemplateLlmChatV2/api/v1/llm/tools/template_llm_chat_v2",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/tools/template_llm_chat_v2",
       data,
       options
     )

@@ -19,7 +19,7 @@ export const AiopsBaseApi_openaiChat = (
   options?: HttpOptions
 ): Promise<AiopsBaseApi_OpenaiChatResponseBody> =>
   /**! @contract easyops.api.llm.aiops_base.OpenaiChat@1.0.0 */ http.post<AiopsBaseApi_OpenaiChatResponseBody>(
-    "api/gateway/llm.aiops_base.OpenaiChat/v1/chat/completions",
+    "api/gateway/logic.llm.aiops_service/v1/chat/completions",
     data,
     options
   );

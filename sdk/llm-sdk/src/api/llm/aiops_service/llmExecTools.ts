@@ -38,7 +38,7 @@ export const AiopsServiceApi_llmExecTools = async (
     await http.post<
       ResponseBodyWrapper<AiopsServiceApi_LlmExecToolsResponseBody>
     >(
-      "api/gateway/llm.aiops_service.LLMExecTools/api/v1/llm/aiops_service/tools/exec",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/tools/exec",
       data,
       options
     )

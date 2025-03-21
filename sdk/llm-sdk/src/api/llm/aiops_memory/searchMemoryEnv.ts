@@ -36,7 +36,7 @@ export const AiopsMemoryApi_searchMemoryEnv = async (
     await http.post<
       ResponseBodyWrapper<AiopsMemoryApi_SearchMemoryEnvResponseBody>
     >(
-      "api/gateway/llm.aiops_memory.SearchMemoryEnv/api/v1/llm/aiops_service/memory/env/search",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/memory/env/search",
       data,
       options
     )

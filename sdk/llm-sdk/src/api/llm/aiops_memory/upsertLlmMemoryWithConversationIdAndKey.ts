@@ -16,7 +16,7 @@ export const AiopsMemoryApi_upsertLlmMemoryWithConversationIdAndKey = (
   options?: HttpOptions
 ): Promise<void> =>
   /**! @contract easyops.api.llm.aiops_memory.UpsertLlmMemoryWithConversationIdAndKey@1.0.0 */ http.post<void>(
-    `api/gateway/llm.aiops_memory.UpsertLlmMemoryWithConversationIdAndKey/api/v1/llm/aiops_service/memory/upsert/${conversationId}`,
+    `api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/memory/upsert/${conversationId}`,
     data,
     options
   );

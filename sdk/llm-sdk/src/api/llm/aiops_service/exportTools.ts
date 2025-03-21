@@ -14,7 +14,7 @@ export const AiopsServiceApi_exportTools = (
   options?: HttpOptions
 ): Promise<Blob> =>
   /**! @contract easyops.api.llm.aiops_service.ExportTools@1.0.0 */ http.post<Blob>(
-    "api/gateway/llm.aiops_service.ExportTools/api/v1/llm/aiops_service/tools/export",
+    "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/tools/export",
     data,
     { ...options, responseType: "blob" }
   );

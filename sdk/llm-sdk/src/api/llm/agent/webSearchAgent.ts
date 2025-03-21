@@ -23,7 +23,7 @@ export const AgentApi_webSearchAgent = async (
 ): Promise<AgentApi_WebSearchAgentResponseBody> =>
   /**! @contract easyops.api.llm.agent.WebSearchAgent@1.0.0 */ (
     await http.post<ResponseBodyWrapper<AgentApi_WebSearchAgentResponseBody>>(
-      "api/gateway/llm.agent.WebSearchAgent/api/v1/llm/agent/web_search",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/agent/web_search",
       data,
       options
     )

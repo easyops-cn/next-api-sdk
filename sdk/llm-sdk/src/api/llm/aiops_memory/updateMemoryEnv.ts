@@ -14,7 +14,7 @@ export const AiopsMemoryApi_updateMemoryEnv = (
   options?: HttpOptions
 ): Promise<void> =>
   /**! @contract easyops.api.llm.aiops_memory.UpdateMemoryEnv@1.0.0 */ http.post<void>(
-    `api/gateway/llm.aiops_memory.UpdateMemoryEnv/api/v1/llm/aiops_service/memory/env/${_row_id}/update`,
+    `api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/memory/env/${_row_id}/update`,
     data,
     options
   );

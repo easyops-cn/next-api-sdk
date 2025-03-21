@@ -24,7 +24,7 @@ export const AiopsBaseApi_llmChatServiceV1 = async (
     await http.post<
       ResponseBodyWrapper<AiopsBaseApi_LlmChatServiceV1ResponseBody>
     >(
-      "api/gateway/llm.aiops_base.LLMChatServiceV1/api/v1/llm/aiops_base/chat_service",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_base/chat_service",
       data,
       options
     )

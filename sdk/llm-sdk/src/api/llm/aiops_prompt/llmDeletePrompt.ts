@@ -32,7 +32,7 @@ export const AiopsPromptApi_llmDeletePrompt = async (
     await http.post<
       ResponseBodyWrapper<AiopsPromptApi_LlmDeletePromptResponseBody>
     >(
-      "api/gateway/llm.aiops_prompt.LLMDeletePrompt/api/v1/llm/aiops_service/prompt/delete",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/prompt/delete",
       data,
       options
     )

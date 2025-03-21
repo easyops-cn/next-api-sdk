@@ -38,7 +38,7 @@ export const AiopsServiceApi_importTools = async (
     await http.post<
       ResponseBodyWrapper<AiopsServiceApi_ImportToolsResponseBody>
     >(
-      "api/gateway/llm.aiops_service.ImportTools/api/v1/llm/aiops_service/tools/import",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/tools/import",
       _formData,
       options
     )

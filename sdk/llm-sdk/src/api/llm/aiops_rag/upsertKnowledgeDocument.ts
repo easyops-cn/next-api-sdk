@@ -23,7 +23,7 @@ export const AiopsRagApi_upsertKnowledgeDocument = async (
     await http.post<
       ResponseBodyWrapper<AiopsRagApi_UpsertKnowledgeDocumentResponseBody>
     >(
-      "api/gateway/llm.aiops_rag.UpsertKnowledgeDocument/api/v1/llm/aiops_rag/upsert_knowledge_document",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_rag/upsert_knowledge_document",
       data,
       options
     )

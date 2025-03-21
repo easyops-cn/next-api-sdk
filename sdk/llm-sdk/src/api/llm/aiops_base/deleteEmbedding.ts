@@ -23,7 +23,7 @@ export const AiopsBaseApi_deleteEmbedding = (
   options?: HttpOptions
 ): Promise<void> =>
   /**! @contract easyops.api.llm.aiops_base.DeleteEmbedding@1.1.0 */ http.post<void>(
-    "api/gateway/llm.aiops_base.DeleteEmbedding/api/v1/llm/aiops_base/embedding/delete",
+    "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_base/embedding/delete",
     data,
     options
   );

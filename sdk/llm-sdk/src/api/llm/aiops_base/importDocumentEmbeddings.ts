@@ -33,7 +33,7 @@ export const AiopsBaseApi_importDocumentEmbeddings = async (
     await http.post<
       ResponseBodyWrapper<AiopsBaseApi_ImportDocumentEmbeddingsResponseBody>
     >(
-      "api/gateway/llm.aiops_base.ImportDocumentEmbeddings/api/v1/llm/aiops_base/import_doc",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_base/import_doc",
       data,
       options
     )

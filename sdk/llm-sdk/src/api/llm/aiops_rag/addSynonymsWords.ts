@@ -26,7 +26,7 @@ export const AiopsRagApi_addSynonymsWords = async (
     await http.post<
       ResponseBodyWrapper<AiopsRagApi_AddSynonymsWordsResponseBody>
     >(
-      "api/gateway/llm.aiops_rag.AddSynonymsWords/api/v1/llm/aiops_rag/add_synonyms_words",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_rag/add_synonyms_words",
       data,
       options
     )

@@ -18,7 +18,7 @@ export const AiopsServiceApi_llmStreamChatService = (
   options?: HttpOptions
 ): Promise<AiopsServiceApi_LlmStreamChatServiceResponseBody> =>
   /**! @contract easyops.api.llm.aiops_service.LLMStreamChatService@1.0.0 */ http.post<AiopsServiceApi_LlmStreamChatServiceResponseBody>(
-    "api/gateway/llm.aiops_service.LLMStreamChatService/api/v1/llm/aiops_service/stream_chat_service",
+    "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/stream_chat_service",
     data,
     options
   );

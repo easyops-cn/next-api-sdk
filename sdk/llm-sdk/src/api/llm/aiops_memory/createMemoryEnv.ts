@@ -20,7 +20,7 @@ export const AiopsMemoryApi_createMemoryEnv = async (
     await http.post<
       ResponseBodyWrapper<AiopsMemoryApi_CreateMemoryEnvResponseBody>
     >(
-      "api/gateway/llm.aiops_memory.CreateMemoryEnv/api/v1/llm/aiops_service/memory/env/create",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/memory/env/create",
       data,
       options
     )

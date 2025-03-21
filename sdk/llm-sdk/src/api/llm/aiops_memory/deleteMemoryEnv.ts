@@ -9,6 +9,6 @@ export const AiopsMemoryApi_deleteMemoryEnv = (
   options?: HttpOptions
 ): Promise<void> =>
   /**! @contract easyops.api.llm.aiops_memory.DeleteMemoryEnv@1.0.0 */ http.delete<void>(
-    `api/gateway/llm.aiops_memory.DeleteMemoryEnv/api/v1/llm/aiops_service/memory/env/${_row_id}`,
+    `api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/memory/env/${_row_id}`,
     options
   );

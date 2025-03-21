@@ -29,7 +29,7 @@ export const AiopsPromptApi_llmGetPrompt = async (
     await http.post<
       ResponseBodyWrapper<AiopsPromptApi_LlmGetPromptResponseBody>
     >(
-      "api/gateway/llm.aiops_prompt.LLMGetPrompt/api/v1/llm/aiops_service/prompt/get",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/prompt/get",
       data,
       options
     )

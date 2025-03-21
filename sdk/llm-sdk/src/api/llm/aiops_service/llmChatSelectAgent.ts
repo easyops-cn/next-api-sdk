@@ -24,7 +24,7 @@ export const AiopsServiceApi_llmChatSelectAgent = async (
     await http.post<
       ResponseBodyWrapper<AiopsServiceApi_LlmChatSelectAgentResponseBody>
     >(
-      "api/gateway/llm.aiops_service.LLMChatSelectAgent/api/v1/llm/aiops_service/agent/select",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/agent/select",
       data,
       options
     )

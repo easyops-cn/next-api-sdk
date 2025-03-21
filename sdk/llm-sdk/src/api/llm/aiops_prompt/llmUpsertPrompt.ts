@@ -35,7 +35,7 @@ export const AiopsPromptApi_llmUpsertPrompt = async (
     await http.post<
       ResponseBodyWrapper<AiopsPromptApi_LlmUpsertPromptResponseBody>
     >(
-      "api/gateway/llm.aiops_prompt.LLMUpsertPrompt/api/v1/llm/aiops_service/prompt/upsert",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/prompt/upsert",
       data,
       options
     )

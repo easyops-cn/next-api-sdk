@@ -32,7 +32,7 @@ export const AiopsServiceApi_exportConversation = (
   options?: HttpOptions
 ): Promise<Blob> =>
   /**! @contract easyops.api.llm.aiops_service.ExportConversation@1.0.0 */ http.post<Blob>(
-    "api/gateway/llm.aiops_service.ExportConversation/api/v1/llm/aiops_service/conversation/export",
+    "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/conversation/export",
     data,
     { ...options, responseType: "blob" }
   );

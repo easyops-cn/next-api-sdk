@@ -33,7 +33,7 @@ export const AiopsRagApi_importConfluenceEmbedding = async (
     await http.post<
       ResponseBodyWrapper<AiopsRagApi_ImportConfluenceEmbeddingResponseBody>
     >(
-      "api/gateway/llm.aiops_rag.ImportConfluenceEmbedding/api/v1/llm/aiops_rag/import_confluence",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_rag/import_confluence",
       data,
       options
     )

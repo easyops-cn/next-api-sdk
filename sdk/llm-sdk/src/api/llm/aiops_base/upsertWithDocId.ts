@@ -30,7 +30,7 @@ export const AiopsBaseApi_upsertWithDocId = async (
     await http.post<
       ResponseBodyWrapper<AiopsBaseApi_UpsertWithDocIdResponseBody>
     >(
-      "api/gateway/llm.aiops_base.UpsertWithDocId/api/v1/llm/aiops_base/upsert_with_doc_id",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_base/upsert_with_doc_id",
       data,
       options
     )

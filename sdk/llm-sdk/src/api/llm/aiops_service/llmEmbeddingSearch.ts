@@ -33,7 +33,7 @@ export const AiopsServiceApi_llmEmbeddingSearch = async (
     await http.post<
       ResponseBodyWrapper<AiopsServiceApi_LlmEmbeddingSearchResponseBody>
     >(
-      "api/gateway/llm.aiops_service.LLMEmbeddingSearch/api/v1/llm/aiops_service/embedding/search_doc",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/embedding/search_doc",
       data,
       options
     )

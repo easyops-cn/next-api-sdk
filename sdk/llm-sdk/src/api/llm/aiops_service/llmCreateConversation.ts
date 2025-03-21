@@ -29,7 +29,7 @@ export const AiopsServiceApi_llmCreateConversation = async (
     await http.post<
       ResponseBodyWrapper<AiopsServiceApi_LlmCreateConversationResponseBody>
     >(
-      "api/gateway/llm.aiops_service.LLMCreateConversation/api/v1/llm/aiops_service/conversation/create",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/conversation/create",
       data,
       options
     )

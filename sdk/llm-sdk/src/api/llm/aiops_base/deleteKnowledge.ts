@@ -14,7 +14,7 @@ export const AiopsBaseApi_deleteKnowledge = (
   options?: HttpOptions
 ): Promise<void> =>
   /**! @contract easyops.api.llm.aiops_base.DeleteKnowledge@1.0.0 */ http.post<void>(
-    "api/gateway/llm.aiops_base.DeleteKnowledge/api/v1/llm/aiops_base/knowledge/delete",
+    "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_base/knowledge/delete",
     data,
     options
   );

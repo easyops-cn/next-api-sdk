@@ -38,7 +38,7 @@ export const AiopsServiceApi_importRobots = async (
     await http.post<
       ResponseBodyWrapper<AiopsServiceApi_ImportRobotsResponseBody>
     >(
-      "api/gateway/llm.aiops_service.ImportRobots/api/v1/llm/aiops_service/robots/import",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/robots/import",
       _formData,
       options
     )

@@ -23,7 +23,7 @@ export const AgentApi_baseGeneralAgent = async (
 ): Promise<AgentApi_BaseGeneralAgentResponseBody> =>
   /**! @contract easyops.api.llm.agent.BaseGeneralAgent@1.0.0 */ (
     await http.post<ResponseBodyWrapper<AgentApi_BaseGeneralAgentResponseBody>>(
-      "api/gateway/llm.agent.BaseGeneralAgent/api/v1/llm/agent/base",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/agent/base",
       data,
       options
     )

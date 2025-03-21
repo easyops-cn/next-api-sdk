@@ -29,7 +29,7 @@ export const VirtualBuilderApi_generateStoryboardStream = async (
     await http.post<
       ResponseBodyWrapper<VirtualBuilderApi_GenerateStoryboardStreamResponseBody>
     >(
-      "api/gateway/llm.virtual_builder.GenerateStoryboardStream/api/v1/llm/virtual_builder/generate_storyboard/stream",
+      "api/gateway/logic.llm.virtual_builder/api/v1/llm/virtual_builder/generate_storyboard/stream",
       data,
       options
     )

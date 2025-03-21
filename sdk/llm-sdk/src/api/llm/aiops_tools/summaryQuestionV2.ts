@@ -45,7 +45,7 @@ export const AiopsToolsApi_summaryQuestionV2 = async (
     await http.post<
       ResponseBodyWrapper<AiopsToolsApi_SummaryQuestionV2ResponseBody>
     >(
-      "api/gateway/llm.aiops_tools.SummaryQuestionV2/api/v1/llm/tools/summary_question_v2",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/tools/summary_question_v2",
       data,
       options
     )

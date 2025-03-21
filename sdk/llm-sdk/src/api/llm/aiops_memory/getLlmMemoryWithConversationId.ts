@@ -24,7 +24,7 @@ export const AiopsMemoryApi_getLlmMemoryWithConversationId = async (
     await http.post<
       ResponseBodyWrapper<AiopsMemoryApi_GetLlmMemoryWithConversationIdResponseBody>
     >(
-      "api/gateway/llm.aiops_memory.GetLlmMemoryWithConversationId/api/v1/llm/aiops_service/memory/get_with_conversation",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/memory/get_with_conversation",
       data,
       options
     )

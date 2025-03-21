@@ -9,6 +9,6 @@ export const AiopsMemoryApi_deleteLlmMemoryWithConversationId = (
   options?: HttpOptions
 ): Promise<void> =>
   /**! @contract easyops.api.llm.aiops_memory.DeleteLlmMemoryWithConversationId@1.0.0 */ http.delete<void>(
-    `api/gateway/llm.aiops_memory.DeleteLlmMemoryWithConversationId/api/v1/llm/aiops_service/memory/delete/${conversationId}`,
+    `api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/memory/delete/${conversationId}`,
     options
   );

@@ -39,7 +39,7 @@ export const AiopsServiceApi_llmEmbeddingImportUrl = async (
     await http.post<
       ResponseBodyWrapper<AiopsServiceApi_LlmEmbeddingImportUrlResponseBody>
     >(
-      "api/gateway/llm.aiops_service.LLMEmbeddingImportUrl/api/v1/llm/aiops_service/import_url",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/import_url",
       data,
       options
     )

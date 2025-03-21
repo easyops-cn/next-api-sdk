@@ -42,7 +42,7 @@ export const AiopsRagApi_importUrlEmbedding = async (
     await http.post<
       ResponseBodyWrapper<AiopsRagApi_ImportUrlEmbeddingResponseBody>
     >(
-      "api/gateway/llm.aiops_rag.ImportURLEmbedding/api/v1/llm/aiops_rag/import_url",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_rag/import_url",
       data,
       options
     )

@@ -29,7 +29,7 @@ export const AiopsServiceApi_llmEmbeddingDeleteDocs = async (
     await http.post<
       ResponseBodyWrapper<AiopsServiceApi_LlmEmbeddingDeleteDocsResponseBody>
     >(
-      "api/gateway/llm.aiops_service.LLMEmbeddingDeleteDocs/api/v1/llm/aiops_service/delete_docs",
+      "api/gateway/logic.llm.aiops_service/api/v1/llm/aiops_service/delete_docs",
       data,
       options
     )
