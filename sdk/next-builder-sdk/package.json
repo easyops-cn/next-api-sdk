@@ -33,9 +33,9 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@next-core/http": "^1.2.6"
+    "@next-core/http": "^1.2.12"
   },
   "devDependencies": {
-    "@next-core/build-next-libs": "^1.0.18"
+    "@next-core/build-next-libs": "^1.0.24"
   }
 }
