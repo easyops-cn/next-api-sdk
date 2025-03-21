@@ -7,4 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
+- new sdk package: llm ([313b435](https://github.com/easyops-cn/next-api-sdk/commit/313b435ea33475427c7600f470919cab1dd39853))
+
+# 1.1.0 (2025-03-21)
+
+### Features
+
 - new sdk package: llm ([c20a3d7](https://github.com/easyops-cn/next-api-sdk/commit/c20a3d7ffefae8a3c90601c4627d9a900c0ce675))
