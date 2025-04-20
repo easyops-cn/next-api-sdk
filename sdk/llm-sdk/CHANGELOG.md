@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/llm-sdk@1.1.3...@next-api-sdk/llm-sdk@1.2.0) (2025-04-20)
+
+### Features
+
+- add agent flow APIs ([7e8e8fa](https://github.com/easyops-cn/next-api-sdk/commit/7e8e8fa929c391070f4b5737fe96f09ac1bf4ef2))
+
 ## [1.1.3](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/llm-sdk@1.1.2...@next-api-sdk/llm-sdk@1.1.3) (2025-03-21)
 
 ### Bug Fixes
