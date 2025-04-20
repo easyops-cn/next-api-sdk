@@ -1146,7 +1146,7 @@
   resolved "https://registry.yarnpkg.com/@next-core/browserslist-config-next/-/browserslist-config-next-1.1.2.tgz#bbf32adeae9d3ded190b821e269d3853bd73019f"
   integrity sha512-KFBCCsPCxo7Bv+m23ZgpFL40qRsDnIgfYDhluXP6k7gvN2bZRTvsOn5S6dqCEpHiX9BT5p/+/JcgJ4tPTAjfxg==
 
-"@next-core/build-next-libs@^1.0.24":
+"@next-core/build-next-libs@^1.0.0", "@next-core/build-next-libs@^1.0.24":
   version "1.0.24"
   resolved "https://registry.yarnpkg.com/@next-core/build-next-libs/-/build-next-libs-1.0.24.tgz#784d89066dcc5e89c4c612cc0326d8748a6c76d9"
   integrity sha512-w1vLnvPtCTpb7ycyU2heIQctCcHnXxAJgOQeWBsXqwCL3cdTccL751brntkNAzPdQO9dI57nbvcO6HlbtSCDMA==
@@ -1183,7 +1183,7 @@
     "@typescript-eslint/parser" "^7.18.0"
     eslint-config-prettier "^9.1.0"
 
-"@next-core/http@^1.2.12":
+"@next-core/http@^1.0.0", "@next-core/http@^1.2.12":
   version "1.2.12"
   resolved "https://registry.yarnpkg.com/@next-core/http/-/http-1.2.12.tgz#fee4ec8960bb8b6b884460626ee5ed4e41216c42"
   integrity sha512-fkk2mGuzlnrQNo/U9MSvW8eCoERQXbGY9pZIuqd4xy7Si7hNjOspdrisWycWA0ySNYlavS792SuQU1tNF2sj2Q==
