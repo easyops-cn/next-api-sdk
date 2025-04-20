@@ -134,6 +134,181 @@
       ]
     },
     {
+      "contract": "llm.agent_flow.AddJobMessageForAgentFlow",
+      "name": "AddJobMessageForAgentFlow",
+      "version": "1.0.0",
+      "description": "flow agent补充消息",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/agent/flow/:taskId/job/:jobId"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "taskId",
+            "type": "string",
+            "description": "总任务id"
+          },
+          {
+            "name": "jobId",
+            "type": "string",
+            "description": "job id，子任务id"
+          },
+          {
+            "name": "input",
+            "type": "string",
+            "description": "补充输入"
+          }
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "flow agent补充消息"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/llm/agent/8239375684858666781/job/job_1546111",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"input\": \"确认\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{ }"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.agent_flow.CreateTaskForAgentFlow",
+      "name": "CreateTaskForAgentFlow",
+      "version": "1.0.0",
+      "description": "创建agent flow的任务",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/agent/flow/create"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "input",
+            "type": "string",
+            "description": "用户输入"
+          },
+          {
+            "name": "agentId",
+            "type": "string",
+            "description": "指定处理任务的agent"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "taskId",
+            "type": "string",
+            "description": "任务id"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建agent flow的任务"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/llm/agent/flow/create",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"input\": \"今天深圳天气\",\n    \"agentId\": \"general-helper\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"taskId\": \"8239375684858666781\"\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.agent_flow.GetTaskDetailForAgentFlow",
+      "name": "GetTaskDetailForAgentFlow",
+      "version": "1.0.0",
+      "description": "获取agent flow任务详情，流式返回",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/llm/agent/flow/:taskId"
+      },
+      "import": [
+        "easyops/model/llm/flow_agent_task_response"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "taskId",
+            "type": "string",
+            "description": "任务id"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "description": "流式返回的数据",
+        "fields": [
+          {
+            "ref": "FlowAgentTaskResponse.*"
+          },
+          {
+            "name": "sseDataList",
+            "type": "value[]",
+            "description": "流式数据列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取agent flow的详情"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/llm/agent/flow/a8239375684858666781",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{ }"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "data: {\"id\":\"a8239375684858666781\", \"state\":\"working\",\"plan\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\"},{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\"}]}\\n\\n data: {\"jobs\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_city_code\",\"arguments\":{\"city\":\"深圳\"}}}]}\\n\\n data: {\"jobs\":[{\"id\":\"job_1\",\"state\":\"completed\",\"messages\":[{\"role\":\"assistant\",\"parts\":[{\"type\":\"text\",\"text\":\"SZX\"}]}]}]}\\n\\n data: {\"jobs\":[{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_weather\",\"arguments\":{\"city\":\"SZX\"}}}]}\\n\\n\ndata: [DONE]"
+          }
+        }
+      ]
+    },
+    {
       "contract": "llm.aiops_base.DeleteEmbedding",
       "name": "DeleteEmbedding",
       "version": "1.1.0",
@@ -3085,6 +3260,79 @@
             },
             "status_code": 200,
             "body": "[\n  {\n    \"content\": \"智绘蓝图，AI驱动 —— 智谱AI，让每一刻创新成为可能。\",\n    \"role\": \"assistant\"\n  },\n  {\n    \"content\": \"智绘蓝图，AI驱动 —— 智谱AI，让每一刻创新成为可能。\",\n    \"role\": \"assistant\"\n  }\n]"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.aiops_tools.ExecLlmTools",
+      "name": "ExecLlmTools",
+      "version": "1.0.0",
+      "description": "执行大模型工具，非MCP协议的一部分",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/tools/exec"
+      },
+      "request": {
+        "fields": [
+          {
+            "description": "要执行的工具名称，也是id",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "description": "执行工具的参数",
+            "name": "arguments",
+            "type": "map"
+          },
+          {
+            "description": "执行工具的配置，例如agentId，\"agentId\":\"cmdb_search_agent\"",
+            "name": "config",
+            "type": "map"
+          }
+        ],
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "response": {
+        "default": {},
+        "fields": [
+          {
+            "description": "执行结果，返回类型，目前只支持text",
+            "name": "type",
+            "type": "string"
+          },
+          {
+            "description": "执行工具的结果",
+            "name": "result",
+            "type": "value"
+          }
+        ],
+        "type": "object"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "执行大模型工具"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8320/api/v1/llm/tools/exec",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"name\": \"web_search\",\n    \"arguments\": {\n      \"query\": \"什么是MCP\"\n    },\n    \"config\":{\n      \"agentId\": \"cmdb_search_agent\",\n      \"conversationId\": \"xxxxxxx\",\n    }\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n   \"code\": 0,\n   \"error\": \"\",\n   \"data\": {\n    \"type\": \"text\",\n    \"result\": \"MCP 是一种开放协议\", \"content\":\"什么是MCP？ MCP 是一种开放协议，通过标准化的服务器实现，使AI 模型能够安全地与本地和远程资源进行交互。 此列表重点关注可用于生产和实验性的MCP 服务器，这些服务器通过文件访问、数据库连接、API 集成和其他上下文服务来扩展AI 功能。\"\n  }\n}"
           }
         }
       ]
