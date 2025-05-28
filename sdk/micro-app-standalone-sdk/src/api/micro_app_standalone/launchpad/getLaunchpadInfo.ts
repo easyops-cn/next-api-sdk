@@ -38,7 +38,7 @@ export const LaunchpadApi_getLaunchpadInfo = async (
     await http.get<
       ResponseBodyWrapper<LaunchpadApi_GetLaunchpadInfoResponseBody>
     >(
-      "api/gateway/micro_app_standalone.launchpad.GetLaunchpadInfo/api/v1/micro_app_standalone/launchpad_info",
+      "api/gateway/logic.micro_app_standalone_service/api/v1/micro_app_standalone/launchpad_info",
       { ...options, params }
     )
   ).data;

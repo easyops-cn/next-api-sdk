@@ -1,9 +1,12 @@
-import { ModelStoryboardMenuItem } from "./index.js";
+import { ModelStandaloneMenuItem } from "./index.js";
 
-/** Storyboard menu */
-export interface ModelStoryboardMenu {
+/** Standalone menu */
+export interface ModelStandaloneMenu {
   /** Menu Id */
   menuId: string;
+
+  /** 同步自uuid */
+  menuUniqueId: string;
 
   /** Title */
   title: string;
@@ -12,7 +15,7 @@ export interface ModelStoryboardMenu {
   icon: Record<string, any>;
 
   /** TitleDataSource */
-  titleDataSource: ModelStoryboardMenu_titleDataSource;
+  titleDataSource: ModelStandaloneMenu_titleDataSource;
 
   /** DefaultCollapsed */
   defaultCollapsed: boolean;
@@ -30,7 +33,7 @@ export interface ModelStoryboardMenu {
   itemsResolve: any;
 
   /** 菜单项 */
-  items: Partial<ModelStoryboardMenuItem>[];
+  items: Partial<ModelStandaloneMenuItem>[];
 
   /** Inject menu group ID */
   injectMenuGroupId: string;
@@ -43,9 +46,12 @@ export interface ModelStoryboardMenu {
 
   /** 注入菜单的app信息 */
   overrideApp: Record<string, any>;
+
+  /** InstanceId */
+  instanceId: string;
 }
 
-export interface ModelStoryboardMenu_titleDataSource {
+export interface ModelStandaloneMenu_titleDataSource {
   /** ObjectId */
   objectId?: string;
 

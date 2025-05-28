@@ -40,4 +40,18 @@ export interface ModelInstalledMicroAppStandalone {
 
   /** locales */
   locales: Record<string, any>;
+
+  /** 联合app信息 */
+  unionAppInfo: ModelInstalledMicroAppStandalone_unionAppInfo;
+}
+
+export interface ModelInstalledMicroAppStandalone_unionAppInfo {
+  /** Union AppId */
+  unionAppId?: string;
+
+  /** 关联的资源包 */
+  relatedResourcePackages?: string[];
+
+  /** Union AppVersion */
+  unionAppVersion?: string;
 }

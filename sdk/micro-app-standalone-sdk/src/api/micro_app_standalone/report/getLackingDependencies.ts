@@ -13,6 +13,9 @@ export interface ReportApi_GetLackingDependenciesRequestBody {
 
   /** 微应用静态资源依赖 */
   appResources?: ReportApi_GetLackingDependenciesRequestBody_appResources_item[];
+
+  /** 获取单节点/集群的依赖 */
+  toSingleNode?: boolean;
 }
 
 export interface ReportApi_GetLackingDependenciesResponseBody {
@@ -41,7 +44,7 @@ export const ReportApi_getLackingDependencies = async (
     await http.post<
       ResponseBodyWrapper<ReportApi_GetLackingDependenciesResponseBody>
     >(
-      "api/gateway/micro_app_standalone.report.GetLackingDependencies/api/v1/micro_app_standalone/report/lacking_dependencies",
+      "api/gateway/logic.micro_app_standalone_service/api/v1/micro_app_standalone/report/lacking_dependencies",
       data,
       options
     )

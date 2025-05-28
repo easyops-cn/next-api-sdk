@@ -1,4 +1,4 @@
 export * from "./ModelInstalledMicroAppMenuIcon.js";
 export * from "./ModelInstalledMicroAppIcon.js";
-export * from "./ModelStoryboardMenuItem.js";
-export * from "./ModelStoryboardMenu.js";
+export * from "./ModelInstalledMicroAppClonedFrom.js";
+export * from "./ModelInstalledMicroApp.js";
