@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/micro-app-standalone-sdk@1.2.2...@next-api-sdk/micro-app-standalone-sdk@1.3.0) (2025-05-28)
+
+
+### Features
+
+* add launchpad, open_platform, report and runtime apis ([fcec521](https://github.com/easyops-cn/next-api-sdk/commit/fcec521996e829953dd31ec6ce611d547363558d))
+
+
+
+
+
 ## [1.2.2](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/micro-app-standalone-sdk@1.2.1...@next-api-sdk/micro-app-standalone-sdk@1.2.2) (2025-03-21)
 
 **Note:** Version bump only for package @next-api-sdk/micro-app-standalone-sdk
