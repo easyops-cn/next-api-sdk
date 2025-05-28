@@ -12,6 +12,9 @@ export interface ReportApi_SyncDependencyRequestBody {
 
   /** 依赖类型 */
   depType: "bricks" | "templates" | "core" | "appResources";
+
+  /** 是否sync到单节点：默认false */
+  toSingleNode?: boolean;
 }
 
 /**
@@ -35,7 +38,7 @@ export const ReportApi_syncDependency = (
     }
   }
   return http.post<void>(
-    "api/gateway/micro_app_standalone.report.SyncDependency/api/v1/micro_app_standalone/sync_dependency",
+    "api/gateway/logic.micro_app_standalone_service/api/v1/micro_app_standalone/sync_dependency",
     _formData,
     options
   );

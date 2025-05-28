@@ -1,10 +1,16 @@
 import { http, HttpOptions } from "@next-core/http";
-import { ModelLaunchpadDesktop } from "../../../model/micro_app_standalone/index.js";
+import {
+  ModelLaunchpadDesktop,
+  ModelLaunchpadStoryboard,
+} from "../../../model/micro_app_standalone/index.js";
 import { ResponseBodyWrapper } from "../../../wrapper.js";
 
 export interface LaunchpadApi_GetLaunchpadConfigResponseBody {
   /** 导航菜单列表 */
   desktops?: Partial<ModelLaunchpadDesktop>[];
+
+  /** storyboards */
+  storyboards?: Partial<ModelLaunchpadStoryboard>[];
 }
 
 /**
@@ -18,7 +24,7 @@ export const LaunchpadApi_getLaunchpadConfig = async (
     await http.get<
       ResponseBodyWrapper<LaunchpadApi_GetLaunchpadConfigResponseBody>
     >(
-      "api/gateway/micro_app_standalone.launchpad.GetLaunchpadConfig/api/v1/micro_app_standalone/launchpad_config",
+      "api/gateway/logic.micro_app_standalone_service/api/v1/micro_app_standalone/launchpad_config",
       options
     )
   ).data;

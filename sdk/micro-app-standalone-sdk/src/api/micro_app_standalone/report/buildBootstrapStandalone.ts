@@ -12,6 +12,9 @@ export interface ReportApi_BuildBootstrapStandaloneRequestBody {
 
   /** 是否免登录 */
   noAuth?: boolean;
+
+  /** 是否push到单节点：默认false */
+  toSingleNode?: boolean;
 }
 
 /**
@@ -23,7 +26,7 @@ export const ReportApi_buildBootstrapStandalone = (
   options?: HttpOptions
 ): Promise<void> =>
   /**! @contract easyops.api.micro_app_standalone.report.BuildBootstrapStandalone@1.0.0 */ http.post<void>(
-    "api/gateway/micro_app_standalone.report.BuildBootstrapStandalone/api/v1/micro_app_standalone/build_boostrap_standalone",
+    "api/gateway/logic.micro_app_standalone_service/api/v1/micro_app_standalone/build_boostrap_standalone",
     data,
     options
   );
