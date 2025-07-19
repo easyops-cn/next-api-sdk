@@ -5,6 +5,9 @@ export interface ModelLlmChatAgentTaskRequest {
   /** 任务需求 */
   input: string;
 
+  /** 大模型的Temperature， 值范围0.0~1.0 */
+  temperature: number;
+
   /** 图片的url，支持多个图片 */
   images: string[];
 

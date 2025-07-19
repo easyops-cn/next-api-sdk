@@ -209,6 +209,11 @@
             "name": "agentId",
             "type": "string",
             "description": "指定处理任务的agent"
+          },
+          {
+            "name": "engineVersion",
+            "type": "string",
+            "description": "执行任务引擎的版本号"
           }
         ]
       },
@@ -304,6 +309,155 @@
             },
             "status_code": 200,
             "body": "data: {\"id\":\"a8239375684858666781\", \"state\":\"working\",\"plan\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\"},{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\"}]}\\n\\n data: {\"jobs\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_city_code\",\"arguments\":{\"city\":\"深圳\"}}}]}\\n\\n data: {\"jobs\":[{\"id\":\"job_1\",\"state\":\"completed\",\"messages\":[{\"role\":\"assistant\",\"parts\":[{\"type\":\"text\",\"text\":\"SZX\"}]}]}]}\\n\\n data: {\"jobs\":[{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_weather\",\"arguments\":{\"city\":\"SZX\"}}}]}\\n\\n\ndata: [DONE]"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.agent_flow.SearchTaskForAgentFlow",
+      "name": "SearchTaskForAgentFlow",
+      "version": "1.0.0",
+      "description": "分页查询agent flow, 默认只查询最近三个页的数据",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/agent/flow/search"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "query",
+            "type": "string",
+            "description": "对标题进行关键字搜索"
+          },
+          {
+            "name": "limit",
+            "type": "int",
+            "description": "数据数量大小限制， 默认30"
+          },
+          {
+            "name": "next_token",
+            "type": "string",
+            "description": "分页token，字符串；向上翻页或向下翻页的token都在这个参数传入。"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "next_token",
+            "type": "string",
+            "description": "下一页，查询的token，为空时，没有下一页"
+          },
+          {
+            "name": "previous_token",
+            "type": "string",
+            "description": "上一页，查询的token，为空时，没有上一页"
+          },
+          {
+            "name": "data",
+            "type": "object[]",
+            "description": "任务列表",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "description": "任务id"
+              },
+              {
+                "name": "startTime",
+                "type": "int",
+                "description": "创建时间戳，单位秒"
+              },
+              {
+                "name": "endTime",
+                "type": "int",
+                "description": "结束时间戳，单位秒"
+              },
+              {
+                "name": "state",
+                "type": "string",
+                "description": "任务状态，\"submitted\",  \"working\", \"input-required\",\"completed\",\"canceled\",\"failed\", \"unknown\""
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "description": "标题"
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "search task of flow agent",
+            "zh": "分页查询agent flow任务数据"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "/api/v1/llm/agent/flow/search",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n\t\"query\": \"测试标题\",\n    \"limit\": 1\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n         \"next_token\": \"xxxxxxx\",\n          \"previous_token\": \"\",\n          \"data\": [\n              {\n                  \"title\": \"录入应用系统\",\n                  \"startTime\": 1747106187.0,\n                  \"_row_id\": \"00000196c7a4c973af2e063afadd7f7b\",\n                  \"status\": \"completed\",\n                  \"endTime\": 1747106535.0\n                }\n          ]\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.agent_flow.UpdateStateForAgentFlow",
+      "name": "UpdateStateForAgentFlow",
+      "version": "1.0.0",
+      "description": "flow agent更新任务状态，支持暂停、停止和重启任务",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/agent/flow/:taskId/updateState"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "taskId",
+            "type": "string",
+            "description": "总任务id"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "调整任务状态，可以设置为 stopped， paused, working(paused的任务状态时，可以继续)"
+          }
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "flow agent更新任务状态，支持暂停、停止和重启任务"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/llm/agent/8239375684858666781/updateState",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"state\": \"stopped\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\"\n}"
           }
         }
       ]
@@ -3521,6 +3675,7 @@
       },
       "response": {
         "default": {},
+        "wrapper": false,
         "fields": [
           {
             "ref": "LlmChatAgentTaskResponse.*"

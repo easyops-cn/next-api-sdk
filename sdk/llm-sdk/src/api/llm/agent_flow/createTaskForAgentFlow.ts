@@ -7,6 +7,9 @@ export interface AgentFlowApi_CreateTaskForAgentFlowRequestBody {
 
   /** 指定处理任务的agent */
   agentId?: string;
+
+  /** 执行任务引擎的版本号 */
+  engineVersion?: string;
 }
 
 export interface AgentFlowApi_CreateTaskForAgentFlowResponseBody {

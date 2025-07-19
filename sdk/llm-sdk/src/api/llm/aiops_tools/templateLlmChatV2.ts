@@ -3,7 +3,6 @@ import {
   ModelLlmChatAgentTaskResponse,
   ModelLlmChatMessage,
 } from "../../../model/aiops_service/index.js";
-import { ResponseBodyWrapper } from "../../../wrapper.js";
 
 export interface AiopsToolsApi_TemplateLlmChatV2RequestBody {
   /** 模板，为空时，不使用默认引擎 */
@@ -54,19 +53,15 @@ export type AiopsToolsApi_TemplateLlmChatV2ResponseBody =
  * @description 根据模板与大模型对话，返回json
  * @endpoint POST /api/v1/llm/tools/template_llm_chat_v2
  */
-export const AiopsToolsApi_templateLlmChatV2 = async (
+export const AiopsToolsApi_templateLlmChatV2 = (
   data: AiopsToolsApi_TemplateLlmChatV2RequestBody,
   options?: HttpOptions
 ): Promise<AiopsToolsApi_TemplateLlmChatV2ResponseBody> =>
-  /**! @contract easyops.api.llm.aiops_tools.TemplateLlmChatV2@1.0.0 */ (
-    await http.post<
-      ResponseBodyWrapper<AiopsToolsApi_TemplateLlmChatV2ResponseBody>
-    >(
-      "api/gateway/logic.llm.aiops_service/api/v1/llm/tools/template_llm_chat_v2",
-      data,
-      options
-    )
-  ).data;
+  /**! @contract easyops.api.llm.aiops_tools.TemplateLlmChatV2@1.0.0 */ http.post<AiopsToolsApi_TemplateLlmChatV2ResponseBody>(
+    "api/gateway/logic.llm.aiops_service/api/v1/llm/tools/template_llm_chat_v2",
+    data,
+    options
+  );
 
 export interface AiopsToolsApi_TemplateLlmChatV2ResponseBody_2 {
   /** 提取返回的数据 */

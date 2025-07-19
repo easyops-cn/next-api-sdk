@@ -16,4 +16,3 @@ import * as LlmSdk from "@next-api-sdk/llm-sdk";
 ```
 
 [@next-core/create-api-sdk]: https://github.com/easyops-cn/next-core/tree/master/packages/create-api-sdk
-
