@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/llm-sdk@1.3.0...@next-api-sdk/llm-sdk@1.4.0) (2025-07-19)
+
+### Features
+
+- sync contracts ([77860f4](https://github.com/easyops-cn/next-api-sdk/commit/77860f41add8e2526f192737200d9aaea6e32548))
+
 # [1.3.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/llm-sdk@1.2.0...@next-api-sdk/llm-sdk@1.3.0) (2025-04-20)
 
 ### Features
