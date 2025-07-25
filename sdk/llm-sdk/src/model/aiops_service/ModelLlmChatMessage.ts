@@ -3,6 +3,9 @@ export interface ModelLlmChatMessage {
   /** 消息的角色信息, system, user, assistant, tool */
   role: string;
 
+  /** 推理模型的推理内容 */
+  reasoning_content: string;
+
   /** 消息内容。其中包括了tool_calls字段,content字段为空。角色为tool时，tool_message消息内容,为工具被调用后返回的结果 */
   content: string;
 

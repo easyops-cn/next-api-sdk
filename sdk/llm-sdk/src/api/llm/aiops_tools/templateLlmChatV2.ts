@@ -67,6 +67,9 @@ export interface AiopsToolsApi_TemplateLlmChatV2ResponseBody_2 {
   /** 提取返回的数据 */
   data?: any;
 
+  /** 推理模型的推理内容 */
+  reasoning_content?: string;
+
   /** 调试时大模型返回值 */
   debug_resp?: string;
 

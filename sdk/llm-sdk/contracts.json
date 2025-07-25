@@ -314,6 +314,83 @@
       ]
     },
     {
+      "contract": "llm.agent_flow.ListAllMcpTools",
+      "name": "ListAllMcpTools",
+      "version": "1.0.0",
+      "description": "列出所有mcp工具",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/agent/flow/mcp_tools/list_all"
+      },
+      "request": null,
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "data",
+            "type": "object[]",
+            "description": "mcp工具列表",
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": "mcp工具名称"
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "description": "mcp工具描述"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "description": "mcp工具标题"
+              },
+              {
+                "name": "server",
+                "type": "object",
+                "description": "mcp工具server",
+                "fields": [
+                  {
+                    "name": "id",
+                    "type": "string",
+                    "description": "mcp工具server id"
+                  },
+                  {
+                    "name": "name",
+                    "type": "string",
+                    "description": "mcp工具server name"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "list all mcp tools",
+            "zh": "列出所有mcp工具"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "/api/v1/llm/agent/flow/mcp_tools/list_all",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{ }"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": [\n          {\n              \"name\": \"mcp_tools_name\",\n              \"description\": \"mcp_tools_description\",\n              \"title\": \"mcp_tools_title\",\n              \"server\": {\n                  \"id\": \"mcp_tools_server_id\",\n                  \"name\": \"mcp_tools_server_name\"\n              }\n          }\n    ]\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "llm.agent_flow.SearchTaskForAgentFlow",
       "name": "SearchTaskForAgentFlow",
       "version": "1.0.0",
@@ -3684,6 +3761,11 @@
             "description": "提取返回的数据",
             "name": "data",
             "type": "value"
+          },
+          {
+            "description": "推理模型的推理内容",
+            "name": "reasoning_content",
+            "type": "string"
           },
           {
             "description": "调试时大模型返回值",

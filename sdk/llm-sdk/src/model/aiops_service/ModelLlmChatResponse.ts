@@ -5,6 +5,9 @@ export interface ModelLlmChatResponse {
   /** 模型名称，消息内容。目前先只返回这个 */
   content: string;
 
+  /** 推理模型的推理内容 */
+  reasoning_content: string;
+
   /** 任务ID */
   id: string;
 
