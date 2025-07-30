@@ -25,4 +25,7 @@ export interface ModelLaunchpadDesktopItem {
 
   /** 小产品列表(type为dir时有效) */
   items: Partial<ModelLaunchpadDesktopItem>[];
+
+  /** locales */
+  locales: Record<string, any>;
 }

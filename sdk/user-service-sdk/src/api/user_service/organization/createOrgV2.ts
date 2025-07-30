@@ -23,7 +23,7 @@ export type OrganizationApi_CreateOrgV2ResponseBody = Partial<ModelOrgInfo> &
   ModelOrgInfo_partial_2;
 
 /**
- * @description 创建OrgV2, 在mongoDB创建org信息
+ * @description 创建OrgV2, 在cmdb创建org信息
  * @endpoint POST /api/v2/org
  */
 export const OrganizationApi_createOrgV2 = async (
@@ -33,11 +33,7 @@ export const OrganizationApi_createOrgV2 = async (
   /**! @contract easyops.api.user_service.organization.CreateOrgV2@1.0.0 */ (
     await http.post<
       ResponseBodyWrapper<OrganizationApi_CreateOrgV2ResponseBody>
-    >(
-      "api/gateway/user_service.organization.CreateOrgV2/api/v2/org",
-      data,
-      options
-    )
+    >("api/gateway/logic.user_service/api/v2/org", data, options)
   ).data;
 
 export interface ModelOrgInfo_partial_2 {

@@ -24,7 +24,9 @@
             "description": "用户昵称"
           }
         ],
-        "required": ["user"]
+        "required": [
+          "user"
+        ]
       },
       "response": {
         "type": "object",
@@ -65,7 +67,9 @@
         "method": "LIST",
         "uri": "/api/user_service/v1/api_account"
       },
-      "import": ["easyops/model/user_service/api_account"],
+      "import": [
+        "easyops/model/user_service/api_account"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -121,7 +125,9 @@
         "method": "PUT",
         "uri": "/api/user_service/v1/api_account/:id"
       },
-      "import": ["easyops/model/user_service/api_account"],
+      "import": [
+        "easyops/model/user_service/api_account"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -205,7 +211,10 @@
           {
             "name": "state",
             "type": "string",
-            "enum": ["invalid", "valid"],
+            "enum": [
+              "invalid",
+              "valid"
+            ],
             "description": "是否可用"
           },
           {
@@ -236,6 +245,73 @@
       }
     },
     {
+      "contract": "user_service.apikey.CreateServerApiKey",
+      "name": "CreateServerApiKey",
+      "version": "1.0.0",
+      "description": "创建服务类型的 apiKey",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/apikey/server"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "clientId",
+            "type": "string",
+            "description": "clientId, 一般为组件的 appId"
+          },
+          {
+            "name": "signature",
+            "type": "string",
+            "description": "内部生成的签名信息, 用于校验请求是否合法, 防止接口被随意调用"
+          }
+        ],
+        "required": [
+          "clientId",
+          "signature"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "isExisting",
+            "type": "bool",
+            "description": "clientId 对应的实例是否存在"
+          },
+          {
+            "name": "secret",
+            "type": "string",
+            "description": "api 账号的 access_key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "CreateServerApiKey",
+            "zh": "创建服务类型的 apiKey"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/v1/apikey/server",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"clientId\": \"pipeline\",\n  \"signature\": \"mock_signature\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"isExisting\": false,\n        \"secret\": \"mock_secret\"\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "user_service.apikey.DeleteApiKey",
       "name": "DeleteApiKey",
       "version": "1.0.0",
@@ -253,7 +329,9 @@
             "description": "access_key"
           }
         ],
-        "required": ["access_key"]
+        "required": [
+          "access_key"
+        ]
       },
       "response": null
     },
@@ -275,7 +353,9 @@
             "description": "access_key"
           }
         ],
-        "required": ["access_key"]
+        "required": [
+          "access_key"
+        ]
       },
       "response": null
     },
@@ -297,7 +377,9 @@
             "description": "access_key"
           }
         ],
-        "required": ["access_key"]
+        "required": [
+          "access_key"
+        ]
       },
       "response": null
     },
@@ -332,7 +414,10 @@
           {
             "name": "state",
             "type": "string",
-            "enum": ["invalid", "valid"],
+            "enum": [
+              "invalid",
+              "valid"
+            ],
             "description": "是否可用"
           },
           {
@@ -416,7 +501,10 @@
           {
             "name": "state",
             "type": "string",
-            "enum": ["invalid", "valid"],
+            "enum": [
+              "invalid",
+              "valid"
+            ],
             "description": "是否可用"
           },
           {
@@ -445,6 +533,84 @@
           "ts"
         ]
       }
+    },
+    {
+      "contract": "user_service.apikey.RequestToken",
+      "name": "RequestToken",
+      "version": "1.0.0",
+      "description": "组件根据 clientId 和 signature 来申请 token",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/apikey/request_token/client_id/:clientId"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "clientId",
+            "type": "string",
+            "description": "clientId, 一般为组件的 appId"
+          },
+          {
+            "name": "signature",
+            "type": "string",
+            "description": "签名信息"
+          },
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "用户名"
+          },
+          {
+            "name": "org",
+            "type": "org",
+            "description": "组织id"
+          }
+        ],
+        "required": [
+          "clientId",
+          "signature",
+          "user",
+          "org"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "token",
+            "type": "string",
+            "description": "token"
+          },
+          {
+            "name": "refreshToken",
+            "type": "string",
+            "description": "refreshToken"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "RequestToken",
+            "zh": "根据 clientId 和 signature 来申请 token"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://localhost:8111/api/v1/apikey/get_token/client_id/pipeline?signature=12345678&user=defaultUser&org=1",
+            "headers": {
+              "Content-Type": "application/json"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"token\": \"mock_token\",\n        \"refreshToken\": \"mock_refresh_token\"\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "user_service.apikey.ResetApiKey",
@@ -486,7 +652,10 @@
           {
             "name": "state",
             "type": "string",
-            "enum": ["invalid", "valid"],
+            "enum": [
+              "invalid",
+              "valid"
+            ],
             "description": "是否可用"
           },
           {
@@ -515,6 +684,76 @@
           "ts"
         ]
       }
+    },
+    {
+      "contract": "user_service.apikey.UpdateApiKey",
+      "name": "UpdateApiKey",
+      "version": "1.0.0",
+      "description": "修改用户ApiKey[内部]",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/apikey/update/:user"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "string",
+            "description": "用户名"
+          },
+          {
+            "name": "switchUsers",
+            "type": "string[]",
+            "description": "切换用户(组)"
+          }
+        ],
+        "required": [
+          "user"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "string",
+            "description": "用户名"
+          },
+          {
+            "name": "switchUsers",
+            "type": "string[]",
+            "description": "切换用户id(组id)"
+          }
+        ],
+        "required": [
+          "user",
+          "switchUsers"
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "UpdateApiKey",
+            "zh": "修改apikey"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://localhost:8111/api/v1/apikey/easyops",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"user\": \"easyops\",\n  \"switchUsers\": [\"fanpu\"]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"user\": \"easyops\",\n        \"switchUsers\": [\"fanpu\"]\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "user_service.auth.GetCaptcha",
@@ -568,7 +807,99 @@
             "description": "客户端 ip, 某些客户需要此字段"
           }
         ],
-        "required": ["name", "password"]
+        "required": [
+          "name",
+          "password"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "name",
+            "type": "user_name",
+            "description": "用户名"
+          },
+          {
+            "name": "instanceId",
+            "type": "instance_id",
+            "description": "用户instanceId"
+          },
+          {
+            "name": "org",
+            "type": "int",
+            "description": "org"
+          },
+          {
+            "name": "changePasswordRequired",
+            "type": "bool",
+            "description": "是否需要修改密码（开启 check-password-security 特性时, 初次登录和密码过期时需要修改密码）"
+          },
+          {
+            "name": "changePasswordReason",
+            "type": "string",
+            "enum": [
+              "firstLogin",
+              "expired"
+            ],
+            "description": "修改密码的具体原因（firstLogin:初次登录, expired:密码已过期）"
+          },
+          {
+            "name": "passwordRemainingDays",
+            "type": "int",
+            "description": "密码有效期剩余时间（当 changePasswordRequired 为 true 时，这个值为 -1）"
+          }
+        ],
+        "required": [
+          "name",
+          "org"
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "UserAuth",
+            "zh": "登录认证"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/v1/users/auth",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"name\": \"easyops\",\n  \"password\": \"password\",\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"name\": \"easyops\",\n        \"instanceId\": \"1234567\",\n        \"org\": 2988466,\n        \"changePasswordRequired\": true,\n        \"changePasswordReason\": \"firstLogin\",\n        \"passwordRemainingDays\": 30,\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "user_service.auth.UserNameValidate",
+      "name": "UserNameValidate",
+      "version": "1.0.0",
+      "description": "用户名验证[内部]",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/users/name/validate"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "用户名"
+          }
+        ],
+        "required": [
+          "name"
+        ]
       },
       "response": {
         "type": "object",
@@ -589,8 +920,34 @@
             "description": "org"
           }
         ],
-        "required": ["name", "org"]
-      }
+        "required": [
+          "name",
+          "org"
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "UserNameValidate",
+            "zh": "用户名验证"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/v1/users/name/validate",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"name\": \"easyops\",\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"name\": \"easyops\",\n        \"instanceId\": \"1234567\",\n        \"org\": 2988466,\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "user_service.auth.UserValidate",
@@ -615,7 +972,10 @@
             "description": "密码"
           }
         ],
-        "required": ["name", "password"]
+        "required": [
+          "name",
+          "password"
+        ]
       },
       "response": {
         "type": "object",
@@ -636,8 +996,34 @@
             "description": "org"
           }
         ],
-        "required": ["name", "org"]
-      }
+        "required": [
+          "name",
+          "org"
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "UserValidate",
+            "zh": "用户密码验证"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/v1/users/validate",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"name\": \"easyops\",\n  \"password\": \"password\",\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"name\": \"easyops\",\n        \"instanceId\": \"1234567\",\n        \"org\": 2988466,\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "user_service.auth.ValidateCaptcha",
@@ -657,7 +1043,9 @@
             "description": "验证码"
           }
         ],
-        "required": ["phrase"]
+        "required": [
+          "phrase"
+        ]
       },
       "response": null,
       "examples": [
@@ -703,7 +1091,10 @@
             "description": "页大小"
           }
         ],
-        "required": ["page", "page_size"]
+        "required": [
+          "page",
+          "page_size"
+        ]
       },
       "response": {
         "type": "object",
@@ -726,7 +1117,10 @@
           {
             "name": "state",
             "type": "string",
-            "enum": ["invalid", "valid"],
+            "enum": [
+              "invalid",
+              "valid"
+            ],
             "description": "是否可用"
           },
           {
@@ -794,7 +1188,12 @@
             "description": "用户姓名"
           }
         ],
-        "required": ["name", "password", "email", "invite"]
+        "required": [
+          "name",
+          "password",
+          "email",
+          "invite"
+        ]
       },
       "response": {
         "type": "object",
@@ -825,7 +1224,12 @@
             "description": "用户姓名"
           }
         ],
-        "required": ["name", "email", "org", "instanceId"]
+        "required": [
+          "name",
+          "email",
+          "org",
+          "instanceId"
+        ]
       }
     },
     {
@@ -847,7 +1251,9 @@
             "description": "邀请码"
           }
         ],
-        "required": ["code"]
+        "required": [
+          "code"
+        ]
       },
       "response": {
         "type": "object",
@@ -863,7 +1269,10 @@
             "description": "org"
           }
         ],
-        "required": ["code", "org"]
+        "required": [
+          "code",
+          "org"
+        ]
       }
     },
     {
@@ -897,11 +1306,19 @@
           {
             "name": "state",
             "type": "string",
-            "enum": ["invalid", "valid"],
+            "enum": [
+              "invalid",
+              "valid"
+            ],
             "description": "是否可用"
           }
         ],
-        "required": ["code", "org", "expires", "state"]
+        "required": [
+          "code",
+          "org",
+          "expires",
+          "state"
+        ]
       }
     },
     {
@@ -935,11 +1352,19 @@
           {
             "name": "state",
             "type": "string",
-            "enum": ["invalid", "valid"],
+            "enum": [
+              "invalid",
+              "valid"
+            ],
             "description": "是否可用"
           }
         ],
-        "required": ["code", "org", "expires", "state"]
+        "required": [
+          "code",
+          "org",
+          "expires",
+          "state"
+        ]
       }
     },
     {
@@ -951,7 +1376,9 @@
         "method": "POST",
         "uri": "/api/v1/launchpad/collection"
       },
-      "import": ["easyops/model/user_service/launchpad_collection"],
+      "import": [
+        "easyops/model/user_service/launchpad_collection"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -966,7 +1393,10 @@
             "description": "microApp Id, 当type为microApp时必填"
           }
         ],
-        "required": ["launchpadCollection.type", "launchpadCollection.name"]
+        "required": [
+          "launchpadCollection.type",
+          "launchpadCollection.name"
+        ]
       },
       "response": {
         "type": "object",
@@ -977,7 +1407,9 @@
             "description": "LaunchpadCollection instanceId"
           }
         ],
-        "required": ["launchpadInstanceId"]
+        "required": [
+          "launchpadInstanceId"
+        ]
       }
     },
     {
@@ -989,20 +1421,33 @@
         "method": "POST",
         "uri": "/api/v2/launchpad/collection"
       },
-      "import": ["easyops/model/user_service/launchpad_collection_v2"],
+      "import": [
+        "easyops/model/user_service/launchpad_collection_v2"
+      ],
       "request": {
         "type": "object",
         "fields": [
+          {
+            "ref": "LaunchpadCollectionV2.name"
+          },
+          {
+            "ref": "LaunchpadCollectionV2.icon"
+          },
+          {
+            "ref": "LaunchpadCollectionV2.link"
+          },
           {
             "ref": "LaunchpadCollectionV2.type"
           },
           {
             "name": "relatedInstanceId",
             "type": "string",
-            "description": "关联的microApp或者customItem的实例Id"
+            "description": "type是microApp或者customItem时生效，表示关联对象的实例Id，并且 name/icon/link 参数无效; 类型是link时此参数无效，name/icon/link 参数生效。"
           }
         ],
-        "required": ["LaunchpadCollectionV2.type", "relatedInstanceId"]
+        "required": [
+          "LaunchpadCollectionV2.type"
+        ]
       },
       "response": {
         "type": "LaunchpadCollectionV2"
@@ -1010,8 +1455,8 @@
       "examples": [
         {
           "description": {
-            "en": "Create collection v2",
-            "zh": "新增我的收藏V2"
+            "en": "Create micro app collection",
+            "zh": "新增微应用收藏"
           },
           "request": {
             "method": "POST",
@@ -1028,6 +1473,28 @@
               "Content-Type": "application/json; charset=utf-8"
             },
             "body": "{\n    \"instanceId\": \"5cb76b1845ec6\",\n    \"type\": \"microApp\",\n    \"relatedApp\": {\n        \"instanceId\": \"6032b0f9a3d6d\",\n        \"id\": \"app-deploy\",\n        \"name\": \"next 应用部署\",\n        \"homepage\": \"/app-deploy\",\n        \"menuIcon\": {\n            \"lib\": \"easyops\",\n            \"type\": \"\",\n            \"theme\": \"\",\n            \"icon\": \"cd-deploy\",\n            \"prefix\": \"\",\n            \"category\": \"app\",\n            \"color\": \"\",\n            \"imgSrc\": \"\"\n        },\n        \"locales\": {\n            \"en\": {\n                \"name\": \"App Deploy\"\n            },\n            \"zh\": {\n                \"name\": \"应用部署\"\n            }\n        }\n    },\n    \"relatedCustomItem\": null\n}"
+          }
+        },
+        {
+          "description": {
+            "en": "Create link collection",
+            "zh": "新增链接收藏"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8111/api/v2/launchpad/collection",
+            "headers": {
+              "Content-Type": "application/json",
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n    \"name\": \"常用工具\",\n    \"type\": \"link\",\n    \"icon\": {\n        \"lib\": \"fa\",\n        \"type\": \"\",\n        \"theme\": \"\",\n        \"icon\": \"apple-alt\",\n        \"prefix\": \"fas\",\n        \"category\": \"\"\n    },\n    \"link\": \"/tools\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"instanceId\": \"5cb76b1845ec6\",\n    \"name\": \"常用工具\",\n    \"type\": \"link\",\n    \"icon\": {\n        \"lib\": \"fa\",\n        \"type\": \"\",\n        \"theme\": \"\",\n        \"icon\": \"apple-alt\",\n        \"prefix\": \"fas\",\n        \"category\": \"\"\n    },\n    \"link\": \"/tools\",\n    \"relatedApp\": null,\n    \"relatedCustomItem\": null\n}"
           }
         }
       ]
@@ -1050,7 +1517,9 @@
             "description": "launchpad instanceId"
           }
         ],
-        "required": ["instanceId"]
+        "required": [
+          "instanceId"
+        ]
       },
       "response": null
     },
@@ -1072,7 +1541,9 @@
             "description": "实例Id"
           }
         ],
-        "required": ["instanceId"]
+        "required": [
+          "instanceId"
+        ]
       },
       "response": null,
       "examples": [
@@ -1108,7 +1579,9 @@
         "method": "LIST",
         "uri": "/api/v1/launchpad/collection"
       },
-      "import": ["easyops/model/user_service/launchpad_collection"],
+      "import": [
+        "easyops/model/user_service/launchpad_collection"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1159,7 +1632,9 @@
         "method": "LIST",
         "uri": "/api/v2/launchpad/collection"
       },
-      "import": ["easyops/model/user_service/launchpad_collection_v2"],
+      "import": [
+        "easyops/model/user_service/launchpad_collection_v2"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1201,7 +1676,7 @@
             "headers": {
               "Content-Type": "application/json; charset=utf-8"
             },
-            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"page\": 1,\n        \"page_size\": 25,\n        \"total\": 13,\n        \"list\": [\n            {\n                \"instanceId\": \"5cb76b1845ec6\",\n                \"type\": \"microApp\",\n                \"relatedApp\": {\n                    \"instanceId\": \"6032b0f9a3d6d\",\n                    \"id\": \"app-deploy\",\n                    \"name\": \"next 应用部署\",\n                    \"homepage\": \"/app-deploy\",\n                    \"menuIcon\": {\n                        \"lib\": \"easyops\",\n                        \"type\": \"\",\n                        \"theme\": \"\",\n                        \"icon\": \"cd-deploy\",\n                        \"prefix\": \"\",\n                        \"category\": \"app\",\n                        \"color\": \"\",\n                        \"imgSrc\": \"\"\n                    },\n                    \"locales\": {\n                        \"en\": {\n                            \"name\": \"App Deploy\"\n                        },\n                        \"zh\": {\n                            \"name\": \"应用部署\"\n                        }\n                    }\n                },\n                \"relatedCustomItem\": null\n            },\n            {\n                \"instanceId\": \"5cb76b1845ec6\",\n                \"type\": \"customItem\",\n                \"relatedCustomItem\": {\n                    \"instanceId\": \"6089893b13bed\",\n                    \"type\": \"custom\",\n                    \"id\": \"david_test\",\n                    \"name\": \"david_test\",\n                    \"url\": \"https://www.baidu.com\",\n                    \"menuIcon\": {\n                        \"lib\": \"antd\",\n                        \"type\": \"\",\n                        \"theme\": \"outlined\",\n                        \"icon\": \"cloud-server\",\n                        \"prefix\": \"\",\n                        \"category\": \"\",\n                        \"color\": \"\",\n                        \"imgSrc\": \"\"\n                    }\n                },\n                \"relatedApp\": null\n            }\n        ]\n    }\n}"
+            "body": "{\n    \"code\": 0,\n    \"error\": \"\",\n    \"message\": \"\",\n    \"data\": {\n        \"page\": 1,\n        \"page_size\": 25,\n        \"total\": 13,\n        \"list\": [\n            {\n                \"instanceId\": \"5cb76baf334de\",\n                \"type\": \"link\",\n                \"name\": \"常用工具\",\n                \"link\": \"/tools\",\n                \"icon\": {\n                    \"lib\": \"fa\",\n                    \"type\": \"\",\n                    \"theme\": \"\",\n                    \"icon\": \"apple-alt\",\n                    \"prefix\": \"fas\",\n                    \"category\": \"\"\n                },\n                \"relatedApp\": null,\n                \"relatedCustomItem\": null\n            },\n            {\n                \"instanceId\": \"5cb76b1845ec6\",\n                \"type\": \"microApp\",\n                \"name\": \"\",\n                \"link\": \"\",\n                \"icon\": null,\n                \"relatedApp\": {\n                    \"instanceId\": \"6032b0f9a3d6d\",\n                    \"id\": \"app-deploy\",\n                    \"name\": \"next 应用部署\",\n                    \"homepage\": \"/app-deploy\",\n                    \"menuIcon\": {\n                        \"lib\": \"easyops\",\n                        \"type\": \"\",\n                        \"theme\": \"\",\n                        \"icon\": \"cd-deploy\",\n                        \"prefix\": \"\",\n                        \"category\": \"app\",\n                        \"color\": \"\",\n                        \"imgSrc\": \"\"\n                    },\n                    \"locales\": {\n                        \"en\": {\n                            \"name\": \"App Deploy\"\n                        },\n                        \"zh\": {\n                            \"name\": \"应用部署\"\n                        }\n                    }\n                },\n                \"relatedCustomItem\": null\n            },\n            {\n                \"instanceId\": \"5cb76b1845ec6\",\n                \"type\": \"customItem\",\n                \"name\": \"\",\n                \"link\": \"\",\n                \"icon\": null,\n                \"relatedCustomItem\": {\n                    \"instanceId\": \"6089893b13bed\",\n                    \"type\": \"custom\",\n                    \"id\": \"david_test\",\n                    \"name\": \"david_test\",\n                    \"url\": \"https://www.baidu.com\",\n                    \"menuIcon\": {\n                        \"lib\": \"antd\",\n                        \"type\": \"\",\n                        \"theme\": \"outlined\",\n                        \"icon\": \"cloud-server\",\n                        \"prefix\": \"\",\n                        \"category\": \"\",\n                        \"color\": \"\",\n                        \"imgSrc\": \"\"\n                    }\n                },\n                \"relatedApp\": null\n            }\n        ]\n    }\n}"
           }
         }
       ]
@@ -1236,7 +1711,9 @@
         "method": "PUT",
         "uri": "/api/v1/launchpad/collection/:instanceId"
       },
-      "import": ["easyops/model/user_service/launchpad_collection"],
+      "import": [
+        "easyops/model/user_service/launchpad_collection"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1290,7 +1767,10 @@
             "description": "ladp服务器名称"
           }
         ],
-        "required": ["login_id", "password"]
+        "required": [
+          "login_id",
+          "password"
+        ]
       },
       "response": {
         "type": "object",
@@ -1321,7 +1801,11 @@
             "description": "是否为管理员"
           }
         ],
-        "required": ["username", "name", "org"]
+        "required": [
+          "username",
+          "name",
+          "org"
+        ]
       },
       "examples": [
         {
@@ -1406,7 +1890,10 @@
             "description": "配置"
           }
         ],
-        "required": ["key", "conf"]
+        "required": [
+          "key",
+          "conf"
+        ]
       },
       "response": null
     },
@@ -1419,7 +1906,9 @@
         "method": "GET",
         "uri": "/api/v1/user_service/my_collection/collections"
       },
-      "import": ["easyops/model/user_service/my_collection"],
+      "import": [
+        "easyops/model/user_service/my_collection"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1430,7 +1919,10 @@
             "ref": "MyCollection.collectionName"
           }
         ],
-        "required": ["MyCollection.module", "MyCollection.collectionName"]
+        "required": [
+          "MyCollection.module",
+          "MyCollection.collectionName"
+        ]
       },
       "response": {
         "type": "object",
@@ -1471,7 +1963,9 @@
         "method": "POST",
         "uri": "/api/v1/user_service/my_collection/upsert_collections"
       },
-      "import": ["easyops/model/user_service/my_collection"],
+      "import": [
+        "easyops/model/user_service/my_collection"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1513,7 +2007,9 @@
         "method": "POST",
         "uri": "/api/v1/org"
       },
-      "import": ["easyops/model/user_service/org_info"],
+      "import": [
+        "easyops/model/user_service/org_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1540,7 +2036,9 @@
             "description": "版本类型"
           }
         ],
-        "required": ["edition"],
+        "required": [
+          "edition"
+        ],
         "default": {
           "id": 0,
           "expired_days": 0
@@ -1561,12 +2059,14 @@
       "contract": "user_service.organization.CreateOrgV2",
       "name": "CreateOrgV2",
       "version": "1.0.0",
-      "description": "创建OrgV2, 在mongoDB创建org信息",
+      "description": "创建OrgV2, 在cmdb创建org信息",
       "endpoint": {
         "method": "POST",
         "uri": "/api/v2/org"
       },
-      "import": ["easyops/model/user_service/org_info"],
+      "import": [
+        "easyops/model/user_service/org_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1645,7 +2145,9 @@
             "description": "org"
           }
         ],
-        "required": ["id"]
+        "required": [
+          "id"
+        ]
       },
       "response": null
     },
@@ -1667,7 +2169,9 @@
             "description": "org"
           }
         ],
-        "required": ["id"]
+        "required": [
+          "id"
+        ]
       },
       "response": null
     },
@@ -1680,7 +2184,9 @@
         "method": "GET",
         "uri": "/api/v1/org/current"
       },
-      "import": ["easyops/model/user_service/org_info"],
+      "import": [
+        "easyops/model/user_service/org_info"
+      ],
       "request": null,
       "response": {
         "type": "OrgInfo",
@@ -1702,7 +2208,9 @@
         "method": "GET",
         "uri": "/api/v1/org/info/:id"
       },
-      "import": ["easyops/model/user_service/org_info"],
+      "import": [
+        "easyops/model/user_service/org_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1712,7 +2220,9 @@
             "description": "org"
           }
         ],
-        "required": ["id"]
+        "required": [
+          "id"
+        ]
       },
       "response": {
         "type": "OrgInfo",
@@ -1734,7 +2244,9 @@
         "method": "GET",
         "uri": "/api/v1/org/list"
       },
-      "import": ["easyops/model/user_service/org_info"],
+      "import": [
+        "easyops/model/user_service/org_info"
+      ],
       "request": null,
       "response": {
         "wrapper": false,
@@ -1761,7 +2273,12 @@
             "description": "org列表"
           }
         ],
-        "required": ["code", "error", "message", "data"]
+        "required": [
+          "code",
+          "error",
+          "message",
+          "data"
+        ]
       }
     },
     {
@@ -1790,7 +2307,10 @@
             "description": "过期日期"
           }
         ],
-        "required": ["id", "expired_date"]
+        "required": [
+          "id",
+          "expired_date"
+        ]
       },
       "response": null
     },
@@ -1803,7 +2323,9 @@
         "method": "PUT",
         "uri": "/api/v1/org/:id/name"
       },
-      "import": ["easyops/model/user_service/org_info"],
+      "import": [
+        "easyops/model/user_service/org_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1816,7 +2338,10 @@
             "ref": "OrgInfo.name"
           }
         ],
-        "required": ["id", "OrgInfo.name"]
+        "required": [
+          "id",
+          "OrgInfo.name"
+        ]
       },
       "response": null
     },
@@ -1829,7 +2354,9 @@
         "method": "PUT",
         "uri": "/api/v1/org/:id/namespaces"
       },
-      "import": ["easyops/model/user_service/org_info"],
+      "import": [
+        "easyops/model/user_service/org_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -1842,7 +2369,10 @@
             "ref": "OrgInfo.namespaces"
           }
         ],
-        "required": ["id", "OrgInfo.namespaces"]
+        "required": [
+          "id",
+          "OrgInfo.namespaces"
+        ]
       },
       "response": null
     },
@@ -1870,7 +2400,10 @@
             "description": "用户ID"
           }
         ],
-        "required": ["keys", "userId"]
+        "required": [
+          "keys",
+          "userId"
+        ]
       },
       "response": {
         "type": "map"
@@ -1918,7 +2451,10 @@
           {
             "name": "type",
             "type": "string",
-            "enums": ["tag", "recentHistory"],
+            "enums": [
+              "tag",
+              "recentHistory"
+            ],
             "description": "标识最近访问或者过滤标签"
           },
           {
@@ -1961,7 +2497,10 @@
             "description": "最近访问列表"
           }
         ],
-        "required": ["data", "userId"]
+        "required": [
+          "data",
+          "userId"
+        ]
       },
       "response": null,
       "examples": [
@@ -1977,6 +2516,312 @@
               "Content-Type": "application/json"
             },
             "body": "{\n    \"data\": [\n        {\n            \"key\": \"object_visit_history5ae38530df806_invisible\",\n            \"valye\": [\n                {\n                    \"visitObjectId\": \"PACKAGE\",\n                    \"visitObjectName\": \"包\",\n                    \"visitedAt\": \"2022-05-27T09:00:42+08:00\",\n                    \"count\": 2\n                },\n                {\n                    \"visit_objectId\": \"CLUSTER\",\n                    \"visit_objectName\": \"集群\",\n                    \"visitedAt\": \"2022-05-27T09:00:26+08:00\",\n                    \"count\": 1\n                }\n            ]\n        }\n    ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\":0,\n    \"codeExplain\":\"\",\n    \"error\":\"\",\n    \"data\":null\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "user_service.sso_auth_server.OauthAccessToken",
+      "name": "OauthAccessToken",
+      "version": "1.0.0",
+      "description": "oauth2授权码模式，获取accessToken接口",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/user_service/sso_auth_server/oauth2/access_token"
+      },
+      "import": [
+        "easyops/model/user_service/sso_client"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "SSOClient.redirectUri"
+          },
+          {
+            "ref": "SSOClient.clientId"
+          },
+          {
+            "ref": "SSOClient.clientSecret"
+          },
+          {
+            "name": "code",
+            "type": "string",
+            "description": "授权码，这里传拿到的授权码"
+          },
+          {
+            "name": "grantType",
+            "type": "string",
+            "description": "授权类型，这里是使用授权码，传authorization_code"
+          }
+        ],
+        "required": [
+          "SSOClient.clientId",
+          "SSOClient.redirectUri",
+          "grantType",
+          "code"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accessToken",
+            "type": "string",
+            "description": "生成的accessToken"
+          },
+          {
+            "name": "expiresIn",
+            "type": "int64",
+            "description": "超时时间，单位秒"
+          },
+          {
+            "name": "tokenType",
+            "type": "string",
+            "description": "访问令牌的类型，通常值为 \"Bearer\""
+          },
+          {
+            "name": "scope",
+            "type": "string",
+            "description": "表示访问令牌的范围"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "OauthAccessToken",
+            "zh": "oauth2授权码模式，获取accessToken接口"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/v1/user_service/sso_auth_server/oauth2/access_token",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n    \"redirectUri\": \"http://your_redirect_uri\",\n    \"clientId\": \"your_client_id\",\n    \"clientSecret\": \"your_client_secret\",\n    \"code\": \"your_authorization_code\",\n    \"grantType\": \"authorization_code\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\":0,\n    \"codeExplain\":\"\",\n    \"error\":\"\",\n    \"data\": {\n        \"accessToken\": \"your_access_token\",\n        \"tokenType\": \"Bearer\",\n        \"scope\": \"read\",\n        \"expiresIn\": 3600\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "user_service.sso_auth_server.OauthAuth",
+      "name": "OauthAuth",
+      "version": "1.0.0",
+      "description": "oauth2授权码模式，授权接口",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/user_service/sso_auth_server/oauth2/auth"
+      },
+      "import": [
+        "easyops/model/user_service/sso_client"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "SSOClient.redirectUri"
+          },
+          {
+            "ref": "SSOClient.clientId"
+          },
+          {
+            "name": "responseType",
+            "type": "string",
+            "description": "响应类型，这里默认传code"
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "用户名"
+          },
+          {
+            "name": "scope",
+            "type": "string",
+            "description": "授权范围，这里直接传read，授权后可以获取用户名"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "用于防止 CSRF 攻击，客户端生成的随机值，认证服务器会原样返回，推荐传这个参数"
+          }
+        ],
+        "required": [
+          "SSOClient.redirectUri",
+          "SSOClient.clientId",
+          "SSOClient.responseType"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "string",
+            "description": "授权码"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "与授权请求中的 state 参数一致，用于防止 CSRF 攻击，认证服务器会原样返回"
+          },
+          {
+            "name": "redirectWay",
+            "type": "string",
+            "enum": [
+              "GET",
+              "POST"
+            ],
+            "description": "重定向方式，在oauth2中，这里应该是直接接口302，但为了后续可以兼容多种协议，这里由页面重定向"
+          },
+          {
+            "name": "redirectUri",
+            "type": "url",
+            "description": "重定向uri"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "OauthAuth",
+            "zh": "oauth2授权码模式，授权接口"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://localhost:8111/api/v1/user_service/sso_auth_server/oauth2/auth?redirectUri=http://127.0.0.1/redirect_uri&clientId=clientId&responseType=code&scope=read&state=testState",
+            "headers": {
+              "Content-Type": "application/json"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\":0,\n    \"codeExplain\":\"\",\n    \"error\":\"\",\n    \"data\": {\n       \"code\": \"your_authorization_code\",\n       \"state\": \"testState\",\n       \"redirectWay\": \"GET\",\n       \"redirectUri\": \"http://127.0.0.1/redirect_uri\"\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "user_service.sso_auth_server.OauthUserInfo",
+      "name": "OauthUserInfo",
+      "version": "1.0.0",
+      "description": "oauth2授权码模式，获取userInfo接口",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/user_service/sso_auth_server/oauth2/user_info"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accessToken",
+            "type": "string",
+            "description": "token"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "sub",
+            "type": "string",
+            "description": "用户信息"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "OauthUserInfo",
+            "zh": "oauth2授权码模式，获取userInfo接口"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://localhost:8111/api/v1/user_service/sso_auth_server/oauth2/user_info&accessToken={your_access_token}",
+            "headers": {
+              "Content-Type": "application/json"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n   \"code\":0,\n   \"codeExplain\":\"\",\n   \"error\":\"\",\n   \"data\":{\n      \"sub\": \"user_id\"\n   }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "user_service.sso_auth_server.RegisterSSOClient",
+      "name": "RegisterSSOClient",
+      "version": "1.0.0",
+      "description": "注册sso client",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/user_service/sso_auth_server/sso_clients"
+      },
+      "import": [
+        "easyops/model/user_service/sso_client"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "SSOClient.clientName"
+          },
+          {
+            "ref": "SSOClient.redirectUri"
+          },
+          {
+            "ref": "SSOClient.clientUser"
+          },
+          {
+            "ref": "SSOClient.email"
+          },
+          {
+            "ref": "SSOClient.phone"
+          },
+          {
+            "ref": "SSOClient.describe"
+          },
+          {
+            "ref": "SSOClient.clientImage"
+          }
+        ],
+        "required": [
+          "clientName",
+          "redirectUri"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "RegisterSSOClient",
+            "zh": "注册sso client"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/v1/user_service/sso_auth_server/register_sso_client",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n    \"clientName\": \"测试应用\",\n    \"redirectUri\": \"http://127.0.0.1/redirect_uri\",\n    \"clientUser\": \"test\",\n    \"email\": \"xxx@easyops.cn\",\n    \"phone\": \"12345\"\n    \"describe\": \"demo\",\n    \"clientImage\": \n    {\n        \"name\": \"test\",\n        \"url\": \"xxx.png\"\n    }\n}"
           },
           "response": {
             "headers": {
@@ -2010,9 +2855,35 @@
             "description": "密码"
           }
         ],
-        "required": ["name"]
+        "required": [
+          "name"
+        ]
       },
-      "response": null
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "修改密码",
+            "en": "Alter Password"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8111/api/v1/users/alter_password",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n    \"name\": \"easyops\",\n    \"password\": \"test123\"\n}"
+          },
+          "response": {
+            "response": {
+              "headers": {
+                "Content-Type": "application/json; charset=utf-8"
+              },
+              "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n    }\n}"
+            }
+          }
+        }
+      ]
     },
     {
       "contract": "user_service.user_admin.AlterSelfPassword",
@@ -2037,9 +2908,36 @@
             "description": "原密码"
           }
         ],
-        "required": ["password", "oldPassword"]
+        "required": [
+          "password",
+          "oldPassword"
+        ]
       },
-      "response": null
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "修改自己密码",
+            "en": "Alter Self Password"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8111/api/v1/users/password",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n    \"password\": \"123456\",\n    \"oldPassword\": \"test123\"\n}"
+          },
+          "response": {
+            "response": {
+              "headers": {
+                "Content-Type": "application/json; charset=utf-8"
+              },
+              "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n    }\n}"
+            }
+          }
+        }
+      ]
     },
     {
       "contract": "user_service.user_admin.CheckUserExist",
@@ -2061,11 +2959,17 @@
           {
             "name": "type",
             "type": "string",
-            "enum": ["username", "email"],
+            "enum": [
+              "username",
+              "email"
+            ],
             "description": "校验类型"
           }
         ],
-        "required": ["parameter", "type"]
+        "required": [
+          "parameter",
+          "type"
+        ]
       },
       "response": null
     },
@@ -2092,7 +2996,10 @@
             "description": "重置密码地址"
           }
         ],
-        "required": ["email", "url"]
+        "required": [
+          "email",
+          "url"
+        ]
       },
       "response": null
     },
@@ -2155,7 +3062,9 @@
         "method": "GET",
         "uri": "/api/v1/users/simple_detail/:username"
       },
-      "import": ["easyops/model/user_service/user_info"],
+      "import": [
+        "easyops/model/user_service/user_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -2192,7 +3101,9 @@
         "method": "GET",
         "uri": "/api/v1/users/detail/:username"
       },
-      "import": ["easyops/model/user_service/user_info"],
+      "import": [
+        "easyops/model/user_service/user_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -2217,7 +3128,9 @@
         "method": "GET",
         "uri": "/api/v3/users/detail/:username"
       },
-      "import": ["easyops/model/user_service/user_info"],
+      "import": [
+        "easyops/model/user_service/user_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -2231,6 +3144,74 @@
       "response": {
         "type": "UserInfo"
       }
+    },
+    {
+      "contract": "user_service.user_admin.GetUserOrgs",
+      "name": "GetUserOrgs",
+      "version": "1.0.0",
+      "description": "获取用户关联的所有org",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/users/orgs"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "username",
+            "type": "user_name",
+            "description": "用户名"
+          }
+        ],
+        "required": [
+          "username"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "orgList",
+            "type": "object[]",
+            "description": "已加入的组织列表",
+            "fields": [
+              {
+                "name": "org",
+                "type": "org",
+                "description": "用户关联的组织"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": "组织名称"
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "GetUserOrgs",
+            "zh": "获取用户关联的所有org"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://localhost:8111/api/v1/users/orgs",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"username\": \"easyops\",\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n        \"orgList\": [\n              {\n                   \"org\": 1888,\n                   \"name\": \"1888org\",\n              },\n              {\n                   \"org\": 8888,\n                   \"name\": \"8888org\",\n              }\n        ]\n    }\n}"
+          }
+        }
+      ]
     },
     {
       "contract": "user_service.user_admin.GetUserAllRoles",
@@ -2297,6 +3278,59 @@
       ]
     },
     {
+      "contract": "user_service.user_admin.InviteUserToOrg",
+      "name": "InviteUserToOrg",
+      "version": "1.0.0",
+      "description": "邀请用户加入组织",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/users/orgs/join"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "username",
+            "type": "string[]",
+            "description": "用户名, 可以批量邀请多个用户"
+          },
+          {
+            "name": "org",
+            "type": "org",
+            "description": "邀请加入的组织"
+          }
+        ],
+        "required": [
+          "username",
+          "org"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "InviteUserToOrg",
+            "zh": "邀请用户加入组织"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/v1/users/orgs/join",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"username\": [\"easyops\", \"test\"],\n  \"org\": 8888,\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {}\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "user_service.user_admin.InvitedUserRegister",
       "name": "InvitedUserRegister",
       "version": "1.1.0",
@@ -2329,7 +3363,12 @@
             "description": "邀请码"
           }
         ],
-        "required": ["username", "password", "email", "invitation_code"]
+        "required": [
+          "username",
+          "password",
+          "email",
+          "invitation_code"
+        ]
       },
       "response": null
     },
@@ -2342,7 +3381,9 @@
         "method": "LIST",
         "uri": "/api/v1/groups"
       },
-      "import": ["easyops/model/user_service/user_group"],
+      "import": [
+        "easyops/model/user_service/user_group"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -2587,7 +3628,9 @@
         "method": "GET",
         "uri": "/api/v1/users"
       },
-      "import": ["easyops/model/user_service/user_info"],
+      "import": [
+        "easyops/model/user_service/user_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -2653,7 +3696,9 @@
         "method": "GET",
         "uri": "/api/v3/users"
       },
-      "import": ["easyops/model/user_service/user_info"],
+      "import": [
+        "easyops/model/user_service/user_info"
+      ],
       "request": {
         "type": "object",
         "fields": [
@@ -2720,6 +3765,59 @@
       }
     },
     {
+      "contract": "user_service.user_admin.RemoveUserFromOrg",
+      "name": "RemoveUserFromOrg",
+      "version": "1.0.0",
+      "description": "将用户移出组织[内部]",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/users/orgs/remove"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "username",
+            "type": "string[]",
+            "description": "即将移出组织的用户, 可以批量移出多个用户"
+          },
+          {
+            "name": "org",
+            "type": "org",
+            "description": "移出哪个组织"
+          }
+        ],
+        "required": [
+          "username",
+          "org"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "RemoveUserFromOrg",
+            "zh": "将用户移出组织"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/v1/users/orgs/remove",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"username\": [\"easyops\", \"test\"],\n  \"org\": 8888,\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {}\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "user_service.user_admin.ResetPassword",
       "name": "ResetPassword",
       "version": "1.0.0",
@@ -2752,7 +3850,12 @@
             "description": "重置密码key"
           }
         ],
-        "required": ["username", "ts", "password", "key"]
+        "required": [
+          "username",
+          "ts",
+          "password",
+          "key"
+        ]
       },
       "response": null
     },
@@ -2784,7 +3887,9 @@
             "description": "按字段排序, 留空默认按照实例ID降序排序(1表示升序, -1表示降序) e.g.: { instanceId: 1 }"
           }
         ],
-        "required": ["fields"]
+        "required": [
+          "fields"
+        ]
       },
       "response": {
         "type": "object",
@@ -2825,7 +3930,9 @@
             "description": "按字段排序, 留空默认按照实例ID降序排序(1表示升序, -1表示降序) e.g.: { instanceId: 1 }"
           }
         ],
-        "required": ["fields"]
+        "required": [
+          "fields"
+        ]
       },
       "response": {
         "type": "object",
@@ -2839,6 +3946,131 @@
       }
     },
     {
+      "contract": "user_service.user_admin.UpdateGroupMembers",
+      "name": "UpdateGroupMembers",
+      "version": "1.0.0",
+      "description": "更新用户组成员(添加/移除)",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/groups/:groupId/members"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "groupId",
+            "type": "string",
+            "description": "group id"
+          },
+          {
+            "name": "userIds",
+            "type": "string[]",
+            "description": "用户instanceId列表"
+          },
+          {
+            "name": "op",
+            "type": "string",
+            "enum": [
+              "append",
+              "remove"
+            ],
+            "description": "操作, append: 添加用户到用户组 remove: 将用户从用户组中移除"
+          }
+        ],
+        "required": [
+          "groupId",
+          "userIds"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "UpdateGroupMembers",
+            "zh": "更新用户组成员"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8111/api/v1/groups/:groupId/members",
+            "body": "{\n  \"op\": \"append\",\n  \"userIds\": [\n    \"6357978df5b4f\"\n  ]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"msg\": \"OK\",\n  \"data\": {\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "user_service.user_admin.UpdateUserAvatar",
+      "name": "UpdateUserAvatar",
+      "version": "1.1.0",
+      "description": "更新用户头像",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/users/avatar/:name"
+      },
+      "import": [
+        "easyops/model/user_service/user_info"
+      ],
+      "request": {
+        "multipart_enable": true,
+        "type": "object",
+        "fields": [
+          {
+            "ref": "UserInfo.name"
+          },
+          {
+            "name": "avatarFile",
+            "type": "file",
+            "description": "avatar file"
+          },
+          {
+            "name": "isSystemAvatar",
+            "type": "bool",
+            "description": "上传的头像文件是否是自带头像"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "bucketName",
+            "type": "string",
+            "description": "bucket"
+          },
+          {
+            "name": "objectName",
+            "type": "string",
+            "description": "object name"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "更新用户头像",
+            "en": "Update User Avatar"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8111/api/v1/users/icon/easyops",
+            "headers": {
+              "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryfbNzkSVBVBBrbum5"
+            },
+            "body": "------WebKitFormBoundaryfbNzkSVBVBBrbum5 Content-Disposition: form-data; name=\"file\"; filename=\"blob\" Content-Type: image/png ------WebKitFormBoundaryfbNzkSVBVBBrbum5--"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json;charset=utf-8"
+            },
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {\n    \"bucketName\": \"avatar\",\n    \"objectName\": \"blob1720424100462523309\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "user_service.user_admin.UpdateUserInfo",
       "name": "UpdateUserInfo",
       "version": "1.1.0",
@@ -2848,7 +4080,9 @@
         "method": "PUT",
         "uri": "/api/v1/users/info/:instanceId"
       },
-      "import": ["easyops/model/user_service/user_info"],
+      "import": [
+        "easyops/model/user_service/user_info"
+      ],
       "request": {
         "type": "UserInfo"
       },
@@ -2872,7 +4106,9 @@
             "description": "用户名"
           }
         ],
-        "required": ["username"]
+        "required": [
+          "username"
+        ]
       },
       "response": null
     },
@@ -2899,7 +4135,10 @@
             "description": "登录的值, 例如SSO登录时候的工号的值"
           }
         ],
-        "required": ["login_key", "login_value"]
+        "required": [
+          "login_key",
+          "login_value"
+        ]
       },
       "response": {
         "type": "object",
@@ -2925,7 +4164,10 @@
             "description": "是否为管理员"
           }
         ],
-        "required": ["name", "org"]
+        "required": [
+          "name",
+          "org"
+        ]
       }
     },
     {
@@ -2971,7 +4213,12 @@
             "description": "昵称"
           }
         ],
-        "required": ["name", "password", "email", "org"]
+        "required": [
+          "name",
+          "password",
+          "email",
+          "org"
+        ]
       },
       "response": {
         "type": "object",
@@ -2997,8 +4244,165 @@
             "description": "instanceId"
           }
         ],
-        "required": ["name", "email", "org", "instanceId"]
+        "required": [
+          "name",
+          "email",
+          "org",
+          "instanceId"
+        ]
       }
+    },
+    {
+      "contract": "user_service.verification_code.CheckVerificationCode",
+      "name": "CheckVerificationCode",
+      "version": "1.0.0",
+      "description": "校验验证码",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/user_service/v1/verification/codes/check"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "string",
+            "description": "用户名"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "发送类型（eg: email, phone）"
+          },
+          {
+            "name": "service",
+            "type": "string",
+            "description": "服务名称（eg: tool_service）"
+          },
+          {
+            "name": "scene",
+            "type": "string",
+            "description": "使用场景 （eg: tool_execute）"
+          },
+          {
+            "name": "resourceIds",
+            "type": "string[]",
+            "description": "资源id （eg: 9ff366020435ce53d73e69128c611bdd）"
+          },
+          {
+            "name": "code",
+            "type": "string",
+            "description": "验证码"
+          }
+        ],
+        "required": [
+          "user",
+          "service",
+          "code"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "CheckVerificationCode",
+            "zh": "校验验证码"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/user_service/v1/verification/codes/check",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n    \"user\": \"easyops\",\n    \"type\": \"email\",\n    \"service\": \"tool_service\",\n    \"scene\": \"tool_execute\",\n    \"code\": \"123456\",\n    \"resourceIds\": [\"9ff366020435ce53d73e69128c611bdd\"]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\":0,\n    \"codeExplain\":\"\",\n    \"error\":\"\",\n    \"data\": null\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "user_service.verification_code.SendVerificationCode",
+      "name": "SendVerificationCode",
+      "version": "1.0.0",
+      "description": "发送验证码",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/user_service/v1/verification/codes"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "string",
+            "description": "用户名(多个用逗号,分割)"
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "description": "发送类型（多个用逗号,分割; eg: email, phone）"
+          },
+          {
+            "name": "service",
+            "type": "string",
+            "description": "服务名称（eg: tool_service）"
+          },
+          {
+            "name": "scene",
+            "type": "string",
+            "description": "使用场景 （eg: tool_execute）"
+          },
+          {
+            "name": "resourceIds",
+            "type": "string[]",
+            "description": "资源id （eg: 9ff366020435ce53d73e69128c611bdd）"
+          },
+          {
+            "name": "template",
+            "type": "string",
+            "description": "验证码模板 （eg: 工具验证码为 %s（10分钟内有效）。此验证码用于【easyops】申请执行工具【安装agent】，请确认工具可被执行后，将验证码转告给该用户。）"
+          },
+          {
+            "name": "expiredTime",
+            "type": "int",
+            "description": "验证码有效期（秒）"
+          }
+        ],
+        "required": [
+          "user",
+          "type",
+          "service",
+          "template"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "SendVerificationCode",
+            "zh": "发送验证码"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8111/api/user_service/v1/verification/codes",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n    \"user\": \"easyops\",\n    \"type\": \"email\",\n    \"service\": \"tool_service\",\n    \"scene\": \"tool_execute\",\n    \"resourceIds\": [\"9ff366020435ce53d73e69128c611bdd\"],\n    \"template\": \"此验证码用于【easyops】申请执行工具【安装agent】，请确认工具可被执行后，将验证码转告给该用户。\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"code\":0,\n    \"codeExplain\":\"\",\n    \"error\":\"\",\n    \"data\": null\n}"
+          }
+        }
+      ]
     }
   ]
 }
