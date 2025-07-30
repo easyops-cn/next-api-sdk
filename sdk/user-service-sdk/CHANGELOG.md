@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/user-service-sdk@1.3.2...@next-api-sdk/user-service-sdk@1.4.0) (2025-07-30)
+
+
+### Features
+
+* **user-service:** update APIs and models ([2206e93](https://github.com/easyops-cn/next-api-sdk/commit/2206e9330029c47d1cee7fe6f7f3375715b4c3ff))
+
+
+
+
+
 ## [1.3.2](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/user-service-sdk@1.3.1...@next-api-sdk/user-service-sdk@1.3.2) (2025-03-21)
 
 **Note:** Version bump only for package @next-api-sdk/user-service-sdk
