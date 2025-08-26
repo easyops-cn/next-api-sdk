@@ -253,6 +253,131 @@
       ]
     },
     {
+      "contract": "llm.agent_flow.ChatForAgentFlow",
+      "name": "ChatForAgentFlow",
+      "version": "1.0.0",
+      "description": "agent flow 连续对话聊天, 流式返回, 则继续执行任务。只返回新的消息",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/agent/flow/chat"
+      },
+      "import": [
+        "easyops/model/llm/flow_agent_task_response"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "input",
+            "type": "string",
+            "description": "用户输入"
+          },
+          {
+            "name": "taskId",
+            "type": "string",
+            "description": "任务id, 如果为空, 则创建新任务"
+          }
+        ],
+        "required": [
+          "input",
+          "taskId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "description": "流式返回的数据",
+        "fields": [
+          {
+            "ref": "FlowAgentTaskResponse.*"
+          },
+          {
+            "name": "sseDataList",
+            "type": "value[]",
+            "description": "流式数据列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建agent flow的任务"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/llm/agent/flow/create",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"input\": \"今天深圳天气\",\n    \"taskId\": \"a8239375684858666781\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "data: {\"id\":\"a8239375684858666781\", \"state\":\"working\",\"plan\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\"},{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\"}]}\\n\\n data: {\"jobs\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_city_code\",\"arguments\":{\"city\":\"深圳\"}}}]}\\n\\n data: {\"jobs\":[{\"id\":\"job_1\",\"state\":\"completed\",\"messages\":[{\"role\":\"assistant\",\"parts\":[{\"type\":\"text\",\"text\":\"SZX\"}]}]}]}\\n\\n data: {\"jobs\":[{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_weather\",\"arguments\":{\"city\":\"SZX\"}}}]}\\n\\n\ndata: [DONE]"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.agent_flow.GetSurveyStatus",
+      "name": "GetSurveyStatus",
+      "version": "1.0.0",
+      "description": "获取agent flow问卷填写状态",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/agent/flow/get_survey_status"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "taskId",
+            "type": "string",
+            "description": "任务id"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "description": "是否完成填写",
+        "fields": [
+          {
+            "name": "done",
+            "type": "bool",
+            "description": "是否完成填写"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取问卷填写状态"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/llm/agent/flow/get_survey_status",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"taskId\": \"111\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"done\": true\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "llm.agent_flow.GetTaskDetailForAgentFlow",
       "name": "GetTaskDetailForAgentFlow",
       "version": "1.0.0",
@@ -485,6 +610,76 @@
               "Content-Type": "application/json; charset=utf-8"
             },
             "body": "{\n    \"code\": 0,\n    \"codeExplain\": \"\",\n    \"error\": \"\",\n    \"data\": {\n         \"next_token\": \"xxxxxxx\",\n          \"previous_token\": \"\",\n          \"data\": [\n              {\n                  \"title\": \"录入应用系统\",\n                  \"startTime\": 1747106187.0,\n                  \"_row_id\": \"00000196c7a4c973af2e063afadd7f7b\",\n                  \"status\": \"completed\",\n                  \"endTime\": 1747106535.0\n                }\n          ]\n    }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.agent_flow.SubmitSurvey",
+      "name": "SubmitSurvey",
+      "version": "1.0.0",
+      "description": "填写agent flow问卷",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/agent/flow/submit_survey"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "taskId",
+            "type": "string",
+            "description": "任务id"
+          },
+          {
+            "name": "plan",
+            "type": "string[]",
+            "description": "对plan的评价"
+          },
+          {
+            "name": "result",
+            "type": "string[]",
+            "description": "对结论的评价"
+          },
+          {
+            "name": "feedback",
+            "type": "string",
+            "description": "用户反馈"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "description": "是否完成填写",
+        "fields": [
+          {
+            "name": "done",
+            "type": "bool",
+            "description": "是否完成填写"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "填写调查问卷"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/llm/agent/flow/submit_survey",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"taskId\": \"111\",\n    \"plan\": [\"还行\"],\n    \"result\": [\"还行\"],\n    \"feedback\": \"还有改进空间\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n    \"done\": true\n}"
           }
         }
       ]
@@ -3745,6 +3940,11 @@
             "description": "输入的图片url",
             "name": "images",
             "type": "string[]"
+          },
+          {
+            "description": "请求最大 token 数",
+            "name": "maxTokens",
+            "type": "int"
           }
         ],
         "required": [],
@@ -3801,6 +4001,1696 @@
             },
             "status_code": 200,
             "body": "{\n  \"data\": \"有什么可以帮你\",\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.BindProjectAiEmployees",
+      "name": "BindProjectAiEmployees",
+      "version": "1.0.0",
+      "description": "绑定项目与数字人关系",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/projects/:projectInstanceId/bind-ai-employees"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectInstanceId",
+            "type": "string",
+            "description": "项目实例ID"
+          },
+          {
+            "name": "aiEmployeeInstanceIds",
+            "type": "string[]",
+            "description": "数字人实例ID列表"
+          }
+        ],
+        "required": [
+          "projectInstanceId",
+          "aiEmployeeInstanceIds"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "绑定项目与数字人关系"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/projects/project_123/bind-ai-employees",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n  \"projectInstanceId\": \"project_123\",\n  \"aiEmployeeInstanceIds\": [\"emp_001\", \"emp_002\", \"emp_003\"]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\"\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.BindProjectUsers",
+      "name": "BindProjectUsers",
+      "version": "1.0.0",
+      "description": "绑定项目与用户的关系",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/project-users/:projectInstanceId/bind-users"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectInstanceId",
+            "type": "string",
+            "description": "项目实例ID"
+          },
+          {
+            "name": "users",
+            "type": "object[]",
+            "description": "用户列表",
+            "fields": [
+              {
+                "name": "instanceId",
+                "type": "string",
+                "description": "用户的instanceId"
+              }
+            ]
+          }
+        ],
+        "required": [
+          "projectInstanceId",
+          "users"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "绑定项目与用户的关系"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/projects/project_123/bind-users",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n  \"projectInstanceId\": \"project_123\",\n  \"users\": [\n    {\"instanceId\": \"j523532df\"}\n  ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\"\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.CreateElevoAgent",
+      "name": "CreateElevoAgent",
+      "version": "1.0.0",
+      "description": "创建elevo智能体",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/agents"
+      },
+      "import": [
+        "easyops/model/llm/elevo_agent"
+      ],
+      "request": {
+        "type": "ElevoAgent"
+      },
+      "response": {
+        "type": "ElevoAgent"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建elevo智能体"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/agents",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"agentId\": \"agent_123\",\n    \"name\": \"智能助手Agent\",\n    \"description\": \"用于智能助手的基础Agent\",\n    \"state\": \"active\",\n    \"capabilities\": [\"对话\", \"分析\", \"搜索\"],\n    \"mcpServers\": [\"mcp_server_1\", \"mcp_server_2\"],\n    \"planTool\": \"plan_tool_id\",\n    \"modelConfig\": {\n        \"defaultModel\": \"gpt-4\",\n        \"temperature\": 0.7,\n        \"maxTokens\": 4000,\n        \"baseSystemPrompt\": \"你是一个智能助手Agent\"\n    }\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"instanceId\": \"cmdb_instance_789\",\n    \"agentId\": \"agent_123\",\n    \"name\": \"智能助手Agent\",\n    \"description\": \"用于智能助手的基础Agent\",\n    \"state\": \"active\",\n    \"capabilities\": [\"对话\", \"分析\", \"搜索\"],\n    \"mcpServers\": [\"mcp_server_1\", \"mcp_server_2\"],\n    \"planTool\": \"plan_tool_id\",\n    \"modelConfig\": {\n        \"defaultModel\": \"gpt-4\",\n        \"temperature\": 0.7,\n        \"maxTokens\": 4000,\n        \"baseSystemPrompt\": \"你是一个智能助手Agent\"\n    },\n    \"creator\": \"user123\",\n    \"ctime\": \"2024-01-01T00:00:00Z\",\n    \"mtime\": \"2024-01-01T00:00:00Z\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.CreateElevoAiEmployee",
+      "name": "CreateElevoAiEmployee",
+      "version": "1.0.0",
+      "description": "创建elevo数字人",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/ai-employees"
+      },
+      "import": [
+        "easyops/model/llm/elevo_ai_employee"
+      ],
+      "request": {
+        "type": "ElevoAiEmployee"
+      },
+      "response": {
+        "type": "ElevoAiEmployee"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建elevo数字人"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/ai-employees",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"employeeId\": \"emp_123\",\n    \"name\": \"数字人名称\",\n    \"description\": \"数字人描述\",\n    \"industry\": \"技术\",\n    \"role\": \"助手\",\n    \"capabilities\": [\"文档处理\", \"数据分析\", \"代码生成\"],\n    \"excludeTools\": [\"工具1\", \"工具2\"],\n    \"state\": \"active\",\n    \"planTool\": \"plan_tool_id\",\n    \"agent\": {\n        \"instanceId\": \"cmdb_instance_agent_123\"\n    },\n    \"modelConfig\": {\n        \"defaultModel\": \"gpt-4\",\n        \"temperature\": 0.7,\n        \"maxTokens\": 4000,\n        \"baseSystemPrompt\": \"你是一个智能助手\"\n    }\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"instanceId\": \"cmdb_instance_456\",\n    \"employeeId\": \"emp_123\",\n    \"name\": \"数字人名称\",\n    \"description\": \"数字人描述\",\n    \"industry\": \"技术\",\n    \"role\": \"助手\",\n    \"capabilities\": [\"文档处理\", \"数据分析\"],\n    \"excludeTools\": [\"tool1\"],\n    \"state\": \"active\",\n    \"planTool\": \"plan_tool_id\",\n    \"creator\": \"user123\",\n    \"ctime\": \"2024-01-01T00:00:00Z\",\n    \"mtime\": \"2024-01-01T00:00:00Z\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.CreateElevoConversation",
+      "name": "CreateElevoConversation",
+      "version": "1.0.0",
+      "description": "创建elevo空会话",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/conversations"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectId",
+            "type": "string",
+            "description": "项目ID"
+          },
+          {
+            "name": "aiEmployeeId",
+            "type": "string",
+            "description": "指定数字人ID（可选）"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "conversationId",
+            "type": "string",
+            "description": "会话ID"
+          },
+          {
+            "name": "projectId",
+            "type": "string",
+            "description": "项目ID"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "会话状态"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "description": "标题"
+          },
+          {
+            "name": "aiEmployeeId",
+            "type": "string",
+            "description": "分配的数字人ID"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建elevo空会话"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/conversations",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"projectId\": \"project_123\",\n    \"aiEmployeeId\": \"emp_123\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"conversationId\": \"conv_123\",\n    \"projectId\": \"project_123\",\n    \"state\": \"submitted\",\n    \"title\": \"\",\n    \"aiEmployeeId\": \"emp_123\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.CreateElevoProject",
+      "name": "CreateElevoProject",
+      "version": "1.0.0",
+      "description": "创建elevo项目",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/projects"
+      },
+      "import": [
+        "easyops/model/llm/elevo_project"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "项目名称"
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "description": "项目描述"
+          },
+          {
+            "name": "defaultAiEmployeeId",
+            "type": "string",
+            "description": "默认数字人ID"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "状态：active, inactive"
+          }
+        ],
+        "required": [
+          "name"
+        ]
+      },
+      "response": {
+        "type": "ElevoProject"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建elevo项目"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/projects",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"name\": \"项目名称\",\n    \"description\": \"项目描述\",\n    \"defaultAiEmployeeId\": \"ai_employee_id_1\",\n    \"state\": \"active\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"instanceId\": \"cmdb_instance_123\",\n    \"name\": \"项目名称\",\n    \"description\": \"项目描述\",\n    \"state\": \"active\",\n    \"defaultAiEmployeeId\": \"ai_employee_id_1\",\n    \"creator\": \"user123\",\n    \"ctime\": \"2024-01-01T00:00:00Z\",\n    \"mtime\": \"2024-01-01T00:00:00Z\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.DeleteElevoAgent",
+      "name": "DeleteElevoAgent",
+      "version": "1.0.0",
+      "description": "删除elevo智能体",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/elevo/agents/:instanceId"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "string",
+            "description": "智能体实例ID"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "删除elevo智能体"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://ip:port/api/v1/elevo/agents/cmdb_instance_789",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\"\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.DeleteElevoAiEmployee",
+      "name": "DeleteElevoAiEmployee",
+      "version": "1.0.0",
+      "description": "删除elevo数字人",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/elevo/ai-employees/:instanceId"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "string",
+            "description": "数字人实例ID"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "删除elevo数字人"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://ip:port/api/v1/elevo/ai-employees/cmdb_instance_456",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\"\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.DeleteElevoProject",
+      "name": "DeleteElevoProject",
+      "version": "1.0.0",
+      "description": "删除elevo项目",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/elevo/projects/:instanceId"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "string",
+            "description": "项目实例ID"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "删除elevo项目"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://ip:port/api/v1/elevo/projects/cmdb_instance_123",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\"\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.GetElevoAgent",
+      "name": "GetElevoAgent",
+      "version": "1.0.0",
+      "description": "获取elevo智能体详情",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/elevo/agents/:instanceId"
+      },
+      "import": [
+        "easyops/model/llm/elevo_agent"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "string",
+            "description": "智能体实例ID"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": {
+        "type": "ElevoAgent"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取elevo智能体详情"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/agents/cmdb_instance_789",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"instanceId\": \"cmdb_instance_789\",\n    \"agentId\": \"agent_123\",\n    \"name\": \"智能助手Agent\",\n    \"description\": \"用于智能助手的基础Agent\",\n    \"state\": \"active\",\n    \"capabilities\": [\"对话\", \"分析\", \"搜索\"],\n    \"mcpServers\": [\"mcp_server_1\", \"mcp_server_2\"],\n    \"planTool\": \"plan_tool_id\",\n    \"creator\": \"user123\",\n    \"ctime\": \"2024-01-01T00:00:00Z\",\n    \"mtime\": \"2024-01-01T00:00:00Z\",\n    \"modifier\": \"user123\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.GetElevoAiEmployee",
+      "name": "GetElevoAiEmployee",
+      "version": "1.0.0",
+      "description": "获取elevo数字人详情",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/elevo/ai-employees/:instanceId"
+      },
+      "import": [
+        "easyops/model/llm/elevo_ai_employee"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "string",
+            "description": "数字人实例ID"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": {
+        "type": "ElevoAiEmployee"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取elevo数字人详情"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/ai-employees/cmdb_instance_456",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"instanceId\": \"cmdb_instance_456\",\n    \"employeeId\": \"emp_123\",\n    \"name\": \"智能助手小E\",\n    \"description\": \"专业的智能助手\",\n    \"industry\": \"技术\",\n    \"role\": \"助手\",\n    \"capabilities\": [\"文档处理\", \"数据分析\"],\n    \"excludeTools\": [\"tool1\"],\n    \"state\": \"active\",\n    \"planTool\": \"plan_tool_id\",\n    \"agent\": {\n      \"instanceId\": \"agent_instance_789\",\n      \"agentId\": \"agent_123\",\n      \"name\": \"基础Agent\",\n      \"description\": \"基础智能体\",\n      \"state\": \"active\",\n      \"capabilities\": [\"对话\", \"分析\"],\n      \"mcpServers\": [\"server1\"],\n      \"planTool\": \"plan_tool_id\"\n    },\n    \"modelConfig\": {\n      \"defaultModel\": \"gpt-4\",\n      \"temperature\": 0.7,\n      \"maxTokens\": 4000,\n      \"baseSystemPrompt\": \"你是一个智能助手\"\n    },\n    \"creator\": \"user123\",\n    \"ctime\": \"2024-01-01T00:00:00Z\",\n    \"mtime\": \"2024-01-01T00:00:00Z\",\n    \"modifier\": \"user123\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.GetElevoConversationState",
+      "name": "GetElevoConversationState",
+      "version": "1.0.0",
+      "description": "获取elevo会话状态",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/elevo/conversations/:conversationId/state"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "conversationId",
+            "type": "string",
+            "description": "会话ID"
+          }
+        ],
+        "required": [
+          "conversationId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "conversation_id",
+            "type": "string",
+            "description": "会话ID"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "会话状态"
+          },
+          {
+            "name": "updated_at",
+            "type": "int",
+            "description": "更新时间(毫秒时间戳)"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取elevo会话状态"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/conversations/conv_123/state",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"conversation_id\": \"conv_123\",\n    \"state\": \"executing\",\n    \"updated_at\": 1713547260000\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.GetElevoConversationStream",
+      "name": "GetElevoConversationStream",
+      "version": "1.0.0",
+      "description": "获取elevo会话流式数据",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/elevo/conversations/:conversationId/stream"
+      },
+      "import": [
+        "easyops/model/llm/elevo_conversion_response"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "conversationId",
+            "type": "string",
+            "description": "会话ID"
+          },
+          {
+            "name": "lastIndex",
+            "type": "int",
+            "description": "最后一条消息的索引，用于增量拉取"
+          }
+        ],
+        "required": [
+          "conversationId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "description": "SSE流式数据",
+        "fields": [
+          {
+            "ref": "ElevoConversionResponse.*"
+          },
+          {
+            "name": "sseDataList",
+            "type": "value[]",
+            "description": "流式数据列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取elevo会话流式数据"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/conversations/conv_123/stream?lastIndex=5",
+            "headers": {
+              "Accept": "text/event-stream",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "text/event-stream; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "data: {\"id\":\"conv_123\",\"tasks\":[{\"id\":\"task_1\", \"state\":\"working\",\"plan\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\"},{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\"}]}]}\\n\\n data: {\"id\":\"conv_123\",\"tasks\":[{\"id\":\"task_1\",\"jobs\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_city_code\",\"arguments\":{\"city\":\"深圳\"}}}]}]}\\n\\n data: {\"id\":\"conv_123\",\"tasks\":[{\"id\":\"task_1\",\"jobs\":[{\"id\":\"job_1\",\"state\":\"completed\",\"messages\":[{\"role\":\"assistant\",\"parts\":[{\"type\":\"text\",\"text\":\"SZX\"}]}]}]}]}\\n\\n data: {\"id\":\"conv_123\",\"tasks\":[{\"id\":\"task_1\",\"jobs\":[{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_weather\",\"arguments\":{\"city\":\"SZX\"}}}]}]}\\n\\n\ndata: [DONE]"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.GetElevoProject",
+      "name": "GetElevoProject",
+      "version": "1.0.0",
+      "description": "获取elevo项目详情",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/elevo/projects/:instanceId"
+      },
+      "import": [
+        "easyops/model/llm/elevo_project"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "string",
+            "description": "项目实例ID"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": {
+        "type": "ElevoProject"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取elevo项目详情"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/projects/cmdb_instance_123",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"instanceId\": \"cmdb_instance_123\",\n    \"name\": \"项目名称\",\n    \"description\": \"项目描述\",\n    \"state\": \"active\",\n    \"defaultAiEmployeeId\": \"ai_employee_id_1\",\n    \"creator\": \"user123\",\n    \"ctime\": \"2024-01-01T00:00:00Z\",\n    \"mtime\": \"2024-01-01T00:00:00Z\",\n    \"modifier\": \"user123\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.GetElevoProjects",
+      "name": "GetElevoProjects",
+      "version": "1.0.0",
+      "description": "获取elevo项目列表",
+      "endpoint": {
+        "method": "list",
+        "uri": "/api/v1/elevo/projects"
+      },
+      "import": [
+        "easyops/model/llm/elevo_project"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "int",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "int",
+            "description": "每页数量"
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": "搜索关键词"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "状态过滤"
+          }
+        ]
+      },
+      "response": {
+        "type": "ElevoProject"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取elevo项目列表"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/projects?page=1&page_size=20&key=数据分析&state=active",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"page\": 1,\n    \"page_size\": 20,\n    \"total\": 1,\n    \"list\": [\n      {\n        \"instanceId\": \"cmdb_instance_123\",\n        \"name\": \"数据分析项目\",\n        \"description\": \"用于分析销售数据的项目\",\n        \"state\": \"active\",\n        \"defaultAiEmployeeId\": \"ai_employee_id_1\",\n        \"creator\": \"user123\",\n        \"ctime\": \"2024-01-01T00:00:00Z\",\n        \"mtime\": \"2024-01-01T00:00:00Z\"\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.ListElevoAgents",
+      "name": "ListElevoAgents",
+      "version": "1.0.0",
+      "description": "获取elevo智能体列表",
+      "endpoint": {
+        "method": "list",
+        "uri": "/api/v1/elevo/agents"
+      },
+      "import": [
+        "easyops/model/llm/elevo_agent"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "int",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "int",
+            "description": "每页数量"
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": "搜索关键词"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "状态过滤"
+          }
+        ]
+      },
+      "response": {
+        "type": "ElevoAgent"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取elevo智能体列表"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/agents?page=1&page_size=20&key=智能助手&state=active",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"page\": 1,\n    \"page_size\": 20,\n    \"total\": 1,\n    \"list\": [\n      {\n        \"instanceId\": \"cmdb_instance_789\",\n        \"agentId\": \"agent_123\",\n        \"name\": \"智能助手Agent\",\n        \"description\": \"用于智能助手的基础Agent\",\n        \"state\": \"active\",\n        \"capabilities\": [\"对话\", \"分析\", \"搜索\"],\n        \"mcpServers\": [\"mcp_server_1\", \"mcp_server_2\"],\n        \"planTool\": \"plan_tool_id\",\n        \"creator\": \"user123\",\n        \"ctime\": \"2024-01-01T00:00:00Z\",\n        \"mtime\": \"2024-01-01T00:00:00Z\"\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.ListElevoAiEmployees",
+      "name": "ListElevoAiEmployees",
+      "version": "1.0.0",
+      "description": "获取elevo数字人列表",
+      "endpoint": {
+        "method": "list",
+        "uri": "/api/v1/elevo/ai-employees"
+      },
+      "import": [
+        "easyops/model/llm/elevo_ai_employee"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectId",
+            "type": "string",
+            "description": "项目ID"
+          },
+          {
+            "name": "page",
+            "type": "int",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "int",
+            "description": "每页数量"
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": "搜索关键词"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "状态过滤"
+          }
+        ]
+      },
+      "response": {
+        "type": "ElevoAiEmployee"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取elevo数字人列表"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/ai-employees?projectId=project_123&page=1&page_size=20&key=智能助手&state=active",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"page\": 1,\n    \"page_size\": 20,\n    \"total\": 1,\n    \"list\": [\n      {\n        \"instanceId\": \"cmdb_instance_456\",\n        \"employeeId\": \"emp_123\",\n        \"name\": \"智能助手小E\",\n        \"description\": \"专业的智能助手\",\n        \"industry\": \"技术\",\n        \"role\": \"助手\",\n        \"capabilities\": [\"文档处理\", \"数据分析\"],\n        \"excludeTools\": [\"tool1\"],\n        \"state\": \"active\",\n        \"planTool\": \"plan_tool_id\",\n        \"creator\": \"user123\",\n        \"ctime\": \"2024-01-01T00:00:00Z\",\n        \"mtime\": \"2024-01-01T00:00:00Z\"\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.ListElevoAiEmployeesByProject",
+      "name": "ListElevoAiEmployeesByProject",
+      "version": "1.0.0",
+      "description": "获取指定项目的elevo数字人列表",
+      "endpoint": {
+        "method": "list",
+        "uri": "/api/v1/elevo/ai-employees/by-project/:projectId"
+      },
+      "import": [
+        "easyops/model/llm/elevo_ai_employee"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectId",
+            "type": "string",
+            "description": "项目ID"
+          },
+          {
+            "name": "page",
+            "type": "int",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "int",
+            "description": "每页数量"
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": "搜索关键词"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "状态过滤"
+          }
+        ],
+        "required": [
+          "projectId"
+        ]
+      },
+      "response": {
+        "type": "ElevoAiEmployee"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取指定项目的elevo数字人列表"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/ai-employees/by-project/project_123?page=1&page_size=20&key=智能助手&state=active",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"page\": 1,\n    \"page_size\": 20,\n    \"total\": 1,\n    \"list\": [\n      {\n        \"instanceId\": \"cmdb_instance_456\",\n        \"employeeId\": \"emp_123\",\n        \"name\": \"智能助手小E\",\n        \"description\": \"专业的智能助手\",\n        \"industry\": \"技术\",\n        \"role\": \"助手\",\n        \"capabilities\": [\"文档处理\", \"数据分析\"],\n        \"excludeTools\": [\"tool1\"],\n        \"state\": \"active\",\n        \"planTool\": \"plan_tool_id\",\n        \"creator\": \"user123\",\n        \"ctime\": \"2024-01-01T00:00:00Z\",\n        \"mtime\": \"2024-01-01T00:00:00Z\"\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.ListElevoConversations",
+      "name": "ListElevoConversations",
+      "version": "1.0.0",
+      "description": "获取elevo会话列表",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/elevo/conversations"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectId",
+            "type": "string",
+            "description": "项目ID"
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "description": "用户名"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "会话状态（submitted, working, completed）"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "description": "标题搜索关键词"
+          },
+          {
+            "name": "token",
+            "type": "string",
+            "description": "分页token"
+          },
+          {
+            "name": "limit",
+            "type": "int",
+            "description": "每页数量"
+          },
+          {
+            "name": "onlyOwner",
+            "type": "bool",
+            "description": "是否只查询当前用户的会话"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "conversations",
+            "type": "object[]",
+            "description": "会话列表",
+            "fields": [
+              {
+                "name": "conversationId",
+                "type": "string",
+                "description": "会话ID"
+              },
+              {
+                "name": "projectId",
+                "type": "string",
+                "description": "项目ID"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "description": "会话标题"
+              },
+              {
+                "name": "state",
+                "type": "string",
+                "description": "会话状态"
+              },
+              {
+                "name": "leadAiEmployeeId",
+                "type": "string",
+                "description": "主导数字人ID"
+              },
+              {
+                "name": "lastLeadAiEmployeeId",
+                "type": "string",
+                "description": "上次主导的数字人ID"
+              },
+              {
+                "name": "username",
+                "type": "string",
+                "description": "用户名"
+              },
+              {
+                "name": "rootContextId",
+                "type": "string",
+                "description": "根上下文ID"
+              },
+              {
+                "name": "executingContextId",
+                "type": "string",
+                "description": "当前执行中的上下文ID"
+              },
+              {
+                "name": "time",
+                "type": "int",
+                "description": "创建时间(毫秒时间戳)"
+              },
+              {
+                "name": "updatedAt",
+                "type": "int",
+                "description": "更新时间(毫秒时间戳)"
+              }
+            ]
+          },
+          {
+            "name": "nextToken",
+            "type": "string",
+            "description": "下一页token"
+          },
+          {
+            "name": "previousToken",
+            "type": "string",
+            "description": "上一页token"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取elevo会话列表"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/conversations?projectId=project_123&token=next_page_token&limit=20&onlyOwner=true",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"projectId\": \"project_123\",\n    \"token\": \"next_token_123\",\n    \"limit\": 20,\n    \"title\": \"数据分析\",\n    \"only_owner\": true\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"conversations\": [\n      {\n        \"conversationId\": \"conv_123\",\n        \"projectId\": \"project_123\",\n        \"title\": \"数据分析任务\",\n        \"state\": \"working\",\n        \"leadAiEmployeeId\": \"emp_123\",\n        \"lastLeadAiEmployeeId\": \"emp_122\",\n        \"username\": \"user123\",\n        \"rootContextId\": \"ctx_root_123\",\n        \"executingContextId\": \"ctx_exec_456\",\n        \"time\": 1640995200000,\n        \"updatedAt\": 1640995260000\n      }\n    ],\n    \"nextToken\": \"next_page_token_here\",\n    \"previousToken\": \"previous_page_token_here\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.ListUsersByProject",
+      "name": "ListUsersByProject",
+      "version": "1.0.0",
+      "description": "获取指定项目的用户列表",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/elevo/project-users/:projectInstanceId/list-users"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectInstanceId",
+            "type": "string",
+            "description": "项目ID"
+          },
+          {
+            "name": "page",
+            "type": "int",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "int",
+            "description": "每页数量"
+          }
+        ],
+        "required": [
+          "projectInstanceId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "users",
+            "type": "object[]",
+            "description": "项目内的成员",
+            "fields": [
+              {
+                "name": "instanceId",
+                "type": "string",
+                "description": "用户的instanceId"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": "用户的名称"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "int",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "int",
+            "description": "每页数量"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "总数"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取指定项目的用户列表"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://ip:port/api/v1/elevo/projects/project_123/list-users",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"users\": [\n    {\n      \"instanceId\": \"fjdkalsfa43\",\n      \"name\": \"linus\"\n    }\n  ]\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.SendElevoMessage",
+      "name": "SendElevoMessage",
+      "version": "1.0.0",
+      "description": "发送elevo会话消息",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/conversations/:conversationId/messages"
+      },
+      "import": [
+        "easyops/model/llm/elevo_conversion_response"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "conversationId",
+            "type": "string",
+            "description": "会话ID"
+          },
+          {
+            "name": "content",
+            "type": "string",
+            "description": "用户输入内容"
+          }
+        ],
+        "required": [
+          "conversationId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "description": "SSE流式数据",
+        "fields": [
+          {
+            "ref": "ElevoConversionResponse.*"
+          },
+          {
+            "name": "sseDataList",
+            "type": "value[]",
+            "description": "流式数据列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "发送elevo会话消息"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/conversations/conv_123/messages",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"content\": \"请帮我分析销售数据\",\n    \"message_type\": \"text\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "text/event-stream; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "data: {\"id\":\"conv_123\",\"tasks\":[{\"id\":\"task_1\", \"state\":\"working\",\"plan\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\"},{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\"}]}]}\\n\\n data: {\"id\":\"conv_123\",\"tasks\":[{\"id\":\"task_1\",\"jobs\":[{\"id\":\"job_1\",\"instruction\":\"查询城市码\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_city_code\",\"arguments\":{\"city\":\"深圳\"}}}]}]}\\n\\n data: {\"id\":\"conv_123\",\"tasks\":[{\"id\":\"task_1\",\"jobs\":[{\"id\":\"job_1\",\"state\":\"completed\",\"messages\":[{\"role\":\"assistant\",\"parts\":[{\"type\":\"text\",\"text\":\"SZX\"}]}]}]}]}\\n\\n data: {\"id\":\"conv_123\",\"tasks\":[{\"id\":\"task_1\",\"jobs\":[{\"id\":\"job_2\",\"instruction\":\"通过城市码查询城市天气\",\"state\":\"working\",\"toolCall\":{\"name\":\"search_weather\",\"arguments\":{\"city\":\"SZX\"}}}]}]}\\n\\n\ndata: [DONE]"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.TerminateElevoConversation",
+      "name": "TerminateElevoConversation",
+      "version": "1.0.0",
+      "description": "终止elevo会话",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/elevo/conversations/:conversationId/terminate"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "conversationId",
+            "type": "string",
+            "description": "会话ID"
+          },
+          {
+            "name": "reason",
+            "type": "string",
+            "description": "终止原因"
+          }
+        ],
+        "required": [
+          "conversationId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "conversation_id",
+            "type": "string",
+            "description": "会话ID"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "终止elevo会话"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://ip:port/api/v1/elevo/conversations/conv_123/terminate",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"reason\": \"用户主动终止\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"conversation_id\": \"conv_123\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.UnbindProjectAiEmployees",
+      "name": "UnbindProjectAiEmployees",
+      "version": "1.0.0",
+      "description": "解绑项目与数字人关系",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/projects/:projectInstanceId/unbind-ai-employees"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectInstanceId",
+            "type": "string",
+            "description": "项目实例ID"
+          },
+          {
+            "name": "aiEmployeeInstanceIds",
+            "type": "string[]",
+            "description": "数字人实例ID列表"
+          }
+        ],
+        "required": [
+          "projectInstanceId",
+          "aiEmployeeInstanceIds"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "解绑项目与数字人关系"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/projects/project_123/unbind-ai-employees",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n  \"projectInstanceId\": \"project_123\",\n  \"aiEmployeeInstanceIds\": [\"emp_001\", \"emp_002\", \"emp_003\"]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.UnbindProjectUsers",
+      "name": "UnbindProjectUsers",
+      "version": "1.0.0",
+      "description": "解绑项目与用户关系",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/project-users/:projectInstanceId/unbind-users"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "projectInstanceId",
+            "type": "string",
+            "description": "项目实例ID"
+          },
+          {
+            "name": "instanceIds",
+            "type": "string[]",
+            "description": "用户instanceId列表"
+          }
+        ],
+        "required": [
+          "projectInstanceId",
+          "instanceIds"
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "解绑项目与数字人关系"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/projects/project_123/unbind-users",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n  \"projectInstanceId\": \"project_123\",\n  \"instanceIds\": [\"fdslfa12\"]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\"\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.UpdateElevoAgent",
+      "name": "UpdateElevoAgent",
+      "version": "1.0.0",
+      "description": "更新elevo智能体",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/elevo/agents/:instanceId"
+      },
+      "import": [
+        "easyops/model/llm/elevo_agent"
+      ],
+      "request": {
+        "type": "ElevoAgent"
+      },
+      "response": {
+        "type": "ElevoAgent"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "更新elevo智能体"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://ip:port/api/v1/elevo/agents/cmdb_instance_789",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"name\": \"更新后的智能体名称\",\n    \"description\": \"更新后的描述\",\n    \"state\": \"active\",\n    \"capabilities\": [\"对话\", \"分析\", \"推理\"],\n    \"mcpServers\": [\"mcp_server_2\", \"mcp_server_3\"],\n    \"planTool\": \"new_plan_tool_id\",\n    \"modelConfig\": {\n        \"defaultModel\": \"gpt-4-turbo\",\n        \"temperature\": 0.5,\n        \"maxTokens\": 8000,\n        \"baseSystemPrompt\": \"你是一个专业的智能助手Agent\"\n    }\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"instanceId\": \"cmdb_instance_789\",\n    \"agentId\": \"agent_123\",\n    \"name\": \"更新后的智能体名称\",\n    \"description\": \"更新后的描述\",\n    \"state\": \"active\",\n    \"capabilities\": [\"对话\", \"分析\", \"推理\"],\n    \"mcpServers\": [\"mcp_server_2\", \"mcp_server_3\"],\n    \"planTool\": \"new_plan_tool_id\",\n    \"modelConfig\": {\n        \"defaultModel\": \"gpt-4-turbo\",\n        \"temperature\": 0.5,\n        \"maxTokens\": 8000,\n        \"baseSystemPrompt\": \"你是一个专业的智能助手Agent\"\n    },\n    \"creator\": \"user123\",\n    \"ctime\": \"2024-01-01T00:00:00Z\",\n    \"mtime\": \"2024-01-02T00:00:00Z\",\n    \"modifier\": \"user456\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.UpdateElevoAiEmployee",
+      "name": "UpdateElevoAiEmployee",
+      "version": "1.0.0",
+      "description": "更新elevo数字人",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/elevo/ai-employees/:instanceId"
+      },
+      "import": [
+        "easyops/model/llm/elevo_ai_employee"
+      ],
+      "request": {
+        "type": "ElevoAiEmployee"
+      },
+      "response": {
+        "type": "ElevoAiEmployee"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "更新elevo数字人"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://ip:port/api/v1/elevo/ai-employees/cmdb_instance_456",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"name\": \"更新后的数字人名称\",\n    \"description\": \"更新后的描述\",\n    \"industry\": \"金融\",\n    \"role\": \"顾问\",\n    \"capabilities\": [\"数据分析\", \"报告生成\"],\n    \"excludeTools\": [\"tool2\"],\n    \"state\": \"active\",\n    \"planTool\": \"new_plan_tool_id\",\n    \"agent\": {\n        \"instanceId\": \"cmdb_instance_agent_456\"\n    },\n    \"modelConfig\": {\n        \"defaultModel\": \"gpt-4-turbo\",\n        \"temperature\": 0.5,\n        \"maxTokens\": 8000,\n        \"baseSystemPrompt\": \"你是一个专业的金融顾问\"\n    }\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"instanceId\": \"cmdb_instance_456\",\n    \"employeeId\": \"emp_123\",\n    \"name\": \"更新后的数字人名称\",\n    \"description\": \"更新后的描述\",\n    \"industry\": \"金融\",\n    \"role\": \"顾问\",\n    \"capabilities\": [\"数据分析\", \"报告生成\"],\n    \"excludeTools\": [\"tool2\"],\n    \"state\": \"active\",\n    \"planTool\": \"new_plan_tool_id\",\n    \"creator\": \"user123\",\n    \"ctime\": \"2024-01-01T00:00:00Z\",\n    \"mtime\": \"2024-01-02T00:00:00Z\",\n    \"modifier\": \"user456\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.elevo.UpdateElevoProject",
+      "name": "UpdateElevoProject",
+      "version": "1.0.0",
+      "description": "更新elevo项目",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/elevo/projects/:instanceId"
+      },
+      "import": [
+        "easyops/model/llm/elevo_project"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "string",
+            "description": "项目实例ID"
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "更新后的项目名称"
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "description": "更新后的描述"
+          },
+          {
+            "name": "state",
+            "type": "string",
+            "description": "状态：active, inactive"
+          },
+          {
+            "name": "defaultAiEmployeeId",
+            "type": "string",
+            "description": "新的默认数字人ID"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": {
+        "type": "ElevoProject"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "更新elevo项目"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://ip:port/api/v1/elevo/projects/cmdb_instance_123",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "linus",
+              "org": 1234
+            },
+            "body": "{\n    \"name\": \"更新后的项目名称\",\n    \"description\": \"更新后的描述\",\n    \"state\": \"active\",\n    \"defaultAiEmployeeId\": \"new_ai_employee_id\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\"\n}"
           }
         }
       ]
@@ -3963,6 +5853,105 @@
             },
             "status_code": 200,
             "body": "{\n  \"code\": 0,\n  \"error\": \"\",\n  \"message\": \"\",\n  \"data\": {\n      \"websocket\": {\n           \"system\":\"aiops\",\n           \"topic\":\"aiops.visual_builder.generate_dashboard.12345\"\n           },\n      \"sessionId\":\"12345\"\n\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "llm.webhook.AlertWebhook",
+      "name": "AlertWebhook",
+      "version": "1.0.0",
+      "description": "告警webhook",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/llm/webhook/alert_webhook"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "alertCount",
+            "type": "int",
+            "description": "告警次数"
+          },
+          {
+            "name": "alertId",
+            "type": "string",
+            "description": "告警id"
+          },
+          {
+            "name": "originContent",
+            "type": "string",
+            "description": "告警内容"
+          },
+          {
+            "name": "target",
+            "type": "string",
+            "description": "告警目标"
+          },
+          {
+            "name": "time",
+            "type": "int64",
+            "description": "告警时间"
+          },
+          {
+            "name": "startTime",
+            "type": "int64",
+            "description": "最早告警时间"
+          },
+          {
+            "name": "level",
+            "type": "string",
+            "description": "告警等级"
+          },
+          {
+            "name": "objectId",
+            "type": "string",
+            "description": "告警的objectId"
+          },
+          {
+            "name": "instanceId",
+            "type": "string",
+            "description": "告警的实例Id"
+          },
+          {
+            "name": "isRecover",
+            "type": "bool",
+            "description": "是否已经恢复"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "success",
+            "type": "bool",
+            "description": "是否成功接收"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "接收告警"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://localhost:8095/api/v1/llm/webhook/alert_webhook",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "easyops",
+              "org": 8888
+            },
+            "body": "{\n  \"alertCount\": 1,\n  \"alertDims\": {\n    \"111\": [\n      \"172.16.244.2(\\u8d85\\u4f19-\\u6d4b\\u8bd5-Redis)\"\n    ],\n    \"12222\": [\n      \"172.16.244.2(\\u8d85\\u4f19-\\u6d4b\\u8bd5-Redis)\"\n    ],\n    \"_job\": \"623f2b5f12a95\",\n    \"appSystemNames\": [],\n    \"businessIds\": [],\n    \"cInstanceShowKey\": [\n      \"172.16.244.2(\\u8d85\\u4f19-\\u6d4b\\u8bd5-Redis)\"\n    ],\n    \"cObjectId\": \"REDIS@ONEMODEL\",\n    \"cPluginName\": [\n      \"Redis\\u4fe1\\u606f\\u91c7\\u96c6\"\n    ],\n    \"collectorId\": \"6371a83ba897d\",\n    \"instanceId\": \"623f2b5f12a95\",\n    \"objectId\": \"_COLLECTOR_JOB\"\n  },\n  \"alertId\": \"3e18164af7d3c357f07429fc5314fe64\",\n  \"alertReceivers\": [],\n  \"alertRuleId\": \"63af9d6205381\",\n  \"alertRuleVersion\": 3,\n  \"content\": \"\",\n  \"eventId\": \"689102d3ff66ceb56cfcd8bc\",\n  \"handlers\": [\n  ],\n  \"instance\": {\n    \"#showKey\": [\n      \"redis info\"\n    ],\n    \"_object_id\": \"_COLLECTOR_JOB\",\n    \"instanceId\": \"623f2b5f12a95\",\n    \"plugins\": [\n      {\n        \"_object_id\": \"_COLLECTOR_EASYOPS_PLUGIN\",\n        \"instanceId\": \"61825bf393cdd\",\n        \"name\": \"Redis\\u4fe1\\u606f\\u91c7\\u96c6\"\n      }\n    ],\n    \"resDiscoveryConfigs\": []\n  },\n  \"instanceId\": \"623f2b5f12a95\",\n  \"isRecover\": false,\n  \"level\": \"info\",\n  \"metricName\": \"metric_status\",\n  \"metricThreshold\": \"2\",\n  \"metricThresholdComparator\": \"equal\",\n  \"metricThresholdValue\": 2,\n  \"metricUnit\": \"\",\n  \"metricValue\": 2,\n  \"objectId\": \"_COLLECTOR_JOB\",\n  \"org\": 5910,\n  \"originContent\": \"metric_status: 2\\u7b49\\u4e8e2\",\n  \"recoverType\": \"auto\",\n  \"resource\": \"\",\n  \"source\": \"system\",\n  \"startTime\": 1754333907,\n  \"status\": \"group\",\n  \"subject\": \"\",\n  \"target\": \"redis info\",\n  \"time\": 1754333907,\n  \"triggeredCondition\": {\n    \"alertCount\": 3,\n    \"alertDims\": [],\n    \"comparators\": [\n      {\n        \"desc\": \"info\",\n        \"level\": 0,\n        \"params\": [],\n        \"threshold\": 2,\n        \"tolerance\": 0,\n        \"type\": \"equal\"\n      },\n      {\n        \"desc\": \"warning\",\n        \"level\": 1,\n        \"params\": [],\n        \"threshold\": null,\n        \"tolerance\": 0,\n        \"type\": \"equal\"\n      },\n      {\n        \"desc\": \"critical\",\n        \"level\": 2,\n        \"params\": [],\n        \"threshold\": null,\n        \"tolerance\": 0,\n        \"type\": \"equal\"\n      }\n    ],\n    \"detectWindow\": 3,\n    \"metricName\": \"metric_status\",\n    \"mode\": \"static\",\n    \"recoverCount\": 5,\n    \"type\": \"equal\"\n  }\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"success\": true\n}"
           }
         }
       ]

@@ -43,6 +43,9 @@ export interface AiopsToolsApi_TemplateLlmChatV2RequestBody {
 
   /** 输入的图片url */
   images?: string[];
+
+  /** 请求最大 token 数 */
+  maxTokens?: number;
 }
 
 export type AiopsToolsApi_TemplateLlmChatV2ResponseBody =
