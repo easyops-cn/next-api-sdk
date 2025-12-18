@@ -12,9 +12,6 @@ export interface ModelElevoProject {
   /** 状态 */
   state: "active" | "inactive";
 
-  /** 默认数字人ID */
-  defaultAiEmployeeId: string;
-
   /** 创建者 */
   creator: string;
 

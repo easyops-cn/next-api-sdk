@@ -1,10 +1,32 @@
 import { http, HttpOptions } from "@next-core/http";
-import { ModelElevoConversionResponse } from "../../../model/llm/index.js";
+import {
+  ModelElevoConversionResponse,
+  ModelElevoCmd,
+  ModelElevoFile,
+} from "../../../model/llm/index.js";
 import { ResponseBodyWrapper } from "../../../wrapper.js";
 
 export interface ElevoApi_SendElevoMessageRequestBody {
   /** 用户输入内容 */
   content?: string;
+
+  /** 用户具体的操作，与content二选一，例如：确定 */
+  action?: string;
+
+  /** 聊天指令，用于指定特定的业务流或目标执行 */
+  cmd?: Partial<ModelElevoCmd>;
+
+  /** 执行任务引擎的版本号 */
+  engineVersion?: string;
+
+  /** 指定数字人ID（可选） */
+  aiEmployeeId?: string;
+
+  /** 指定agent的ID（可选） */
+  agentId?: string;
+
+  /** 文件列表（可选） */
+  files?: Partial<ModelElevoFile>[];
 }
 
 /** SSE流式数据 */

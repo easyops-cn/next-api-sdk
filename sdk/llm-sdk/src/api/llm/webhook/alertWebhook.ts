@@ -31,6 +31,24 @@ export interface WebhookApi_AlertWebhookRequestBody {
 
   /** 是否已经恢复 */
   isRecover?: boolean;
+
+  /** batchId */
+  batchId?: string;
+
+  /** 告警规则id */
+  alertRuleId?: string;
+
+  /** _id */
+  _id?: string;
+
+  /** 告警内容，已经过告警丰富 */
+  content?: string;
+
+  /** 告警规则id */
+  ruleId?: string;
+
+  /** 事件id */
+  eventId?: string;
 }
 
 export interface WebhookApi_AlertWebhookResponseBody {

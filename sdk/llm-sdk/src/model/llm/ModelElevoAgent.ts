@@ -24,8 +24,8 @@ export interface ModelElevoAgent {
   /** 绑定的MCP服务器列表 */
   mcpServers: string[];
 
-  /** 计划工具 */
-  planTool: string;
+  /** 生成计划的专家模型 */
+  planModel: string;
 
   /** 模型配置 */
   modelConfig: Partial<ModelModelConfig>;

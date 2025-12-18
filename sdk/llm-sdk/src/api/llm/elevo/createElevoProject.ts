@@ -9,9 +9,6 @@ export interface ElevoApi_CreateElevoProjectRequestBody {
   /** 项目描述 */
   description?: string;
 
-  /** 默认数字人ID */
-  defaultAiEmployeeId?: string;
-
   /** 状态：active, inactive */
   state?: string;
 }

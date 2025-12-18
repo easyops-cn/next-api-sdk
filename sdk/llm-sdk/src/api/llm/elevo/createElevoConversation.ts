@@ -2,11 +2,17 @@ import { http, HttpOptions } from "@next-core/http";
 import { ResponseBodyWrapper } from "../../../wrapper.js";
 
 export interface ElevoApi_CreateElevoConversationRequestBody {
-  /** 项目ID */
+  /** 项目ID（可选） */
   projectId?: string;
 
   /** 指定数字人ID（可选） */
   aiEmployeeId?: string;
+
+  /** 指定agent的ID列表（可选） */
+  agentIds?: string[];
+
+  /** 目标实例id（可选） */
+  goalInstanceId?: string;
 }
 
 export interface ElevoApi_CreateElevoConversationResponseBody {

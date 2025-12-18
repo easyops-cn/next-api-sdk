@@ -12,11 +12,20 @@ export interface ElevoApi_ListElevoAiEmployeesRequestParams {
   /** 每页数量 */
   page_size?: number;
 
-  /** 搜索关键词 */
+  /** 搜索关键词，多个用","分开 */
   key?: string;
 
   /** 状态过滤 */
   state?: string;
+
+  /** 数字人id，相等匹配 */
+  employeeId?: string;
+
+  /** 所有者实例ID */
+  ownerInstanceId?: string;
+
+  /** 过滤数字分身，为false时不过滤，为true时不会返回数字分身 */
+  notAiSelf?: boolean;
 }
 
 export type ElevoApi_ListElevoAiEmployeesResponseItem =
