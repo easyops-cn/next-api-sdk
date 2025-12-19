@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/llm-sdk@1.6.0...@next-api-sdk/llm-sdk@1.6.1) (2025-12-19)
+
+
+### Bug Fixes
+
+* update llm sdk ([c8446d8](https://github.com/easyops-cn/next-api-sdk/commit/c8446d83195da732dec3433368ed9e789a59a6dd))
+
+
+
+
+
 # [1.6.0](https://github.com/easyops-cn/next-api-sdk/compare/@next-api-sdk/llm-sdk@1.5.0...@next-api-sdk/llm-sdk@1.6.0) (2025-08-26)
 
 ### Features
