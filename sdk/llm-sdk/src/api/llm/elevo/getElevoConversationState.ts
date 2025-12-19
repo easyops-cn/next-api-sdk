@@ -3,13 +3,13 @@ import { ResponseBodyWrapper } from "../../../wrapper.js";
 
 export interface ElevoApi_GetElevoConversationStateResponseBody {
   /** 会话ID */
-  conversation_id?: string;
+  conversationId?: string;
 
   /** 会话状态 */
   state?: string;
 
-  /** 更新时间(毫秒时间戳) */
-  updated_at?: number;
+  /** 更新时间(时间戳，单位：秒) */
+  updatedAt?: number;
 }
 
 /**

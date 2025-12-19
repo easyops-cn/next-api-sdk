@@ -46,6 +46,12 @@ export interface AiopsToolsApi_TemplateLlmChatV2RequestBody {
 
   /** 请求最大 token 数 */
   maxTokens?: number;
+
+  /** 拓展的元数据字段，其中：elevoConversationId，不为空时，会记录elevo的会话日志 */
+  extendMeta?: Record<string, any>;
+
+  /** 请求大模型的seed, 不传为默认 */
+  seed?: number;
 }
 
 export type AiopsToolsApi_TemplateLlmChatV2ResponseBody =

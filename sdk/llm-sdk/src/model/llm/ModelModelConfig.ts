@@ -1,6 +1,6 @@
 /** 模型配置 */
 export interface ModelModelConfig {
-  /** 默认模型 */
+  /** 默认大模型 */
   defaultModel: string;
 
   /** 温度参数 */
@@ -12,15 +12,12 @@ export interface ModelModelConfig {
   /** 基础系统提示词 */
   baseSystemPrompt: string;
 
-  /** 自由对话提示词 */
-  freeChatSystemPrompt: string;
+  /** 意图理解专家模型 */
+  intentModel: string;
 
-  /** 确认提示词 */
-  confirmingChatSystemPrompt: string;
+  /** 意图理解提示词 */
+  intentPrompt: string;
 
   /** 计划提示词 */
-  planningChatSystemPrompt: string;
-
-  /** 执行提示词 */
-  executingChatSystemPrompt: string;
+  planPrompt: string;
 }

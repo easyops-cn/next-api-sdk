@@ -22,6 +22,21 @@ export interface ElevoApi_ListElevoConversationsRequestParams {
 
   /** 是否只查询当前用户的会话 */
   onlyOwner?: boolean;
+
+  /** 是否只查询有项目关联的会话 */
+  onlyRelatedProject?: boolean;
+
+  /** 是否只查询无项目关联的会话 */
+  onlyUnrelatedProject?: boolean;
+
+  /** 协作空间的instanceId */
+  spaceInstanceId?: string;
+
+  /** 业务流的instanceId */
+  serviceFlowInstanceId?: string;
+
+  /** 触发器的instanceId */
+  triggerInstanceId?: string;
 }
 
 export interface ElevoApi_ListElevoConversationsResponseBody {
@@ -65,24 +80,21 @@ export interface ElevoApi_ListElevoConversationsResponseBody_conversations_item 
   /** 会话状态 */
   state?: string;
 
-  /** 主导数字人ID */
-  leadAiEmployeeId?: string;
+  /** 创建时间(时间戳) */
+  startTime?: number;
 
-  /** 上次主导的数字人ID */
-  lastLeadAiEmployeeId?: string;
+  /** 会话关联的目标ID */
+  goalInstanceId?: string;
 
-  /** 用户名 */
+  /** 创建者的用户名 */
   username?: string;
 
-  /** 根上下文ID */
-  rootContextId?: string;
+  /** 会话描述 */
+  description?: string;
 
-  /** 当前执行中的上下文ID */
-  executingContextId?: string;
-
-  /** 创建时间(毫秒时间戳) */
-  time?: number;
-
-  /** 更新时间(毫秒时间戳) */
+  /** 更新时间(时间戳) */
   updatedAt?: number;
+
+  /** 绑定的业务流实例id列表 */
+  serviceFlowIds?: string[];
 }

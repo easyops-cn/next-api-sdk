@@ -47,4 +47,10 @@ export interface ElevoApi_ListUsersByProjectResponseBody_users_item {
 
   /** 用户的名称 */
   name?: string;
+
+  /** 用户联系电话 */
+  user_tel?: string;
+
+  /** 用户的头像 */
+  user_icon?: string;
 }
