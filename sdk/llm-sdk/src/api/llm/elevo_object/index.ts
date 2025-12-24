@@ -6,6 +6,7 @@ export * from "./batchDeleteServiceObjectRelations.js";
 export * from "./deleteServiceObject.js";
 export * from "./getServiceObjectInstance.js";
 export * from "./getServiceObjectDetail.js";
+export * from "./importServiceObjectInstances.js";
 export * from "./listServiceObjectInstances.js";
 export * from "./listServiceObjects.js";
 export * from "./updateServiceObjectInstance.js";
