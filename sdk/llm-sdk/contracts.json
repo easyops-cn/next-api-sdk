@@ -8892,6 +8892,117 @@
       ]
     },
     {
+      "contract": "llm.elevo_object.ImportServiceObjectInstances",
+      "name": "ImportServiceObjectInstances",
+      "version": "1.0.0",
+      "description": "批量导入业务对象实例数据（支持新增、更新、删除）",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/elevo/objects/:objectId/instances/import"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "objectId",
+            "type": "string",
+            "description": "业务对象ID（如CONTRACT_{SPACE_ID}@ELEVO）"
+          },
+          {
+            "name": "conversationId",
+            "type": "string",
+            "description": "会话ID（可选，用于关联活动记录）"
+          },
+          {
+            "name": "imports",
+            "type": "map[]",
+            "description": "导入的实例列表（有instanceId则更新、无则新增，动态字段，包含普通字段和关系属性）"
+          },
+          {
+            "name": "deletes",
+            "type": "string[]",
+            "description": "需删除的实例ID数组"
+          }
+        ],
+        "required": [
+          "objectId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "imported",
+            "type": "object[]",
+            "description": "导入成功的实例列表",
+            "fields": [
+              {
+                "name": "instanceId",
+                "type": "string",
+                "description": "实例ID"
+              },
+              {
+                "name": "action",
+                "type": "string",
+                "description": "操作类型（created/updated）"
+              }
+            ]
+          },
+          {
+            "name": "deleted",
+            "type": "string[]",
+            "description": "删除成功的实例ID列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "批量导入业务对象实例（新增和更新）"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/objects/CONTRACT_CS123456@ELEVO/instances/import",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "admin",
+              "org": 1234
+            },
+            "body": "{\n  \"objectId\": \"CONTRACT_CS123456@ELEVO\",\n  \"imports\": [\n    {\n      \"title\": \"服务合同A\",\n      \"amount\": 50000,\n      \"signDate\": \"2024-01-15\",\n      \"customer\": [\"cust_001\"]\n    },\n    {\n      \"instanceId\": \"inst_existing_001\",\n      \"amount\": 60000,\n      \"status\": \"已生效\"\n    }\n  ],\n  \"deletes\": [\"inst_to_delete_001\"]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"imported\": [\n      {\"instanceId\": \"inst_new_001\", \"action\": \"created\"},\n      {\"instanceId\": \"inst_existing_001\", \"action\": \"updated\"}\n    ],\n    \"deleted\": [\"inst_to_delete_001\"]\n  }\n}"
+          }
+        },
+        {
+          "description": {
+            "zh": "批量导入实例（含关系属性）"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://ip:port/api/v1/elevo/objects/REQUIREMENT_CS123456@ELEVO/instances/import",
+            "headers": {
+              "Content-Type": "application/json",
+              "user": "admin",
+              "org": 1234
+            },
+            "body": "{\n  \"objectId\": \"REQUIREMENT_CS123456@ELEVO\",\n  \"imports\": [\n    {\n      \"title\": \"用户登录功能\",\n      \"priority\": \"P0\",\n      \"description\": \"实现用户登录认证功能\",\n      \"tasks\": [\"task_001\", \"task_002\"]\n    },\n    {\n      \"title\": \"数据导出功能\",\n      \"priority\": \"P1\",\n      \"assignee\": [\"user_001\"]\n    }\n  ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"message\": \"success\",\n  \"data\": {\n    \"imported\": [\n      {\"instanceId\": \"inst_req_001\", \"action\": \"created\"},\n      {\"instanceId\": \"inst_req_002\", \"action\": \"created\"}\n    ],\n    \"deleted\": []\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
       "contract": "llm.elevo_object.ListServiceObjectInstances",
       "name": "ListServiceObjectInstances",
       "version": "1.0.0",
