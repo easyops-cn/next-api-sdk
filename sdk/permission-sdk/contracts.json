@@ -1,0 +1,6458 @@
+{
+  "name": "permission",
+  "contracts": [
+    {
+      "contract": "permission.audit.ExportChangeHistory",
+      "name": "ExportChangeHistory",
+      "version": "1.0.0",
+      "description": "将变更历史列表导出为文件",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/audit/change_history/excel"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "页大小"
+          },
+          {
+            "name": "operation",
+            "type": "string[]",
+            "description": "操作过滤条件"
+          },
+          {
+            "name": "operator",
+            "type": "string",
+            "description": "执行用户过滤条件"
+          },
+          {
+            "name": "detail",
+            "type": "string",
+            "description": "变更摘要过滤条件"
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "description": "起始时间，支持时间戳和now-1d语义"
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "description": "终止时间，支持时间戳和now-1d语义"
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": "操作结果",
+            "enum": [
+              "success",
+              "fail"
+            ]
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize"
+        ]
+      },
+      "response": {
+        "type": "file"
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "ExportChangeHistory",
+            "zh": "将变更历史列表导出为文件"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8103/api/v1/audit/change_history/excel",
+            "headers": {
+              "Content-Type": "application/json"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "二进制文件流"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.audit.ExportLoginTrack",
+      "name": "ExportLoginTrack",
+      "version": "1.0.0",
+      "description": "将登录轨迹列表导出为文件",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/audit/login_track/excel"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "页大小"
+          },
+          {
+            "name": "operation",
+            "type": "string[]",
+            "description": "操作过滤条件"
+          },
+          {
+            "name": "user",
+            "type": "string",
+            "description": "登录用户过滤条件"
+          },
+          {
+            "name": "ip",
+            "type": "string",
+            "description": "IP 过滤条件"
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "description": "起始时间，支持时间戳和now-1d语义"
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "description": "终止时间，支持时间戳和now-1d语义"
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": "操作结果",
+            "enum": [
+              "success",
+              "fail"
+            ]
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize"
+        ]
+      },
+      "response": {
+        "type": "file"
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "ExportLoginTrack",
+            "zh": "将登录轨迹列表导出为文件"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8103/api/v1/audit/login_track/excel",
+            "headers": {
+              "Content-Type": "application/json"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "二进制文件流"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.audit.ListChangeHistory",
+      "name": "ListChangeHistory",
+      "version": "1.0.0",
+      "description": "获取变更历史",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/audit/change_history"
+      },
+      "import": [
+        "easyops/model/permission/change_history"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "页大小"
+          },
+          {
+            "name": "operation",
+            "type": "string[]",
+            "description": "操作过滤条件"
+          },
+          {
+            "name": "operator",
+            "type": "string",
+            "description": "执行用户过滤条件"
+          },
+          {
+            "name": "detail",
+            "type": "string",
+            "description": "变更摘要过滤条件"
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "description": "起始时间，支持时间戳和now-1d语义"
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "description": "终止时间，支持时间戳和now-1d语义"
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": "操作结果",
+            "enum": [
+              "success",
+              "fail"
+            ]
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "页大小"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "总数"
+          },
+          {
+            "name": "list",
+            "type": "ChangeHistory[]",
+            "description": "变更历史列表"
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize",
+          "total",
+          "list"
+        ]
+      }
+    },
+    {
+      "contract": "permission.audit.ListLoginTrack",
+      "name": "ListLoginTrack",
+      "version": "1.0.0",
+      "description": "获取登录轨迹",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/audit/login_track"
+      },
+      "import": [
+        "easyops/model/permission/login_track"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "页大小"
+          },
+          {
+            "name": "operation",
+            "type": "string[]",
+            "description": "操作过滤条件"
+          },
+          {
+            "name": "user",
+            "type": "string",
+            "description": "登录用户过滤条件"
+          },
+          {
+            "name": "ip",
+            "type": "string",
+            "description": "IP 过滤条件"
+          },
+          {
+            "name": "from",
+            "type": "string",
+            "description": "起始时间，支持时间戳和now-1d语义"
+          },
+          {
+            "name": "to",
+            "type": "string",
+            "description": "终止时间，支持时间戳和now-1d语义"
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": "操作结果",
+            "enum": [
+              "success",
+              "fail"
+            ]
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "页大小"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "总数"
+          },
+          {
+            "name": "list",
+            "type": "LoginTrack[]",
+            "description": "登录轨迹列表"
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize",
+          "total",
+          "list"
+        ]
+      }
+    },
+    {
+      "contract": "permission.cache_manager.DeleteCache",
+      "name": "DeleteCache",
+      "version": "1.1.0",
+      "description": "清空缓存",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/permission/cache_manager"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "mode",
+            "type": "string",
+            "description": "清理的模式, 广播其他节点清理还是只清理当前节点",
+            "enum": [
+              "broadcast",
+              "local"
+            ]
+          }
+        ],
+        "default": {
+          "mode": "broadcast"
+        }
+      },
+      "response": null
+    },
+    {
+      "contract": "permission.cache_manager.DumpCache",
+      "name": "DumpCache",
+      "version": "1.1.0",
+      "description": "获取cache缓存全量数据",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/cache_manager"
+      },
+      "request": null,
+      "response": {
+        "type": "map"
+      }
+    },
+    {
+      "contract": "permission.change_history.GetChangeHistoryDetail",
+      "name": "GetChangeHistoryDetail",
+      "version": "1.1.0",
+      "description": "获取permission变更记录详情",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/change_history/:id"
+      },
+      "import": [
+        "easyops/model/permission/permission_change_history_data"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "permission变更记录的id, columnDB的row_id"
+          }
+        ]
+      },
+      "response": {
+        "type": "PermissionChangeHistoryData",
+        "description": "返回的变更记录"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "查询变更记录详情",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/change_history/:id",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"_row_id\": \"1\",\n    \"object_id\": \"PERMISSION_POLICY@ONEMODEL\",\n    \"instance_id\": \"policy1\",\n    \"name\": \"自定义策略1\",\n    \"user\": \"easyops\",\n    \"event\": \"permission.modify.event\",\n    \"time\": 1703053889,\n    \"diff_list\": [\n      {\n        \"key\": \"memo\",\n        \"value\": \"hello\",\n        \"old_value\": \"world\"\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.change_history.SearchChangeHistory",
+      "name": "SearchChangeHistory",
+      "version": "1.0.0",
+      "description": "查询permission变更记录",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/change_history/search"
+      },
+      "import": [
+        "easyops/model/permission/permission_change_history_data"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "limit",
+            "type": "int",
+            "description": "查询数量"
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "查询的业务唯一值"
+          },
+          {
+            "name": "objectId",
+            "type": "string",
+            "description": "变更记录类型",
+            "enum": [
+              "PERMISSION_POLICY@ONEMODEL"
+            ]
+          },
+          {
+            "name": "startTime",
+            "type": "int64",
+            "description": "起始时间戳"
+          },
+          {
+            "name": "user",
+            "type": "string",
+            "description": "操作用戶"
+          },
+          {
+            "name": "event",
+            "type": "permission_change_event",
+            "description": "操作類型"
+          },
+          {
+            "name": "endTime",
+            "type": "int64",
+            "description": "结束时间戳"
+          },
+          {
+            "name": "token",
+            "type": "string",
+            "description": "分页token"
+          }
+        ],
+        "required": [
+          "objectId",
+          "startTime",
+          "endTime",
+          "limit"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "list",
+            "type": "PermissionChangeHistoryData[]",
+            "description": "变更列表"
+          },
+          {
+            "name": "token",
+            "type": "string",
+            "description": "分页token"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "查询permission变更记录",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/change_history/search?objectId=PERMISSION_POLICY@ONEMODEL&startTime=1&endTime=2&limit=10",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    \"list\": [],\n    \"token\" \"next_token\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.inheritance.CreateRule",
+      "category": {
+        "en": "inheritance",
+        "zh": "继承"
+      },
+      "name": "CreateRule",
+      "version": "1.1.0",
+      "description": "创建规则",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/inherit/rule"
+      },
+      "import": [
+        "easyops/model/permission/inherit_rule"
+      ],
+      "request": {
+        "type": "InheritRule",
+        "required": [
+          "InheritRule.name",
+          "InheritRule.path",
+          "InheritRule.sourceField"
+        ],
+        "default": {
+          "enable": true
+        }
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "InheritRule.instanceId"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.inheritance.DeleteRule",
+      "category": {
+        "en": "inheritance",
+        "zh": "继承"
+      },
+      "name": "DeleteRule",
+      "version": "1.0.0",
+      "description": "删除规则",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/inherit/rule/:instanceId"
+      },
+      "import": [
+        "easyops/model/permission/inherit_rule"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "InheritRule.instanceId"
+          }
+        ],
+        "required": [
+          "InheritRule.instanceId"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "InheritRule.instanceId"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.inheritance.GetInstanceAuthorizers",
+      "category": {
+        "en": "inheritance",
+        "zh": "继承"
+      },
+      "name": "GetInstanceAuthorizers",
+      "version": "1.0.0",
+      "description": "获取实例的白名单",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/object/:objectId/instance/:instanceId/authorizers"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "objectId",
+            "type": "object_id",
+            "description": "模型Id"
+          },
+          {
+            "name": "instanceId",
+            "type": "instance_id",
+            "description": "实例Id"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "筛选字段,用逗号分隔,不支持 *"
+          }
+        ],
+        "required": [
+          "objectId",
+          "instanceId",
+          "fields"
+        ]
+      },
+      "response": {
+        "type": "map"
+      }
+    },
+    {
+      "contract": "permission.inheritance.GetInstanceAuthorizersFormat",
+      "category": {
+        "en": "inheritance",
+        "zh": "继承"
+      },
+      "name": "GetInstanceAuthorizersFormat",
+      "version": "1.2.0",
+      "description": "获取实例的白名单,返回数据结构化",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/object/:objectId/instance/:instanceId/authorizers_format"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "objectId",
+            "type": "object_id",
+            "description": "模型Id"
+          },
+          {
+            "name": "instanceId",
+            "type": "instance_id",
+            "description": "实例Id"
+          },
+          {
+            "name": "authorizersKeys",
+            "type": "string",
+            "description": "白名单名称，多个用,分隔"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "额外返回实例字段"
+          }
+        ],
+        "required": [
+          "objectId",
+          "instanceId",
+          "authorizersKeys"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "authorizers",
+            "type": "object[]",
+            "fields": [
+              {
+                "name": "authorizersKey",
+                "type": "string",
+                "description": "白名单名称"
+              },
+              {
+                "name": "originAuthorizers",
+                "type": "string[]",
+                "description": "实例原始白名单"
+              },
+              {
+                "name": "relateAuthorizers",
+                "type": "string[]",
+                "description": "关联白名单"
+              },
+              {
+                "name": "relateToSource",
+                "type": "bool",
+                "description": "是否有关联到起点模型"
+              },
+              {
+                "name": "onlyAdmin",
+                "type": "bool",
+                "description": "只有管理员拥有权限"
+              }
+            ],
+            "description": "实例白名单"
+          },
+          {
+            "name": "instanceData",
+            "type": "map",
+            "description": "实例数据"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.inheritance.GetRule",
+      "category": {
+        "en": "inheritance",
+        "zh": "继承"
+      },
+      "name": "GetRule",
+      "version": "1.1.0",
+      "description": "获取规则",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/inherit/rule/:instanceId"
+      },
+      "import": [
+        "easyops/model/permission/inherit_rule"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "InheritRule.instanceId"
+          }
+        ],
+        "required": [
+          "InheritRule.instanceId"
+        ]
+      },
+      "response": {
+        "type": "InheritRule"
+      }
+    },
+    {
+      "contract": "permission.inheritance.SearchInstanceAuthorizers",
+      "category": {
+        "en": "inheritance",
+        "zh": "继承"
+      },
+      "name": "SearchInstanceAuthorizers",
+      "version": "1.0.0",
+      "description": "搜索实例的白名单",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/object/:objectId/instance/search/authorizers"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "objectId",
+            "type": "object_id",
+            "description": "模型Id"
+          },
+          {
+            "name": "query",
+            "type": "map",
+            "description": "查询条件"
+          },
+          {
+            "name": "fields",
+            "type": "string[]",
+            "description": "筛选字段, 不支持 *"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页数"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "页大小"
+          }
+        ],
+        "required": [
+          "objectId",
+          "query",
+          "fields"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "list",
+            "type": "map[]",
+            "description": "instance list"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "实例总数"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "页大小"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Basic",
+            "zh": "基础请求"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8191/object/HOST/instance/search/authorizers",
+            "body": "{\n  \"query\": {\n    \"instanceId\": \"5b1339263cc7a\"\n  },\n  \"fields\": [\n    \"readAuthorizers\",\n    \"updateAuthorizers\",\n    \"deleteAuthorizers\"\n  ],\n  \"page\": 1,\n  \"page_size\": 10\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {\n    \"list\": [\n      {\n        \"_object_id\": \"HOST\",\n        \"instanceId\": \"5b1339263cc7a\",\n        \"readAuthorizers\": [],\n        \"updateAuthorizers\": [\n          \"easyops\"\n        ],\n        \"deleteAuthorizers\": []\n      }\n    ],\n    \"total\": 1,\n    \"page\": 1,\n    \"page_size\": 10\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.inheritance.SearchRule",
+      "category": {
+        "en": "inheritance",
+        "zh": "继承"
+      },
+      "name": "SearchRule",
+      "version": "1.1.0",
+      "description": "搜索规则",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/inherit/rule/_search"
+      },
+      "import": [
+        "easyops/model/permission/inherit_rule",
+        "easyops/model/cmdb/cmdb_sort"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页数"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "分页大小"
+          },
+          {
+            "name": "query",
+            "type": "map",
+            "description": "搜索条件,与mongo语法一致"
+          },
+          {
+            "name": "fields",
+            "type": "string[]",
+            "description": "选择返回的字段,不传则返回所有字段"
+          },
+          {
+            "name": "sort",
+            "type": "CmdbSort[]",
+            "description": "按字段排序， 留空默认按照实例ID降序排序(1表示升序， -1表示降序) e.g.: [{ instanceId: 1 }]"
+          }
+        ],
+        "required": [
+          "page",
+          "page_size"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "分页大小"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页数"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "总数"
+          },
+          {
+            "name": "list",
+            "type": "InheritRule[]",
+            "description": "data"
+          }
+        ],
+        "required": [
+          "page",
+          "page_size",
+          "total",
+          "list"
+        ]
+      }
+    },
+    {
+      "contract": "permission.inheritance.ToggleRule",
+      "category": {
+        "en": "inheritance",
+        "zh": "继承"
+      },
+      "name": "ToggleRule",
+      "version": "1.0.0",
+      "description": "启用/禁用继承规则",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/inherit/rule/:instanceId/toggle"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "instance_id",
+            "description": "规则实例Id"
+          },
+          {
+            "name": "enable",
+            "type": "bool",
+            "description": "是否启用"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ],
+        "default": {
+          "enable": true
+        }
+      },
+      "response": null
+    },
+    {
+      "contract": "permission.inheritance.UpdateRule",
+      "category": {
+        "en": "inheritance",
+        "zh": "继承"
+      },
+      "name": "UpdateRule",
+      "version": "1.1.0",
+      "description": "编辑规则",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/inherit/rule/:instanceId"
+      },
+      "import": [
+        "easyops/model/permission/inherit_rule"
+      ],
+      "request": {
+        "type": "InheritRule",
+        "required": [
+          "InheritRule.instanceId",
+          "InheritRule.name",
+          "InheritRule.path",
+          "InheritRule.sourceField"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "InheritRule.instanceId"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.menu.GetPermissionMenuDetail",
+      "name": "GetPermissionMenuDetail",
+      "version": "1.0.0",
+      "description": "获取菜单详情",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/menu/:menu_id"
+      },
+      "import": [
+        "easyops/model/permission/permission_menu"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "PermissionMenu.menu_id"
+          }
+        ],
+        "required": [
+          "PermissionMenu.menu_id"
+        ]
+      },
+      "response": {
+        "type": "PermissionMenu"
+      }
+    },
+    {
+      "contract": "permission.menu.GetUserForbiddenMenu",
+      "name": "GetUserForbiddenMenu",
+      "version": "1.0.0",
+      "description": "获取用户的不可访问菜单列表",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/menu/forbidden/:username"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "username",
+            "type": "user_name",
+            "description": "用户名"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "forbidden_menu",
+            "type": "string[]",
+            "description": "不可见菜单列表"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.menu.ListLegacyModule",
+      "name": "ListLegacyModule",
+      "version": "1.0.0",
+      "description": "获取模块权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/module/legacy"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accessRule",
+            "type": "string",
+            "description": "访问规则(例如按照平台区分 cmdb,ops), CheckLogin 会返回此字段"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "menus",
+            "type": "string[]",
+            "description": "模块 remark 列表, 只可能是以下枚举\n 持续部署\n 运维自动化\n CMDB\n 工具平台\n 调度平台\n 定时任务\n 系统配置\n 仪表盘\n 部署编排\n Agent管理\n"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.org.ObjectInit",
+      "name": "ObjectInit",
+      "version": "1.0.0",
+      "description": "permission模型初始化，用于升级时初始化模型",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/org/object_init"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "org",
+            "type": "org",
+            "description": "升级环境的org"
+          }
+        ]
+      },
+      "response": null
+    },
+    {
+      "contract": "permission.org.OrgRegister",
+      "name": "OrgRegister",
+      "version": "1.0.0",
+      "description": "org注册",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/org/register"
+      },
+      "request": null,
+      "response": null
+    },
+    {
+      "contract": "permission.org.PolicyObjectInit",
+      "name": "PolicyObjectInit",
+      "version": "1.0.0",
+      "description": "permission 策略模型初始化，用于升级时初始化模型",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/org/object_policy_init"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "org",
+            "type": "org",
+            "description": "升级环境的org"
+          }
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "导入权限中心策略领域模型",
+            "en": "import policy object"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/org/object_policy_init",
+            "headers": {
+              "Content-Type": "application"
+            },
+            "body": "{\n  \"org\": 8888\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"code\": 0,\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.BatchSavePermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "BatchSavePermission",
+      "version": "1.1.0",
+      "description": "批量保存权限配置(已存在权限点则更新)",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/permission/batch_save"
+      },
+      "import": [
+        "easyops/model/permission/permission"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "permissionList",
+            "type": "object[]",
+            "description": "权限点列表",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "description": "权限ID"
+              },
+              {
+                "ref": "Permission.org"
+              },
+              {
+                "ref": "Permission.system"
+              },
+              {
+                "ref": "Permission.action"
+              },
+              {
+                "ref": "Permission.remark"
+              },
+              {
+                "ref": "Permission.remark_translation"
+              },
+              {
+                "ref": "Permission.roles"
+              },
+              {
+                "ref": "Permission.disable"
+              },
+              {
+                "ref": "Permission.user"
+              },
+              {
+                "ref": "Permission.user_group"
+              },
+              {
+                "ref": "Permission.resource"
+              }
+            ]
+          }
+        ],
+        "required": [
+          "permissionList"
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "结果信息"
+          },
+          {
+            "name": "data",
+            "type": "object",
+            "fields": [
+              {
+                "name": "ids",
+                "type": "string[]",
+                "description": "权限IDs"
+              }
+            ],
+            "description": "数据"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "BatchSavePermission",
+            "zh": "BatchSavePermission"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8085/api/v1/permission/batch_save"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {}\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.BatchSetPermissionDisableStatus",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "BatchSetPermissionDisableStatus",
+      "version": "1.0.0",
+      "description": "批量启用/禁用权限点",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission/batch_set_disable_status"
+      },
+      "import": [
+        "easyops/model/permission/permission"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "permissions",
+            "type": "string[]",
+            "description": "权限列表"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "enum": [
+              "enable",
+              "disable"
+            ],
+            "description": "启用/禁用"
+          }
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "en": "BatchSetPermissionDisableStatus",
+            "zh": "批量启用/禁用权限点"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8269/api/v1/permission/batch_set_disable_status",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"permissions\": [\n    \"permission:access_log\"\n  ],\n  \"action\": \"enable\"\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\":0,\n  \"error\":\"\",\n  \"message\":\"\",\n  \"data\": null\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.BatchValidateCmdbPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "BatchValidateCmdbPermission",
+      "version": "1.0.0",
+      "description": "批量校验cmdb权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "object_id",
+            "type": "object_id",
+            "description": "需要鉴权的object_id"
+          },
+          {
+            "name": "instance_id",
+            "type": "comma_separated_string",
+            "description": "需要鉴权的instance_id列表使用逗号分隔"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false, 须传false"
+          },
+          {
+            "name": "batch",
+            "type": "bool",
+            "description": "是否为批量, 须传true"
+          },
+          {
+            "name": "batch_select_fields",
+            "type": "comma_separated_string",
+            "description": "传instanceId,_object_id"
+          }
+        ],
+        "default": {
+          "validate_action_only": false,
+          "batch": true
+        },
+        "required": [
+          "user",
+          "action",
+          "object_id",
+          "instance_id",
+          "batch"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "是否鉴权成功"
+          },
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "是否为管理员"
+          },
+          {
+            "name": "authorizers",
+            "type": "string[]",
+            "description": "有权限的实例"
+          },
+          {
+            "name": "not_found_instances",
+            "type": "string[]",
+            "description": "不存在的实例"
+          },
+          {
+            "name": "no_permission_instances",
+            "type": "object[]",
+            "fields": [
+              {
+                "name": "instanceId",
+                "type": "instance_id",
+                "description": "实例Id"
+              }
+            ],
+            "description": "无权限的实例"
+          },
+          {
+            "name": "disable",
+            "type": "bool",
+            "description": "权限是否被禁用"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Basic",
+            "zh": "基础请求"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8085/api/v1/permission/validate?user=easyops&action=cmdb:HOST_instance_create&object_id=HOST&instance_id=598f0e5a14e3e"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {\n    \"accepted\": true,\n    \"disable\": false,\n    \"is_admin\": true,\n    \"authorizers\": [\n      \"easyops\"\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.BatchValidatePermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "BatchValidatePermission",
+      "version": "1.0.0",
+      "description": "批量校验权限，response.code等于0不代表所有权限校验都通过，需遍历response.data.actions下每个action的accepted状态是为true",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/permission/validate"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "actions",
+            "type": "string[]",
+            "description": "需要鉴权的权限点列表"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false, 须传false"
+          },
+          {
+            "name": "extra_data",
+            "type": "map",
+            "description": "扩展数据，补充多个组件权限检验需要用到的字段，目前只支持同一system(权限点resource字段下的system值)下的数据权限校验"
+          }
+        ],
+        "required": [
+          "user",
+          "actions"
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "error",
+            "type": "string",
+            "description": "错误信息"
+          },
+          {
+            "name": "message",
+            "type": "string",
+            "description": "返回消息"
+          },
+          {
+            "name": "data",
+            "type": "object",
+            "description": "批量校验权限结果",
+            "fields": [
+              {
+                "name": "is_admin",
+                "type": "bool",
+                "description": "是否为管理员"
+              },
+              {
+                "name": "validate_action_only",
+                "type": "bool",
+                "description": "是否只校验action"
+              },
+              {
+                "name": "authorizers",
+                "type": "string[]",
+                "description": "有权限的实例，[用户, :用户所属组ID]"
+              },
+              {
+                "name": "actions",
+                "type": "object[]",
+                "description": "权限列表",
+                "fields": [
+                  {
+                    "name": "action",
+                    "type": "string",
+                    "description": "权限点"
+                  },
+                  {
+                    "name": "accepted",
+                    "type": "bool",
+                    "description": "是否鉴权成功"
+                  },
+                  {
+                    "name": "disable",
+                    "type": "bool",
+                    "description": "权限是否被禁用"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "BatchValidatePermission",
+            "zh": "批量校验权限"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8191/api/v1/permission/validate",
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n    \"user\": \"developer\",\n    \"actions\": [\n      \"permission:access_role\",\n      \"permission:access_user\"\n    ],\n    \"validate_action_only\": false,\n    \"extra_data\": {}\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"code\": 0,\n  \"error\": \"\",\n  \"message\": \"success\",\n  \"data\": {\n    \"is_admin\": false,\n    \"validate_action_only\": false,\n    \"authorizers\": [\"developer\", \":userGroupID1\"]\n    \"actions\": [\n      {\n        \"action\": \"permission:access_role\",\n        \"disable\": false,\n        \"accepted\": true,\n      },\n      {\n        \"action\": \"permission:access_user\",\n        \"disable\": false,\n        \"accepted\": true,\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.DeletePermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "DeletePermission",
+      "version": "1.0.0",
+      "description": "根据action删除权限点",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/permission"
+      },
+      "import": [
+        "easyops/model/permission/permission"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Permission.action"
+          }
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "结果信息"
+          },
+          {
+            "name": "data",
+            "type": "object",
+            "fields": [
+              {
+                "name": "count",
+                "type": "int",
+                "description": "删除权限数量"
+              }
+            ],
+            "description": "数据"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.DeleteUser",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "DeleteUser",
+      "version": "1.0.0",
+      "description": "删除用户时取消用户所有的权限",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/permission/delete_user"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "用户名或用户组ID(:userGroupID)"
+          }
+        ],
+        "required": [
+          "name"
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "结果信息"
+          },
+          {
+            "name": "data",
+            "type": "map",
+            "description": "数据"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "DeleteUser",
+            "zh": "删除用户时取消用户所有的权限"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://127.0.0.1:8085/api/v1/permission/delete_user?name=tester"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {}\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.GetPermissionDetail",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "GetPermissionDetail",
+      "version": "1.0.0",
+      "description": "获取权限点详情信息",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/:id"
+      },
+      "import": [
+        "easyops/model/permission/permission"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "权限ID"
+          }
+        ],
+        "required": [
+          "id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "data",
+            "type": "Permission",
+            "description": "数据"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.GetPermissionDetailByAction",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "GetPermissionDetailByAction",
+      "version": "1.0.0",
+      "description": "通过权限名获取权限点详情信息",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/config/:action"
+      },
+      "import": [
+        "easyops/model/permission/permission",
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "action",
+            "type": "string",
+            "description": "权限名"
+          }
+        ],
+        "required": [
+          "action"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Permission.remark"
+          },
+          {
+            "ref": "Permission.resource"
+          },
+          {
+            "ref": "Permission.roles"
+          },
+          {
+            "ref": "Permission.action"
+          },
+          {
+            "ref": "Permission.id"
+          },
+          {
+            "ref": "Permission.disable"
+          },
+          {
+            "ref": "Role.user"
+          },
+          {
+            "ref": "Role.user_group"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.GetPermissionList",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "GetPermissionList",
+      "version": "1.1.1",
+      "description": "获取权限点列表",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission"
+      },
+      "import": [
+        "easyops/model/permission/permission"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Permission.action"
+          },
+          {
+            "name": "action__in",
+            "type": "string",
+            "description": "action名称过滤，多个用,分隔"
+          },
+          {
+            "name": "action__like",
+            "type": "string",
+            "description": "action名称过滤, 填写关键字"
+          },
+          {
+            "name": "remark__like",
+            "type": "string",
+            "description": "remark名称过滤, 填写关键字"
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "description": "启用/禁用状态过滤, 空为不过滤",
+            "enum": [
+              "enable",
+              "disable"
+            ]
+          },
+          {
+            "name": "system",
+            "type": "string",
+            "description": "指定system范围"
+          },
+          {
+            "name": "exclude_system",
+            "type": "string",
+            "description": "system过滤，过滤多个用,分隔"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "指定返回字段，多个用,分隔"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "分页"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "分页大小"
+          },
+          {
+            "name": "_id__in",
+            "type": "string",
+            "description": "权限id过滤，多个用,分隔"
+          },
+          {
+            "name": "XXX_RestFieldMask",
+            "type": "string[]",
+            "description": "sdk限制字段使用"
+          },
+          {
+            "name": "ignoreRelation",
+            "type": "bool",
+            "description": "忽略权限点关系"
+          },
+          {
+            "name": "withUser",
+            "type": "bool",
+            "description": "是否关联用户"
+          },
+          {
+            "name": "withUserGroup",
+            "type": "bool",
+            "description": "是否关联用户组"
+          }
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "总数"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "分页大小"
+          },
+          {
+            "name": "data",
+            "type": "Permission[]",
+            "description": "数据"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "查询权限点",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/permission",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application.json"
+            },
+            "body": "{\n  \"code\": 0\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.OrgRegister",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "OrgRegister",
+      "version": "1.0.0",
+      "description": "org注册permission",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/org/register"
+      },
+      "request": null,
+      "response": null
+    },
+    {
+      "contract": "permission.permission.PermissionDeniedReturnSuccessValidateCmdbPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "PermissionDeniedReturnSuccessValidateCmdbPermission",
+      "version": "1.0.0",
+      "description": "校验cmdb权限(注意：如果用户没有权限，这个接口也会返回成功，不会返回403)",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/permission-denied-return-success-validate"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "object_id",
+            "type": "object_id",
+            "description": "需要鉴权的object_id"
+          },
+          {
+            "name": "instance_id",
+            "type": "instance_id",
+            "description": "需要鉴权的instance_id"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false"
+          }
+        ],
+        "required": [
+          "user",
+          "action",
+          "object_id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "validate_code",
+            "type": "validate_code",
+            "description": "鉴权返回码. 0 - 有权限, 901 - 权限角色不满足, 902 - 权限依赖资源不满足"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.PutPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "PutPermission",
+      "version": "1.0.0",
+      "description": "修改权限配置",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission/:id"
+      },
+      "import": [
+        "easyops/model/permission/permission"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "权限ID"
+          },
+          {
+            "ref": "Permission.org"
+          },
+          {
+            "ref": "Permission.system"
+          },
+          {
+            "ref": "Permission.action"
+          },
+          {
+            "ref": "Permission.remark"
+          },
+          {
+            "ref": "Permission.remark_translation"
+          },
+          {
+            "ref": "Permission.roles"
+          },
+          {
+            "ref": "Permission.disable"
+          },
+          {
+            "ref": "Permission.user"
+          },
+          {
+            "ref": "Permission.user_group"
+          },
+          {
+            "ref": "Permission.resource"
+          }
+        ],
+        "required": [
+          "id",
+          "action",
+          "system",
+          "remark"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "修改权限点数量"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.SavePermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "SavePermission",
+      "version": "1.1.0",
+      "description": "保存权限配置(已存在权限点则更新)",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/permission/save"
+      },
+      "import": [
+        "easyops/model/permission/permission"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "权限ID"
+          },
+          {
+            "ref": "Permission.org"
+          },
+          {
+            "ref": "Permission.system"
+          },
+          {
+            "ref": "Permission.action"
+          },
+          {
+            "ref": "Permission.remark"
+          },
+          {
+            "ref": "Permission.remark_translation"
+          },
+          {
+            "ref": "Permission.roles"
+          },
+          {
+            "ref": "Permission.disable"
+          },
+          {
+            "ref": "Permission.user"
+          },
+          {
+            "ref": "Permission.user_group"
+          },
+          {
+            "ref": "Permission.resource"
+          }
+        ],
+        "required": [
+          "action",
+          "system",
+          "remark",
+          "roles"
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "结果信息"
+          },
+          {
+            "name": "data",
+            "type": "object",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "description": "权限ID"
+              }
+            ],
+            "description": "数据"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.SetPermissionDisableStatus",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "SetPermissionDisableStatus",
+      "version": "1.0.0",
+      "description": "启用/禁用权限点",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/set-permission-disable-status/:action"
+      },
+      "import": [
+        "easyops/model/permission/permission"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Permission.action"
+          },
+          {
+            "ref": "Permission.disable"
+          }
+        ]
+      },
+      "response": null
+    },
+    {
+      "contract": "permission.permission.UserRegister",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "UserRegister",
+      "version": "1.0.0",
+      "description": "user注册接口",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v2/permission/register_user"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "name"
+          },
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "is_admin"
+          }
+        ],
+        "required": [
+          "name"
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "结果信息"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.ValidateResourcePermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateResourcePermission",
+      "version": "1.0.0",
+      "description": "校验策略数据权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/policy_validate/validate"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "校验角色"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "权限点"
+          },
+          {
+            "name": "resource",
+            "type": "string",
+            "description": "校验对象"
+          },
+          {
+            "name": "resourceId",
+            "type": "string",
+            "description": "校验数据id"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "是否只校验权限点, 为false时校验数据权限"
+          }
+        ],
+        "required": [
+          "user",
+          "action",
+          "resource"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "权限校验是否通过"
+          },
+          {
+            "name": "accessLevel",
+            "type": "access_level",
+            "description": "动作点类型"
+          },
+          {
+            "name": "filter",
+            "type": "map[]",
+            "description": "accessLevel: List类型返回的数据控制条件"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "校验cmdb模型APP的读实例白名单",
+            "en": "validate cmdb instance readAuthorizers"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_validate?user=test&action=cmdb:APP_instance_access&resource=APP&resourceId=0123456789abc&validate_action_only=false",
+            "headers": {
+              "Org": 8888
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"accepted\": true,\n    \"accessLevel\": \"read\"\n  }\n}"
+          }
+        },
+        {
+          "description": {
+            "zh": "列表查询查出有权限访问的数据",
+            "en": "search list with validate"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_validate?user=test&action=cmdb:APP_instance_access&resource=APP&validate_action_only=false",
+            "headers": {
+              "Org": 8888
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"accepted\": true,\n    \"accessLevel\": \"list\",\n    \"filter\": [\n      {\n        \"readAuthorizers\": {\"$empty\": true}\n      },\n      {\n        \"readAuthorizers\": {\"$in\": [\"test\", \":test_group1\", \":test_group2\"]}\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.ValidateAppPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateAppPermission",
+      "version": "1.0.0",
+      "description": "校验APP权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "object_id",
+            "type": "object_id",
+            "description": "需要鉴权的object_id"
+          },
+          {
+            "name": "instance_id",
+            "type": "instance_id",
+            "description": "需要鉴权的instance_id"
+          },
+          {
+            "name": "app_id",
+            "type": "instance_id",
+            "description": "APP模型需要指定app_id"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false"
+          }
+        ],
+        "required": [
+          "user",
+          "action",
+          "object_id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "是否鉴权成功"
+          },
+          {
+            "name": "disable",
+            "type": "bool",
+            "description": "权限是否被禁用"
+          },
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "是否为管理员"
+          },
+          {
+            "name": "authorizers",
+            "type": "string[]",
+            "description": "有权限的用户(组)"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "校验APP数据权限",
+            "en": "validate APP permission"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/permission/validate?user=easyops&action=cmdb:APP_instance_access&object_id=APP&instance_id=123&validate_action_only=false",
+            "headers": {
+              "Org": 8888
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"accepted\": true\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.ValidateArtifactPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateArtifactPermission",
+      "version": "1.1.0",
+      "description": "校验制品包系统权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false"
+          },
+          {
+            "name": "package_id",
+            "type": "guid",
+            "description": "包id"
+          },
+          {
+            "name": "version_id",
+            "type": "string",
+            "description": "版本id, 多个用,连接，并把batch参数置为true"
+          },
+          {
+            "name": "batch",
+            "type": "bool",
+            "description": "是否批量鉴权版本"
+          }
+        ],
+        "required": [
+          "user",
+          "action",
+          "package_id",
+          "version_id"
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "结果信息"
+          },
+          {
+            "name": "data",
+            "type": "object",
+            "fields": [
+              {
+                "name": "accepted",
+                "type": "bool",
+                "description": "是否鉴权成功"
+              },
+              {
+                "name": "disable",
+                "type": "bool",
+                "description": "权限是否被禁用"
+              }
+            ],
+            "description": "返回数据"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.ValidateClusterPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateClusterPermission",
+      "version": "1.0.0",
+      "description": "校验用户对集群的操作权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "app_id",
+            "type": "instance_id",
+            "description": "应用的实例ID"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "只校验权限点，不进行白名单校验"
+          }
+        ],
+        "required": [
+          "action",
+          "user",
+          "app_id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "是否鉴权成功"
+          },
+          {
+            "name": "disable",
+            "type": "bool",
+            "description": "权限是否被禁用"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.ValidateCmdbPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateCmdbPermission",
+      "version": "1.2.0",
+      "description": "校验cmdb权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "object_id",
+            "type": "object_id",
+            "description": "需要鉴权的object_id"
+          },
+          {
+            "name": "instance_id",
+            "type": "instance_id",
+            "description": "需要鉴权的instance_id"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false"
+          }
+        ],
+        "required": [
+          "user",
+          "action",
+          "object_id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "是否鉴权成功"
+          },
+          {
+            "name": "disable",
+            "type": "bool",
+            "description": "权限是否被禁用"
+          },
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "是否为管理员"
+          },
+          {
+            "name": "authorizers",
+            "type": "string[]",
+            "description": "有权限的用户(组)"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "校验cmdb数据权限",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/permission/validate?user=easyops&action=cmdb:HOST_instance_access&object_id=HOST&instance_id=123&validate_action_only=false",
+            "headers": {
+              "Org": 8888
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"accepted\": true\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission.ValidateEasyhubServerPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateEasyhubServerPermission",
+      "version": "1.0.0",
+      "description": "校验easyhub_server权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false"
+          }
+        ],
+        "required": [
+          "user",
+          "action"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "是否鉴权成功"
+          },
+          {
+            "name": "disable",
+            "type": "bool",
+            "description": "权限是否被禁用"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.ValidateFlowTaskPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateFlowTaskPermission",
+      "version": "1.0.0",
+      "description": "校验用户对编排方案的操作权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "方案id"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false, 须传false"
+          }
+        ],
+        "required": [
+          "action",
+          "user"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "是否鉴权成功"
+          },
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "是否为管理员"
+          },
+          {
+            "name": "authorizers",
+            "type": "string[]",
+            "description": "有权限的用户(组)"
+          },
+          {
+            "name": "disable",
+            "type": "bool",
+            "description": "权限是否被禁用"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.ValidateOpsAutomationPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateOpsAutomationPermission",
+      "version": "1.1.0",
+      "description": "校验运维自动化系统权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false"
+          }
+        ],
+        "required": [
+          "user",
+          "action"
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "api返回码"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "结果信息"
+          },
+          {
+            "name": "data",
+            "type": "object",
+            "description": "返回数据",
+            "fields": [
+              {
+                "name": "accepted",
+                "type": "bool",
+                "description": "是否鉴权成功"
+              },
+              {
+                "name": "is_admin",
+                "type": "bool",
+                "description": "是否为管理员"
+              },
+              {
+                "name": "authorizers",
+                "type": "string[]",
+                "description": "有权限的实例"
+              },
+              {
+                "name": "disable",
+                "type": "bool",
+                "description": "权限是否被禁用"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.ValidatePermissionSystemPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidatePermissionSystemPermission",
+      "version": "1.1.0",
+      "description": "校验权限系统权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false"
+          }
+        ],
+        "required": [
+          "user",
+          "action"
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "结果信息"
+          },
+          {
+            "name": "data",
+            "type": "object",
+            "fields": [
+              {
+                "name": "accepted",
+                "type": "bool",
+                "description": "是否鉴权成功"
+              },
+              {
+                "name": "disable",
+                "type": "bool",
+                "description": "权限是否被禁用"
+              }
+            ],
+            "description": "返回数据"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.ValidateSchedulerPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateSchedulerPermission",
+      "version": "1.0.0",
+      "description": "校验用户对定时任务的操作权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "task_id",
+            "type": "string",
+            "description": "任务id"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false, 须传false"
+          }
+        ],
+        "required": [
+          "action",
+          "user"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "是否鉴权成功"
+          },
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "是否为管理员"
+          },
+          {
+            "name": "authorizers",
+            "type": "string[]",
+            "description": "有权限的用户(组)"
+          },
+          {
+            "name": "disable",
+            "type": "bool",
+            "description": "权限是否被禁用"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission.ValidateToolPermission",
+      "category": {
+        "en": "permission",
+        "zh": "权限"
+      },
+      "name": "ValidateToolPermission",
+      "version": "1.0.0",
+      "description": "校验用户对工具的操作权限",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission/validate"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "action",
+            "type": "string",
+            "description": "需要鉴权的权限点"
+          },
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "需要鉴权的用户名"
+          },
+          {
+            "name": "tool_id",
+            "type": "md5",
+            "description": "工具id"
+          },
+          {
+            "name": "flow_id",
+            "type": "md5",
+            "description": "调用工具的流程id"
+          },
+          {
+            "name": "validate_action_only",
+            "type": "bool",
+            "description": "如果一个权限点有数据权限,但是不想校验数据权限,这个参数传true，默认为false, 须传false"
+          }
+        ],
+        "required": [
+          "action",
+          "user"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "是否鉴权成功"
+          },
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "是否为管理员"
+          },
+          {
+            "name": "authorizers",
+            "type": "string[]",
+            "description": "有权限的用户(组)"
+          },
+          {
+            "name": "disable",
+            "type": "bool",
+            "description": "权限是否被禁用"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.permission_system_module.GetPermissionSystemModule",
+      "name": "GetPermissionSystemModule",
+      "version": "1.0.0",
+      "description": "获取系统模块详情",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/policy_system_module/:id"
+      },
+      "import": [
+        "easyops/model/permission/system_module"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "PermissionSystemModule.id"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "PermissionSystemModule.*"
+          },
+          {
+            "name": "relationResource",
+            "type": "string[]",
+            "description": "模块关联的权限点的资源对象集合统计"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取系统模块详情",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_system_module/CMDB%3Ainstance",
+            "headers": {
+              "Org": 8888
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"instanceId\": \"0123456789abc\",\n    \"id\": \"CMDB:cmdb\",\n    \"name\": \"CMDB模块——实例\",\n    \"relationResource\": [\"*\", \"HOST\"]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.permission_v2.PermissionChangeRoleByAction",
+      "name": "PermissionChangeRoleByAction",
+      "version": "1.0.0",
+      "description": "根据权限点名字修改角色",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission-change-role-by-action"
+      },
+      "import": [
+        "easyops/model/permission/permission"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Permission.action"
+          },
+          {
+            "name": "addRoles",
+            "type": "string[]",
+            "description": "添加角色名称列表"
+          },
+          {
+            "name": "deleteRoles",
+            "type": "string[]",
+            "description": "删除角色名称列表"
+          }
+        ],
+        "required": [
+          "Permission.action"
+        ]
+      },
+      "response": null
+    },
+    {
+      "contract": "permission.policy.PolicyAttachUserGroup",
+      "name": "PolicyAttachUserGroup",
+      "version": "1.0.0",
+      "description": "策略关联用户组",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy/attach_policy/:policyId"
+      },
+      "import": [
+        "easyops/model/permission/base_user_group"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "policyId",
+            "type": "instance_id",
+            "description": "策略的实例id"
+          },
+          {
+            "name": "userGroupList",
+            "type": "BaseUserGroup[]",
+            "description": "绑定的用户组信息"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "failedUserGroupIdList",
+            "type": "string[]",
+            "description": "绑定失败的用户组实例的id列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "policy attach user group",
+            "zh": "策略批量绑定用户组"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/attach_policy/policy1",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"userGroupIdList\": [\"ug1\", \"ug2\"]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"data\": {}\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.CreatPolicy",
+      "name": "CreatPolicy",
+      "version": "1.0.0",
+      "description": "创建自定义策略",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy"
+      },
+      "import": [
+        "easyops/model/permission/policy"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Policy.name"
+          },
+          {
+            "ref": "Policy.effect"
+          },
+          {
+            "ref": "Policy.memo"
+          },
+          {
+            "ref": "Policy.statement"
+          },
+          {
+            "ref": "Policy.allUser"
+          },
+          {
+            "ref": "Policy.columnDBSearchPrepare"
+          },
+          {
+            "ref": "Policy.disable"
+          },
+          {
+            "ref": "Policy.editMode"
+          }
+        ],
+        "required": [
+          "name",
+          "effect",
+          "statement"
+        ]
+      },
+      "response": {
+        "type": "Policy",
+        "description": "返回创建的策略结果"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建自定义policy",
+            "en": ""
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops",
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"name\": \"自定义策略b\",\n  \"effect\": \"allow\",\n  \"allUser\": false,\n  \"statement\": [\n    {\n      \"action\": \"cmdb:instance:read\",\n      \"resourceType\": \"cmdbInstance\",\n      \"resource\": \"HOST\",\n      \"filters\": [\n        {\n          \"readAuthorizers\": {\"$in\": \"{{user.UserName}}}\"}\n        },\n        {\n          \"readAuthorizers\": {\n            \"$empty\": true\n          }\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    {\n      \"instanceId\": \"0123456789abd\",\n      \"name\": \"自定义策略b\",\n      \"effect\": \"allow\",\n      \"policyType\": \"custom\",\n      \"allUser\": false,\n      \"statement\": [\n        {\n          \"action\": \"cmdb:instance:read\",\n          \"resourceType\": \"cmdbInstance\",\n          \"resource\": \"HOST\",\n          \"filters\": [\n            {\n              \"readAuthorizers\": {\"$in\": \"{{user.UserName}}}\"}\n            },\n            {\n              \"readAuthorizers\": {\n                \"$empty\": true\n              }\n            }\n          ]\n        }\n      ]\n    }\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.CreatPolicyV2",
+      "name": "CreatPolicyV2",
+      "version": "1.0.0",
+      "description": "创建自定义策略v2",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v2/policy"
+      },
+      "import": [
+        "easyops/model/permission/policy",
+        "easyops/model/permission/policy_statement_group_by_resource",
+        "easyops/model/permission/base_user_group"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Policy.name"
+          },
+          {
+            "ref": "Policy.effect"
+          },
+          {
+            "ref": "Policy.memo"
+          },
+          {
+            "ref": "Policy.allUser"
+          },
+          {
+            "ref": "Policy.columnDBSearchPrepare"
+          },
+          {
+            "ref": "Policy.disable"
+          },
+          {
+            "ref": "Policy.editMode"
+          },
+          {
+            "name": "statement",
+            "type": "PolicyStatementGroupByResource[]",
+            "description": "策略规则, 以资源进行分类"
+          },
+          {
+            "name": "userGroupList",
+            "type": "BaseUserGroup[]",
+            "description": "绑定的用户组信息，为空则不绑定用户组"
+          }
+        ],
+        "required": [
+          "name",
+          "effect",
+          "statement"
+        ],
+        "default": {
+          "disable": false,
+          "editMode": "normal"
+        }
+      },
+      "response": {
+        "type": "Policy",
+        "description": "返回创建的策略结果"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建自定义policy",
+            "en": ""
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops",
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"name\": \"自定义策略b\",\n  \"effect\": \"allow\",\n  \"allUser\": false,\n  \"statement\": [\n    {\n      \"resourceType\": \"cmdbInstance\",\n      \"resource\": \"APP\",\n      \"actions\": [\n        {\n          \"action\": \"cmdb:instance:list\",\n          \"accessLevel\": \"List\",\n          \"filters\": \"[{}]\"\n        },\n        {\n          \"action\": \"cmdb:instance:access\",\n          \"accessLevel\": \"Read\",\n          \"filters\": \"[{}]\"\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    {\n      \"instanceId\": \"0123456789abd\",\n      \"name\": \"自定义策略b\",\n      \"effect\": \"allow\",\n      \"policyType\": \"custom\",\n      \"allUser\": false,\n      \"statement\": [\n        {\n          \"action\": \"cmdb:instance:access\",\n          \"resourceType\": \"cmdbInstance\",\n          \"resource\": \"APP\",\n          \"accessLevel\": \"Read\",\n          \"filters\": [{}]\n        },\n        {\n          \"action\": \"cmdb:instance:list\",\n          \"resourceType\": \"cmdbInstance\",\n          \"resource\": \"APP\",\n          \"accessLevel\": \"List\",\n          \"filters\": [{}]\n        }\n\n      ]\n    }\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.DeletePolicy",
+      "name": "DeletePolicy",
+      "version": "1.0.0",
+      "description": "删除自定义策略",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/policy/:instanceId"
+      },
+      "import": [
+        "easyops/model/permission/policy"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Policy.instanceId"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": {
+        "type": "Policy",
+        "description": "返回删除的策略"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建自定义policy",
+            "en": ""
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/0123456789abd",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    {\n      \"instanceId\": \"0123456789abd\",\n      \"name\": \"自定义策略b\",\n      \"effect\": \"allow\",\n      \"policyType\": \"custom\",\n      \"statement\": [\n        {\n          \"action\": \"cmdb:instance:read\",\n          \"resourceType\": \"cmdbInstance\",\n          \"resource\": \"HOST\",\n          \"filters\": [\n            {\n              \"readAuthorizers\": {\"$in\": \"{{user.UserName}}}\"}\n            },\n            {\n              \"readAuthorizers\": {\n                \"$empty\": true\n              }\n            }\n          ]\n        }\n      ]\n    }\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.PolicyDetachUserGroup",
+      "name": "PolicyDetachUserGroup",
+      "version": "1.0.0",
+      "description": "角色解绑策略",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy/detach_policy/:policyId"
+      },
+      "import": [
+        "easyops/model/permission/base_user_group"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "policyId",
+            "type": "instance_id",
+            "description": "策略的实例id"
+          },
+          {
+            "name": "userGroupList",
+            "type": "BaseUserGroup[]",
+            "description": "解绑的用户组"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "failedUserGroupIdList",
+            "type": "string[]",
+            "description": "解绑失败的用户组id列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "policy detach user group",
+            "zh": "策略批量解除绑用户组"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/detach_policy/policy1",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"userGroupIdList\": [\"ug1\", \"ug2\"]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"data\": {}\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.GetPolicyDetail",
+      "name": "GetPolicyDetail",
+      "version": "1.0.0",
+      "description": "获取权限策略详情",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/policy/:instanceId"
+      },
+      "import": [
+        "easyops/model/permission/policy_with_relation"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "instance_id",
+            "description": "策略的instance id"
+          }
+        ]
+      },
+      "response": {
+        "type": "PolicyWithRelation",
+        "description": "返回策略详情"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "查询获取policy详情",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/0123456789abc",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    {\n      \"instanceId\": \"0123456789abc\",\n      \"name\": \"自定义策略a\",\n      \"policyType\": \"custom\",\n      \"effect\": \"allow\",\n      \"memo\": \"自定义的策略\",\n      \"role\": [{\"role\": \"普通用户\"}],\n      \"user_group\": [{\"instanceId\":\"ug1\",\"name\":\"ug1\"}],\n      \"statement\": [\n        {\n          \"action\": \"cmdb:instance:read\",\n          \"resourceType\": \"cmdbInstance\",\n          \"resource\": \"HOST\",\n          \"filters\": [\n            {\n              \"readAuthorizers\": {\"$in\": \"{{user.UserName}}}\"}\n            },\n            {\n              \"readAuthorizers\": {\n                \"$empty\": true\n              }\n            }\n          ]\n        }\n      ]\n    }\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.GetTemplate",
+      "name": "GetTemplate",
+      "version": "1.0.0",
+      "description": "获取权限策略模板",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/policy/template/:instanceId"
+      },
+      "import": [
+        "easyops/model/permission/policy_template_group_by_resource"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "string",
+            "description": "权限策略模板实例ID"
+          }
+        ]
+      },
+      "response": {
+        "type": "PolicyTemplateGroupByResource",
+        "description": "返回权限策略模板"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "获取权限策略模板",
+            "en": "Get policy template"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/template/0123456789abc",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"instanceId\": \"0123456789abc\",\n    \"name\": \"自定义策略a\",\n    \"policyType\": \"custom\",\n    \"effect\": \"allow\",\n    \"memo\": \"自定义的策略\",\n    \"statement\": [\n      {\n        \"resource\": \"resource1\",\n        \"action\": \"action1\",\n        \"effect\": \"allow\"\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.GetPolicyDetailV2",
+      "name": "GetPolicyDetailV2",
+      "version": "1.0.0",
+      "description": "获取权限策略详情v2",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v2/policy/:instanceId"
+      },
+      "import": [
+        "easyops/model/permission/policy",
+        "easyops/model/permission/policy_statement_group_by_resource",
+        "easyops/model/permission/base_role",
+        "easyops/model/permission/base_user_group"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "instanceId",
+            "type": "instance_id",
+            "description": "策略的instance id"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "description": "返回策略详情",
+        "fields": [
+          {
+            "ref": "Policy.instanceId"
+          },
+          {
+            "ref": "Policy.name"
+          },
+          {
+            "ref": "Policy.policyType"
+          },
+          {
+            "ref": "Policy.effect"
+          },
+          {
+            "ref": "Policy.memo"
+          },
+          {
+            "ref": "Policy.ctime"
+          },
+          {
+            "ref": "Policy.mtime"
+          },
+          {
+            "ref": "Policy.creator"
+          },
+          {
+            "ref": "Policy.modifier"
+          },
+          {
+            "ref": "Policy.allUser"
+          },
+          {
+            "ref": "Policy.columnDBSearchPrepare"
+          },
+          {
+            "ref": "Policy.disable"
+          },
+          {
+            "ref": "Policy.editMode"
+          },
+          {
+            "name": "statement",
+            "type": "PolicyStatementGroupByResource[]",
+            "description": "策略规则, 以资源进行分类"
+          },
+          {
+            "name": "role",
+            "type": "BaseRole[]",
+            "description": "关系角色"
+          },
+          {
+            "name": "user_group",
+            "type": "BaseUserGroup[]",
+            "description": "关系用户组"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "查询获取policy详情",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v2/policy/0123456789abc",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    {\n      \"instanceId\": \"0123456789abc\",\n      \"name\": \"自定义策略a\",\n      \"policyType\": \"custom\",\n      \"effect\": \"allow\",\n      \"memo\": \"自定义的策略\",\n      \"role\": [{\"role\": \"普通用户\"}],\n      \"user_group\": [{\"instanceId\":\"ug1\",\"name\":\"ug1\"}],\n      \"statement\": [\n        {\n          \"resourceType\": \"cmdbInstance\",\n          \"resource\": \"APP\",\n          \"accessCount\": {\n            \"List\": 1,\n            \"Read\": 1\n          },\n          \"actions\": [\n            {\n              \"action\": \"cmdb:instance:list\",\n              \"accessLevel\": \"List\",\n              \"filters\": \"[{}]\"\n            },\n            {\n              \"action\": \"cmdb:instance:access\",\n              \"accessLevel\": \"Read\",\n              \"filters\": \"[{}]\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.ImportPolicy",
+      "name": "ImportPolicy",
+      "version": "1.0.0",
+      "description": "系统策略、权限点导入接口",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy_validate/import"
+      },
+      "import": [
+        "easyops/model/permission/system_module",
+        "easyops/model/permission/resource_action",
+        "easyops/model/permission/policy_with_relation"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "importSystemModule",
+            "type": "PermissionSystemModule[]",
+            "description": "导入的系统模块"
+          },
+          {
+            "name": "importAction",
+            "type": "ResourceAction[]",
+            "description": "导入的系统权限点"
+          },
+          {
+            "name": "importPolicy",
+            "type": "PolicyWithRelation[]",
+            "description": "导入的系统策略"
+          }
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "导入系统默认权限点和策略",
+            "en": "import policy and resource action"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_validate/import",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"importAction\": [\n    {\n      \"id\": \"cmdb:instance:access\",\n       \"resourceType\": \"cmdb\",\n       \"resource\": \"*\",\n       \"filterKeys\": [\"readAuthorizers\"],\n       \"accessLevel\": \"Read\",\n       \"memo\": \"cmdb读白名单权限点\"\n    }\n  ],\n  \"importPolicy\": [\n    {\n      \"name\": \"默认策略A\",\n      \"policyType\": \"system\",\n      \"effect\": \"allow\",\n      \"memo\": \"普通用户只能访问生产环境的主机\",\n      \"role\": [{\"role\": \"普通用户\"}],\n      \"statement\": [\n        {\n          \"action\": \"cmdb:instance:access\",\n          \"resourceType\": \"cmdbInstance\",\n          \"resource\": \"HOST\",\n          \"filters\": \"[{\\\"environment\\\": \\\"dev\\\"}]\"\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {}\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.SearchPolicy",
+      "name": "SearchPolicy",
+      "version": "1.0.0",
+      "description": "搜索权限策略",
+      "endpoint": {
+        "method": "LIST",
+        "uri": "/api/v1/policy/search"
+      },
+      "import": [
+        "easyops/model/permission/policy",
+        "easyops/model/permission/policy_with_relation"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "page"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "page_size"
+          },
+          {
+            "name": "likeName",
+            "type": "string",
+            "description": "策略名模糊查询，和其他查询条件共存时与关系"
+          },
+          {
+            "name": "likeMemo",
+            "type": "string",
+            "description": "备注模糊查询，和其他查询条件共存时与关系"
+          },
+          {
+            "name": "relationResource",
+            "type": "string",
+            "description": "策略关联的资源，格式为：{resourceType}:{resource}"
+          },
+          {
+            "name": "relationRoleId",
+            "type": "string",
+            "description": "关联角色的id"
+          },
+          {
+            "name": "relationUserGroupId",
+            "type": "string",
+            "description": "关联用户组id"
+          },
+          {
+            "ref": "Policy.effect"
+          },
+          {
+            "ref": "Policy.policyType"
+          },
+          {
+            "name": "allUser",
+            "type": "string",
+            "description": "为空时不设置allUser条件；为true时查询allUser=true的策略；为false时查询allUser=false的策略"
+          },
+          {
+            "name": "disable",
+            "type": "string",
+            "description": "是否禁用"
+          },
+          {
+            "name": "excludeUserGroupId",
+            "type": "string",
+            "description": "排除的用户组id"
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize"
+        ]
+      },
+      "response": {
+        "type": "PolicyWithRelation",
+        "description": "返回权限策略列表"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "根据部分策略信息模糊查询policy列表",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/search?page=1&pageSize=100&likeName=自定义策略",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    \"list\": [\n      {\n        \"instanceId\": \"0123456789abc\",\n        \"name\": \"自定义策略a\",\n        \"policyType\": \"custom\",\n        \"effect\": \"allow\",\n        \"memo\": \"自定义的策略\",\n        \"role\": [\n          {\"role\": \"普通用户\", \"instanceId\": \"id1\"}\n        ],\n        \"user_group\": [\n          {\"instanceId\":\"ug1\",\"name\":\"ug1\"}\n        ]\n      }\n    ],\n    \"total\": 1,\n    \"page\": 1,\n    \"page_size\": 100\n  }\n}"
+          }
+        },
+        {
+          "description": {
+            "zh": "根据资源查询关联的策略",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/search?page=1&pageSize=100&relationResource=cmdbInstance:APP",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    \"list\": [\n      {\n        \"instanceId\": \"0123456789abc\",\n        \"name\": \"自定义策略a\",\n        \"policyType\": \"custom\",\n        \"effect\": \"allow\",\n        \"memo\": \"自定义的策略\",\n        \"statement\": [\n          {\n            \"action\": \"cmdb:instance:read\",\n            \"resourceType\": \"cmdbInstance\",\n            \"resource\": \"APP\",\n          }\n        ]\n      }\n    ],\n    \"total\": 1,\n    \"page\": 1,\n    \"page_size\": 100\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.SearchTemplate",
+      "name": "SearchTemplate",
+      "version": "1.0.0",
+      "description": "搜索权限策略模板",
+      "endpoint": {
+        "method": "LIST",
+        "uri": "/api/v1/policy/search/template"
+      },
+      "import": [
+        "easyops/model/permission/policy_template_group_by_resource"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "page",
+            "type": "page",
+            "description": "page"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "page_size"
+          },
+          {
+            "name": "likeName",
+            "type": "string",
+            "description": "策略名模糊查询，和其他查询条件共存时与关系"
+          },
+          {
+            "name": "likeMemo",
+            "type": "string",
+            "description": "备注模糊查询，和其他查询条件共存时与关系"
+          }
+        ]
+      },
+      "response": {
+        "type": "PolicyTemplateGroupByResource",
+        "description": "返回权限策略模板列表"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "搜索权限策略模板",
+            "en": "Search policy templates"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/search/template?page=1&pageSize=100",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"list\": [\n      {\n        \"instanceId\": \"0123456789abc\",\n        \"name\": \"自定义策略a\",\n        \"effect\": \"allow\",\n        \"memo\": \"自定义的策略\",\n        \"statement\": [\n          {\n            \"resource\": \"resource1\",\n            \"action\": \"action1\",\n            \"effect\": \"allow\"\n          }\n        ]\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.UpdatePolicy",
+      "name": "UpdatePolicy",
+      "version": "1.0.0",
+      "description": "更新自定义策略",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/policy/:instanceId"
+      },
+      "import": [
+        "easyops/model/permission/policy"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Policy.instanceId"
+          },
+          {
+            "ref": "Policy.memo"
+          },
+          {
+            "ref": "Policy.statement"
+          },
+          {
+            "ref": "Policy.effect"
+          },
+          {
+            "ref": "Policy.allUser"
+          },
+          {
+            "ref": "Policy.editMode"
+          },
+          {
+            "name": "disable",
+            "type": "string",
+            "description": "是否禁用, 为空则不修改"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": {
+        "type": "Policy",
+        "description": "返回创建的策略结果"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "更新自定义policy",
+            "en": ""
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/:0123456789abd",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops",
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"memo\": \"update memo\",\n  \"statement\": [\n    {\n      \"action\": \"cmdb:instance:read\",\n      \"resourceType\": \"cmdbInstance\",\n      \"resource\": \"HOST\",\n      \"filters\": [\n        {\n          \"readAuthorizers\": {\"$in\": \"{{user.UserName}}}\"}\n        },\n        {\n          \"readAuthorizers\": {\n            \"$empty\": true\n          }\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    {\n      \"instanceId\": \"0123456789abd\",\n      \"name\": \"自定义策略b\",\n      \"effect\": \"allow\",\n      \"policyType\": \"custom\",\n      \"memo\": \"update memo\",\n      \"statement\": [\n        {\n          \"action\": \"cmdb:instance:read\",\n          \"resourceType\": \"cmdbInstance\",\n          \"resource\": \"HOST\",\n          \"filters\": [\n            {\n              \"readAuthorizers\": {\"$in\": \"{{user.UserName}}}\"}\n            },\n            {\n              \"readAuthorizers\": {\n                \"$empty\": true\n              }\n            }\n          ]\n        }\n      ]\n    }\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.UpdatePolicyV2",
+      "name": "UpdatePolicyV2",
+      "version": "1.1.0",
+      "description": "更新自定义策略v2",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v2/policy/:instanceId"
+      },
+      "import": [
+        "easyops/model/permission/policy",
+        "easyops/model/permission/policy_statement_group_by_resource"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Policy.instanceId"
+          },
+          {
+            "ref": "Policy.memo"
+          },
+          {
+            "ref": "Policy.effect"
+          },
+          {
+            "ref": "Policy.allUser"
+          },
+          {
+            "ref": "Policy.editMode"
+          },
+          {
+            "name": "statement",
+            "type": "PolicyStatementGroupByResource[]",
+            "description": "策略规则, 以资源进行分类"
+          },
+          {
+            "name": "disable",
+            "type": "string",
+            "description": "是否禁用, 为空则不修改"
+          }
+        ],
+        "required": [
+          "instanceId"
+        ]
+      },
+      "response": {
+        "type": "Policy",
+        "description": "返回创建的策略结果"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "更新自定义policy",
+            "en": ""
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/:0123456789abd",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops",
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"memo\": \"update memo\",\n  \"statement\": [\n    {\n      \"resourceType\": \"cmdbInstance\",\n      \"resource\": \"APP\",\n      \"actions\": [\n        {\n          \"action\": \"cmdb:instance:list\",\n          \"accessLevel\": \"List\",\n          \"filters\": \"[{}]\"\n        },\n        {\n          \"action\": \"cmdb:instance:access\",\n          \"accessLevel\": \"Read\",\n          \"filters\": \"[{}]\"\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    {\n      \"instanceId\": \"0123456789abd\",\n      \"name\": \"自定义策略b\",\n      \"effect\": \"allow\",\n      \"policyType\": \"custom\",\n      \"memo\": \"update memo\",\n      \"statement\": [\n        {\n          \"action\": \"cmdb:instance:access\",\n          \"resourceType\": \"cmdbInstance\",\n          \"accessLevel\": \"Read\",\n          \"resource\": \"APP\",\n          \"filters\": [{}]\n        },\n        {\n            \"action\": \"cmdb:instance:list\",\n            \"resourceType\": \"cmdbInstance\",\n            \"accessLevel\": \"List\",\n            \"resource\": \"APP\",\n            \"filters\": [{}]\n          }\n      ]\n    }\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.UserGroupAttachPolicies",
+      "name": "UserGroupAttachPolicies",
+      "version": "1.0.0",
+      "description": "用户组关联权限策略",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy/user_group/attach_policies"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "userGroupId",
+            "type": "instance_id",
+            "description": "用户组实例id"
+          },
+          {
+            "name": "userGroupName",
+            "type": "string",
+            "description": "用户组名称"
+          },
+          {
+            "name": "policyIdList",
+            "type": "string[]",
+            "description": "权限策略实例id列表"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "failedPolicyIdList",
+            "type": "string[]",
+            "description": "绑定失败的策略实例id列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "user group attach policies",
+            "zh": "用户组关联权限策略"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/user_group/attach_policies",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n  \"userGroupId\": \"ug1\",\n  \"userGroupName\": \"user group 1\",\n  \"policyIdList\": [\"p1\", \"p2\"]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"failedPolicyIdList\": []\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy.ValidatePolicy",
+      "name": "ValidatePolicy",
+      "version": "1.0.0",
+      "description": "验证权限策略合法性",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy/statement/validate"
+      },
+      "import": [
+        "easyops/model/permission/policy_statement_group_by_resource"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "statement",
+            "type": "string",
+            "description": "权限策略文本, 格式为yaml"
+          }
+        ],
+        "required": [
+          "statement"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "statement",
+            "type": "PolicyStatementGroupByResource[]",
+            "description": "策略规则, 以资源进行分类"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "验证权限策略合法性",
+            "en": "Validate policy statement"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy/statement/validate",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n  \"statement\": \"            - effect: allow              action: cmdb:instance:read              resourceType: cmdbInstance              resource: HOST \"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"statement\": [\n      {\n        \"resourceType\": \"cmdbInstance\",\n        \"resource\": \"HOST\",\n        \"effect\": \"allow\",\n        \"action\": \"cmdb:instance:read\"\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy_resource_enable.BatchDeletePolicyEnable",
+      "name": "BatchDeletePolicyEnable",
+      "version": "1.0.0",
+      "description": "批量删除资源配置表实例",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy_resource_enable/batch_delete"
+      },
+      "import": [
+        "easyops/model/permission/permission_resource_enable"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "deleteInstanceIdList",
+            "type": "instance_id[]",
+            "description": "删除的id列表"
+          }
+        ]
+      },
+      "response": null,
+      "examples": [
+        {
+          "description": {
+            "zh": "删除工具模块的资源配置",
+            "en": ""
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_resource_enable/batch_delete",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n  \"deleteInstanceIdList\": [\"0123456789abc\", \"abc0123456789\"]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy_resource_enable.CreatePolicyEnable",
+      "name": "CreatePolicyEnable",
+      "version": "1.0.0",
+      "description": "创建资源配置表实例",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy_resource_enable"
+      },
+      "import": [
+        "easyops/model/permission/permission_resource_enable"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "PermissionResourceEnable.moduleId"
+          },
+          {
+            "ref": "PermissionResourceEnable.moduleName"
+          },
+          {
+            "name": "resourceList",
+            "type": "string[]",
+            "description": "资源对象列表"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "createCount",
+            "type": "int",
+            "description": "创建数量"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "创建工具模块的资源配置",
+            "en": ""
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_resource_enable",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops",
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"moduleId\": \"TOOL:tool\",\n  \"moduleName\": \"工具模块\",\n  \"resourceIdList\": []\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"createCount\": 1\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy_resource_enable.SearchPolicyEnable",
+      "name": "SearchPolicyEnable",
+      "version": "1.0.0",
+      "description": "查询资源配置表实例",
+      "endpoint": {
+        "method": "LIST",
+        "uri": "/api/v1/policy_resource_enable/search"
+      },
+      "import": [
+        "easyops/model/permission/permission_resource_enable"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "moduleId",
+            "type": "string",
+            "description": "模块id精确查询条件"
+          },
+          {
+            "name": "resourceLike",
+            "type": "string",
+            "description": "资源模糊查询条件"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "page"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "page_size"
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize"
+        ]
+      },
+      "response": {
+        "type": "PermissionResourceEnable"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "查询工具模块的资源配置",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_resource_enable/search?page=1&pageSize=10",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"page\": 1,\n    \"pageSize\": 10,\n    \"total\": 1,\n    \"list\": [\n      {\"instanceId\": \"1\", \"moduleId\": \"CMDB:cmdb\", \"resource\": \"HOST\"}\n    ]        \n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy_resource_enable.SearchPolicyEnableV2",
+      "name": "SearchPolicyEnableV2",
+      "version": "1.0.0",
+      "description": "查询资源配置表开关，开关不再读资源配置模型，直接判断是否配置abac策略",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v2/policy_resource_enable/search"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "moduleId",
+            "type": "string",
+            "description": "模块id精确查询条件"
+          },
+          {
+            "name": "resourceLike",
+            "type": "string",
+            "description": "资源模糊查询条件"
+          },
+          {
+            "name": "resourceCategory",
+            "type": "object",
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": "一级分类"
+              },
+              {
+                "name": "child",
+                "type": "string",
+                "description": "二级分类名称，为空则搜索所有一级分类"
+              }
+            ],
+            "description": "资源分类，为空则搜索所有资源分类"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "page"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "page_size"
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "list",
+            "type": "object[]",
+            "description": "资源配置表开关列表",
+            "fields": [
+              {
+                "name": "moduleId",
+                "type": "string",
+                "description": "模块id"
+              },
+              {
+                "name": "moduleName",
+                "type": "string",
+                "description": "模块名称"
+              },
+              {
+                "name": "resource",
+                "type": "string",
+                "description": "资源对象"
+              },
+              {
+                "name": "resourceName",
+                "type": "string",
+                "description": "资源名称"
+              },
+              {
+                "name": "resourceCategory",
+                "type": "string",
+                "description": "资源分类"
+              },
+              {
+                "name": "policyList",
+                "type": "object[]",
+                "description": "策略列表",
+                "fields": [
+                  {
+                    "name": "policyId",
+                    "type": "string",
+                    "description": "策略id"
+                  },
+                  {
+                    "name": "policyName",
+                    "type": "string",
+                    "description": "策略名称"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "page"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "page_size"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "total"
+          },
+          {
+            "name": "resourceCategory",
+            "type": "object[]",
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "description": "一级分类"
+              },
+              {
+                "name": "child",
+                "type": "string[]",
+                "description": "二级分类"
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "description": "分类类型,目前只有cmdb"
+              }
+            ],
+            "description": "资源分类,目前只有cmdb会有模型相关的分类"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "查询工具模块的资源配置",
+            "en": ""
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v2/policy_resource_enable/search",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            },
+            "body": "{\n  \"moduleId\": \"CMDB:cmdb\",\n  \"resourceLike\": \"HOST\",\n  \"resourceCategory\": {\"name\": \"cmdb\", \"child\": [\"HOST\"]},\n  \"page\": 1,\n  \"pageSize\": 10\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"page\": 1,\n    \"pageSize\": 10,\n    \"total\": 1,\n    \"list\": [\n      {\"moduleId\": \"CMDB:cmdb\", \"resource\": \"HOST\", \"resourceName\": \"主机\", \"resourceCategory\": \"cmdb.HOST\"}\n    ],\n    \"resourceCategory\": [\n      {\"name\": \"cmdb\", \"child\": [\"HOST\"], \"type\": \"cmdb\"}\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy_validate.GetPolicyValidateCmdbObjectFilter",
+      "name": "GetPolicyValidateCmdbObjectFilter",
+      "version": "1.0.0",
+      "description": "根据ABAC权限点获取CMDB资源模型访问的filter",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/policy_validate/object_filter"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "校验角色"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "权限点"
+          }
+        ],
+        "required": [
+          "user",
+          "action"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "权限校验是否通过"
+          },
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "校验用户是否为管理员"
+          },
+          {
+            "name": "actionDisable",
+            "type": "bool",
+            "description": "权限点是否被禁用"
+          },
+          {
+            "name": "filter",
+            "type": "map",
+            "description": "资源查询filter"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "根据cmdb:object:access权限点，获取object查询时的filter",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_validate/object_filter",
+            "headers": {
+              "Org": 8888
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"accepted\": true,\n    \"is_admin\": false,\n    \"filter\": {\n      \"$nor\": [\n        {\"id\": \"CLUSTER\"}\n      ],\n      \"$or\": [\n        {\"id\": \"APP\"},\n        {\"id\": \"HOST\"}\n      ]\n    }\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy_validate.PolicyValidate",
+      "name": "PolicyValidate",
+      "version": "1.0.0",
+      "description": "策略权限校验",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy_validate"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "校验角色"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "权限点"
+          },
+          {
+            "name": "resource",
+            "type": "string",
+            "description": "校验对象"
+          },
+          {
+            "name": "resourceIds",
+            "type": "string[]",
+            "description": "校验数据id"
+          },
+          {
+            "name": "resourceKey",
+            "type": "string",
+            "description": "resourceId查询的key值，不设置则为instanceId"
+          },
+          {
+            "name": "onlyFilter",
+            "type": "bool",
+            "description": "只返回filter, 不对校验对象进行校验，用于业务方获取规则filter，筛选查询条件"
+          },
+          {
+            "name": "collectNoPermissionIds",
+            "type": "bool",
+            "description": "为true时，统计noPermissionIds和notFoundPermissionIds"
+          },
+          {
+            "name": "noPermissionSuppressError",
+            "type": "bool",
+            "description": "为true时，权限校验没通过也不返回错误。使用场景：批量鉴权时需要对部分没有权限的实例 ID 进行业务逻辑处理。"
+          }
+        ],
+        "required": [
+          "user",
+          "action",
+          "resource"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": "bool",
+            "description": "权限校验是否通过"
+          },
+          {
+            "name": "accessLevel",
+            "type": "access_level",
+            "description": "动作点类型"
+          },
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "校验用户是否为管理员"
+          },
+          {
+            "name": "filter",
+            "type": "map",
+            "description": "accessLevel: List类型返回的数据控制条件"
+          },
+          {
+            "name": "actionDisable",
+            "type": "bool",
+            "description": "权限点是否被禁用"
+          },
+          {
+            "name": "notFoundResourceIds",
+            "type": "string[]",
+            "description": "不存在的resourceId列表"
+          },
+          {
+            "name": "noPermissionResourceIds",
+            "type": "string[]",
+            "description": "没有权限的resourceId列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "匹配Policy规则，返回filter",
+            "en": ""
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_validate",
+            "headers": {
+              "Org": 8888,
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"user\": \"test\",\n  \"action\": \"cmdb:instance:access\",\n  \"resource\": \"HOST\",\n  \"onlyFilter\": true\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"accepted\": true,\n    \"filter\": {\n      \"$nor\": [\n        {\"ip\": \"127.0.0.1\"}\n      ],\n      \"$or\": [\n        {\"environment\": \"test\"}\n      ]\n    }\n  }\n}"
+          }
+        },
+        {
+          "description": {
+            "zh": "校验cmdb模型APP的读实例白名单",
+            "en": "validate cmdb instance readAuthorizers"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_validate",
+            "headers": {
+              "Org": 8888,
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"user\": \"test\",\n  \"action\": \"cmdb:instance:read\",\n  \"resource\": \"APP\",\n  \"resourceIds\": [\"0123456789abc\", \"0123456789abd\", \"0123456789abe\"]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"accepted\": true,\n    \"accessLevel\": \"read\"\n  }\n}"
+          }
+        },
+        {
+          "description": {
+            "zh": "列表查询查出有权限访问的数据",
+            "en": "search list with validate"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_validate",
+            "headers": {
+              "Org": 8888,
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"user\": \"test\",\n  \"action\": \"cmdb:instance:list\",\n  \"resource\": \"APP\"\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"accepted\": true,\n    \"accessLevel\": \"list\",\n    \"filter\": {\n      \"$or\": [\n        {\n          \"readAuthorizers\": {\"$empty\": true}\n        },\n        {\n          \"readAuthorizers\": {\"$in\": [\"test\"]}\n        }\n      ]\n    }\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.policy_validate.PolicyValidateDebug",
+      "name": "PolicyValidateDebug",
+      "version": "1.0.0",
+      "description": "策略权限校验debug",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/policy_validate/debug"
+      },
+      "import": [
+        "easyops/model/permission/policy"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "校验角色"
+          },
+          {
+            "name": "action",
+            "type": "string",
+            "description": "权限点"
+          },
+          {
+            "name": "resource",
+            "type": "string",
+            "description": "校验对象"
+          },
+          {
+            "name": "resourceIds",
+            "type": "string[]",
+            "description": "校验数据id"
+          },
+          {
+            "name": "resourceKey",
+            "type": "string",
+            "description": "resourceId查询的key值，不设置则为instanceId"
+          }
+        ],
+        "required": [
+          "user",
+          "action",
+          "resource"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "is_admin",
+            "type": "bool",
+            "description": "当前校验用户是否为管理员"
+          },
+          {
+            "name": "actionDisable",
+            "type": "bool",
+            "description": "权限点是否被禁用"
+          },
+          {
+            "name": "resourceResults",
+            "type": "object[]",
+            "description": "资源判定结果",
+            "fields": [
+              {
+                "name": "resourceId",
+                "type": "string",
+                "description": "校验数据id"
+              },
+              {
+                "name": "validateStatus",
+                "type": "validate_status",
+                "description": "权限判定状态"
+              },
+              {
+                "name": "isMatchPolicy",
+                "type": "bool",
+                "description": "是否匹配策略"
+              },
+              {
+                "name": "policy",
+                "type": "Policy",
+                "description": "结果判定的策略"
+              },
+              {
+                "name": "errorMsg",
+                "type": "string",
+                "description": "异常信息"
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "数据校验判定结果",
+            "en": null
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/policy_validate/debug",
+            "headers": {
+              "Org": 8888,
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"user\": \"test\",\n  \"action\": \"cmdb:instance:read\",\n  \"resource\": \"APP\",\n  \"resourceIds\": [\"0123456789abc\", \"0123456789abd\", \"0123456789abe\"]\n}"
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"resourceResults\": [\n      {\n        \"resourceId\": \"0123456789abc\",\n        \"validateStatus\": \"Allow\",\n        \"isMatchPolicy\": true,\n        \"policy\": {\n          \"instanceId\": \"policy1\",\n          \"id\": \"自定义策略1\",\n          \"effect\": \"allow\"\n        }\n      },\n      {\n        \"resourceId\": \"0123456789abd\",\n        \"validateStatus\": \"ExplicitDeny\",\n        \"isMatchPolicy\": true,\n        \"policy\": {\n          \"instanceId\": \"policy2\",\n          \"id\": \"自定义策略2\",\n          \"effect\": \"deny\"\n        }\n      },\n      {\n        \"resourceId\": \"0123456789abe\",\n        \"validateStatus\": \"ImplicitDeny\",\n        \"isMatchPolicy\": true\n      }\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.resource_action.SearchAction",
+      "name": "SearchAction",
+      "version": "1.0.0",
+      "description": "查询基于策略的权限动作",
+      "endpoint": {
+        "method": "LIST",
+        "uri": "/api/v1/resource_action/search"
+      },
+      "import": [
+        "easyops/model/permission/resource_action"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "likeId",
+            "type": "string",
+            "description": "id模糊查询，和其他查询条件共存时与关系"
+          },
+          {
+            "name": "resourceType",
+            "type": "string",
+            "description": "资源类型，和其他查询条件共存时与关系"
+          },
+          {
+            "name": "resource",
+            "type": "string",
+            "description": "相关资源"
+          },
+          {
+            "name": "accessLevel",
+            "type": "access_level",
+            "description": "动作点类型，和其他查询条件共存时与关系"
+          },
+          {
+            "name": "systemModuleId",
+            "type": "string",
+            "description": "所属模块的id"
+          },
+          {
+            "name": "disable",
+            "type": "string",
+            "description": "权限点是否被禁用, 为空表示不设置查询条件",
+            "enum": [
+              "",
+              "true",
+              "false"
+            ]
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "page"
+          },
+          {
+            "name": "pageSize",
+            "type": "page_size",
+            "description": "page_size"
+          }
+        ],
+        "required": [
+          "page",
+          "pageSize"
+        ]
+      },
+      "response": {
+        "type": "ResourceAction",
+        "description": "权限点结果列表"
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "根据部分id信息模糊查询action列表; 不返回defaultPolicy部分",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/resource_action/search?likeId=cmdb&page=1&pageSize=100",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {\n    \"list\": [\n      {\n        \"id\": \"cmdb:instance:Read\",\n        \"resourceType\": \"cmdb\",\n        \"resource\": \"*\",\n        \"filterKeys\": [\"readAuthorizers\"],\n        \"accessLevel\": \"Read\",\n        \"memo\": \"cmdb读白名单权限点\"\n      }\n    ],\n    \"total\": 1,\n    \"page\": 1,\n    \"page_size\": 100\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.AttachPolicy",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "AttachPolicy",
+      "version": "1.0.0",
+      "description": "角色关联策略",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/permission_role/attach_policy"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "角色id, cmdb实例id"
+          },
+          {
+            "name": "policyIdList",
+            "type": "instance_id[]",
+            "description": "绑定的策略id列表"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "failedPolicyIdList",
+            "type": "string[]",
+            "description": "绑定失败的策略列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "attach policy",
+            "zh": "角色批量绑定策略, 全部成功"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/permission_role/attach_policy",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"id\": \"role1\",\n  \"policyIdList\": [\"policy1\", \"policy2\"]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"data\": {}\n}"
+          }
+        },
+        {
+          "description": {
+            "en": "attach policy",
+            "zh": "角色批量绑定策略, 部分失败"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/permission_role/attach_policy",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"id\": \"role1\",\n  \"policyIdList\": [\"policy1\", \"policy2\"]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"failedPolicyIdList\": [\"policy1\"]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.BatchSetRoleUserAndGroup",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "BatchSetRoleUserAndGroup",
+      "version": "1.0.0",
+      "description": "批量设置角色添加用户&用户组",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/batch_set_role_user_and_group"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "list",
+            "type": "object[]",
+            "description": "数据列表",
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "description": "role id"
+              },
+              {
+                "name": "operate_user",
+                "type": "user_name[]",
+                "description": "用户名列表"
+              },
+              {
+                "name": "operate_user_group",
+                "type": "string[]",
+                "description": "用户组列表"
+              }
+            ]
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "更新的角色数量"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.role.CreateRole",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "CreateRole",
+      "version": "1.0.0",
+      "description": "新增角色权限配置",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/permission_role/config"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Role.role"
+          },
+          {
+            "ref": "Role.user"
+          },
+          {
+            "ref": "Role.user_group"
+          },
+          {
+            "name": "permission",
+            "type": "string[]",
+            "description": "赋予的权限点的id列表"
+          },
+          {
+            "name": "forbidden_menu",
+            "type": "string[]",
+            "description": "角色禁用菜单列表，新站点已经废弃"
+          }
+        ],
+        "required": [
+          "role"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Basic",
+            "zh": "基础请求"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8085/api/v1/permission_role/config",
+            "body": "{\n  \"role\": \"自定义角色\",\n  \"user\": [\n    \"easyops\"\n  ],\n  \"permission\": [\n    \"609a1c4b39b1f414e13c4776\"\n  ]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"msg\": \"create success\",\n  \"data\": {\n    \"id\": \"61cade1db2e53e001fbd3cfe\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.DeletePermissionRole",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "DeletePermissionRole",
+      "version": "1.0.0",
+      "description": "删除角色权限",
+      "endpoint": {
+        "method": "DELETE",
+        "uri": "/api/v1/permission_role/config/:id"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          }
+        ],
+        "required": [
+          "id"
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "api code"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "api msg"
+          },
+          {
+            "name": "data",
+            "type": "object",
+            "fields": [
+              {
+                "name": "id",
+                "type": "int",
+                "description": "固定返回1，表示删除了1个角色实例，没意义的返回值，但是要保留它的特征"
+              }
+            ],
+            "description": "api data"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Basic",
+            "zh": "基础请求"
+          },
+          "request": {
+            "method": "DELETE",
+            "uri": "http://127.0.0.1:8085/api/v1/permission_role/config/60f93d4a39b1f447b41be70f"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {\n    \"id\": 1\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.DetachPolicy",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "DetachPolicy",
+      "version": "1.0.0",
+      "description": "角色解绑策略",
+      "endpoint": {
+        "method": "POST",
+        "uri": "/api/v1/permission_role/detach_policy"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "角色id, cmdb实例id"
+          },
+          {
+            "name": "policyIdList",
+            "type": "string[]",
+            "description": "绑定的策略id列表"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "failedPolicyIdList",
+            "type": "string[]",
+            "description": "解绑失败的策略列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "attach policy",
+            "zh": "角色批量绑定策略, 全部成功"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/permission_role/detach_policy",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"id\": \"role1\",\n  \"policyIdList\": [\"policy1\", \"policy2\"]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"data\": {}\n}"
+          }
+        },
+        {
+          "description": {
+            "en": "attach policy",
+            "zh": "角色批量解绑策略, 部分失败"
+          },
+          "request": {
+            "method": "POST",
+            "uri": "http://127.0.0.1:8269/api/v1/permission_role/detach_policy",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"id\": \"role1\",\n  \"policyIdList\": [\"policy1\", \"policy2\"]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"data\": {\n    \"failedPolicyIdList\": [\"policy1\"]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.GetMyRoles",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "GetMyRoles",
+      "version": "1.0.0",
+      "description": "获取当前用户及当前用户所在用户组所属角色(不需要权限)",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission_role/get-my-roles"
+      },
+      "import": [],
+      "request": null,
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "roles",
+            "type": "string[]",
+            "description": "角色名称列表"
+          },
+          {
+            "name": "grantedPermissions",
+            "type": "string[]",
+            "description": "有权限的权限点列表"
+          },
+          {
+            "name": "deniedPermissions",
+            "type": "string[]",
+            "description": "没有权限的权限点列表"
+          },
+          {
+            "name": "userGroups",
+            "type": "object[]",
+            "description": "用户组列表",
+            "fields": [
+              {
+                "name": "instanceId",
+                "type": "instance_id",
+                "description": "instanceId"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "description": "名字"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.role.GetPermissionRoleList",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "GetPermissionRoleList",
+      "version": "1.0.0",
+      "description": "获取角色权限配置列表",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission_role/config"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "string",
+            "description": "用户名"
+          },
+          {
+            "name": "role",
+            "type": "string",
+            "description": "角色名"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "分页"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "分页大小"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "description": "返回指定字段，多个用,分隔"
+          },
+          {
+            "name": "role__in",
+            "type": "string",
+            "description": "查询的role名称(逗号分隔)"
+          },
+          {
+            "name": "ignoreRelation",
+            "type": "bool",
+            "description": "忽略关系数据"
+          },
+          {
+            "name": "XXX_RestFieldMask",
+            "type": "string[]",
+            "description": "sdk限制字段使用"
+          }
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "接口信息"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "数据总数"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "分页大小"
+          },
+          {
+            "name": "data",
+            "type": "object[]",
+            "fields": [
+              {
+                "ref": "Role.*"
+              },
+              {
+                "name": "forbidden_menu",
+                "type": "string[]",
+                "description": "角色禁用菜单列表"
+              }
+            ],
+            "description": "角色列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "查询角色详情",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/permission_role/config/:id",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {}\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.GetPermissionRoleUserList",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "GetPermissionRoleUserList",
+      "version": "1.0.0",
+      "description": "获取角色关联的用户列表",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission_role/config/:id/user"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "角色ID"
+          },
+          {
+            "name": "user",
+            "type": "string",
+            "description": "根据用户名称模糊查询"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "分页"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "分页大小"
+          },
+          {
+            "name": "sort",
+            "type": "string",
+            "description": "根据user字段进行排序(-user:倒序 user:正序 默认按照user数组字段中的顺序返回)"
+          }
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "返回码"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "分页大小"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "总和"
+          },
+          {
+            "name": "data",
+            "type": "object[]",
+            "fields": [
+              {
+                "name": "user",
+                "type": "user_name",
+                "description": "用户名"
+              }
+            ],
+            "description": "角色关联的用户列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "GetPermissionRoleUserList",
+            "zh": "获取角色关联的用户列表"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8085/api/v1/permission_role/config/609a1c4a39b1f414e23c4777/user?page=1&page_size=10&user=easy&sort=-user"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"page_size\": 10,\n  \"msg\": \"get success\",\n  \"total\": 2,\n  \"data\": [\n    {\n      \"user\": \"easyops_0\"\n    },\n    {\n      \"user\": \"easyops\"\n    }\n  ],\n  \"page\": 1\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.GetRoleDetail",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "GetRoleDetail",
+      "version": "1.0.0",
+      "description": "获取角色权限配置详情",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission_role/config/:id"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "角色Id"
+          },
+          {
+            "name": "ignoreRelation",
+            "type": "bool",
+            "description": "忽略关系"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "ref": "Role.*"
+          },
+          {
+            "name": "forbidden_menu",
+            "type": "string[]",
+            "description": "角色禁用菜单列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "zh": "查询角色详情",
+            "en": ""
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8269/api/v1/permission_role/config/:id",
+            "headers": {
+              "Org": 8888,
+              "User": "easyops"
+            }
+          },
+          "response": {
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": "{\n  \"code\": 0\n  \"data\": {}\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.GetUserRole",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "GetUserRole",
+      "version": "1.0.0",
+      "description": "获取用户及用户所在用户组所属角色",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v1/permission_role/user_role/:user"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "用户名"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "roles",
+            "type": "string[]",
+            "description": "角色名称列表"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Basic",
+            "zh": "基础请求"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8085/api/v1/permission_role/user_role/easyops"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {\n    \"roles\": [\n      \"系统管理员\",\n      \"普通用户\",\n    ]\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.PutPermissionRole",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "PutPermissionRole",
+      "version": "1.0.0",
+      "description": "修改角色名",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/rename_role/:id"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          },
+          {
+            "name": "role",
+            "type": "string",
+            "description": "角色名，必填，但是必填校验不在controller层做校验，所以不在契约上做必填声明"
+          }
+        ],
+        "required": [
+          "id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "修改用户数量"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.role.RoleAddPermission",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "RoleAddPermission",
+      "version": "1.0.0",
+      "description": "角色添加权限点",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/role_add_permission/:id"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          },
+          {
+            "name": "permission",
+            "type": "string[]",
+            "description": "新增权限点列表"
+          }
+        ],
+        "required": [
+          "id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "新增权限点数量"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.role.RoleAddUser",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "RoleAddUser",
+      "version": "1.0.0",
+      "description": "角色新加用户",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/role_add_user/:id"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          },
+          {
+            "name": "operate_user",
+            "type": "user_name[]",
+            "description": "用户名列表"
+          }
+        ],
+        "required": [
+          "id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "新加用户数量"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Basic",
+            "zh": "基础请求"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8085/api/v1/permission_role/role_add_user/61cadd45b2e53e001fbd3cfb",
+            "body": "{\n  \"operate_user\": [\n    \"easyops\"\n  ]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"msg\": \"update success\",\n  \"data\": {\n    \"count\": 1\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.RoleAddUserOrGroup",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "RoleAddUserOrGroup",
+      "version": "1.0.0",
+      "description": "角色添加用户(组)",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/role_add_user_or_group/:id"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          },
+          {
+            "name": "operate_user",
+            "type": "user_name[]",
+            "description": "用户名列表"
+          },
+          {
+            "name": "operate_user_group",
+            "type": "string[]",
+            "description": "用户组列表"
+          }
+        ],
+        "required": [
+          "id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "新加用户(组)数量"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Basic",
+            "zh": "基础请求"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8085/api/v1/permission_role/user_set_roles/60f93d4a39b1f447b41be70f",
+            "body": "{\n  \"operate_user\": [\n    \"easyops\"\n  ],\n  \"operate_user_group\": [\n    \":5aa61ff32d159\"\n  ]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "body": "{\n  \"count\": 1\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.RoleChangePermission",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "RoleChangePermission",
+      "version": "1.0.0",
+      "description": "角色修改权限",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/role_change_permission/:id"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          },
+          {
+            "name": "add_permissions",
+            "type": "string[]",
+            "description": "添加权限id列表"
+          },
+          {
+            "name": "delete_permissions",
+            "type": "string[]",
+            "description": "删除权限id列表"
+          }
+        ],
+        "required": [
+          "id"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "角色成功修改的权限数量"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Basic",
+            "zh": "基础请求"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8085/api/v1/permission_role/config",
+            "body": "{\n  \"add_permissions\": [\n    \"609a1c4b39b1f414e13c4776\"\n  ],\n  \"delete_permissions\": [\n    \"609a1c5139b1f414e13c4779\"\n  ]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"msg\": \"update success\",\n  \"data\": {\n    \"count\": 2\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role.RoleDeletePermission",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "RoleDeletePermission",
+      "version": "1.0.0",
+      "description": "角色删除权限点",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/role_delete_permission/:id"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          },
+          {
+            "name": "permission",
+            "type": "string[]",
+            "description": "删除的权限点列表"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "修改的"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.role.RoleDeleteUser",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "RoleDeleteUser",
+      "version": "1.0.0",
+      "description": "角色删除用户",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/role_delete_user/:id"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          },
+          {
+            "name": "operate_user",
+            "type": "user_name[]",
+            "description": "用户名列表"
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "新加用户数量"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.role.RoleDeleteUserOrGroup",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "RoleDeleteUserOrGroup",
+      "version": "1.0.0",
+      "description": "角色删除用户(组)",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/role_delete_user_or_group/:id"
+      },
+      "import": [
+        "easyops/model/permission/role"
+      ],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "role id"
+          },
+          {
+            "name": "operate_user",
+            "type": "user_name[]",
+            "description": "用户名列表"
+          },
+          {
+            "name": "operate_user_group",
+            "type": "string[]",
+            "description": "用户组列表"
+          }
+        ],
+        "required": []
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "新加用户(组)数量"
+          }
+        ]
+      }
+    },
+    {
+      "contract": "permission.role.RoleSetUser",
+      "category": {
+        "en": "role",
+        "zh": "角色"
+      },
+      "name": "RoleSetUser",
+      "version": "1.0.0",
+      "description": "设置用户(组)所属角色",
+      "endpoint": {
+        "method": "PUT",
+        "uri": "/api/v1/permission_role/user_set_roles/:user"
+      },
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "用户(组)名"
+          },
+          {
+            "name": "roles",
+            "type": "string[]",
+            "description": "角色名列表"
+          }
+        ],
+        "required": [
+          "user",
+          "roles"
+        ]
+      },
+      "response": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "count",
+            "type": "int",
+            "description": "成功设置的用户数量"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "Basic",
+            "zh": "基础请求"
+          },
+          "request": {
+            "method": "PUT",
+            "uri": "http://127.0.0.1:8085/api/v1/permission_role/user_set_roles/easyops",
+            "body": "{\n  \"roles\": [\n      \"普通用户\"\n  ]\n}"
+          },
+          "response": {
+            "status_code": 200,
+            "body": "{\n  \"code\": 0,\n  \"codeExplain\": \"\",\n  \"error\": \"\",\n  \"data\": {\n    \"count\": 1\n  }\n}"
+          }
+        }
+      ]
+    },
+    {
+      "contract": "permission.role_v2.GetUserRoleV2",
+      "name": "GetUserRoleV2",
+      "version": "1.0.0",
+      "description": "获取用户关联的角色",
+      "endpoint": {
+        "method": "GET",
+        "uri": "/api/v2/permission_role/user_role"
+      },
+      "import": [],
+      "request": {
+        "type": "object",
+        "fields": [
+          {
+            "name": "user",
+            "type": "user_name",
+            "description": "用户名"
+          },
+          {
+            "name": "role",
+            "type": "string",
+            "description": "根据角色名称模糊查询"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "页码"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "分页大小"
+          }
+        ]
+      },
+      "response": {
+        "wrapper": false,
+        "type": "object",
+        "fields": [
+          {
+            "name": "code",
+            "type": "int",
+            "description": "code"
+          },
+          {
+            "name": "msg",
+            "type": "string",
+            "description": "api message"
+          },
+          {
+            "name": "page",
+            "type": "page",
+            "description": "page"
+          },
+          {
+            "name": "page_size",
+            "type": "page_size",
+            "description": "page_size"
+          },
+          {
+            "name": "total",
+            "type": "int",
+            "description": "total"
+          },
+          {
+            "name": "data",
+            "type": "object",
+            "fields": [
+              {
+                "name": "roles",
+                "type": "string[]",
+                "description": "role name"
+              }
+            ],
+            "description": "data"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "description": {
+            "en": "GetUserRoleV2",
+            "zh": "获取用户关联的角色"
+          },
+          "request": {
+            "method": "GET",
+            "uri": "http://127.0.0.1:8085/api/v2/permission_role/role_user?user=easyops&role=用户&page=1&page_size=10"
+          },
+          "response": {
+            "status_code": 200,
+            "headers": {},
+            "body": "{\n  \"code\": 0,\n  \"page_size\": 10,\n  \"msg\": \"get success\",\n  \"total\": 1,\n  \"data\": {\n    \"roles\": [\n      \"普通用户\"\n    ]\n  },\n  \"page\": 1\n}"
+          }
+        }
+      ]
+    }
+  ]
+}
