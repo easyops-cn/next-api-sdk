@@ -28,7 +28,7 @@
     "@next-core/create-api-sdk": "^1.0.33",
     "@next-core/browserslist-config-next": "^1.1.2",
     "@next-core/eslint-config-next": "^2.0.26",
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
     "concurrently": "^8.0.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.36.0",
